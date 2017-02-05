@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   height: 80vh;
 `;
 
-const Progress = styled.div`
+let Progress = styled.div`
   width: 100%;
   height: 5px;
   background-color: #FFF;
@@ -32,9 +32,19 @@ const Volume = styled.input`
   
 `;
 
+function toggleControls(e) {
+  console.log(e);
+  if(e.type === 'mouseenter') {
+    console.log('Show controls!');
+    
+  } else {
+    console.log('Hide controls!');
+  }
+}
+
 export default () => {
   return (
-    <Wrapper>
+    <Wrapper onMouseEnter={toggleControls} onMouseLeave={toggleControls}>
       <ReactPlayer url="https://youtube.com/watch?v=ysz5S6PUM-U" width="100%" height="100%" />
       <Progress>
         <ProgressFilled />
