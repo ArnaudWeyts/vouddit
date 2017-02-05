@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 
 import Header from './Header';
+import Player from './Player';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -14,6 +15,7 @@ class App extends Component {
     return (
       <Wrapper>
         <Header />
+        <Player />
       </Wrapper>
     );
   }
