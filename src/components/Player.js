@@ -35,9 +35,15 @@ const Volume = styled.input`
 export default class Player extends Component {
   constructor(props) {
     super(props);
-    this.state = { showControls: false };
+    this.state = { 
+      showControls: false,
+      playing: false,
+      volume: 1
+    };
 
     this.toggleControls = this.toggleControls.bind(this);
+    this.toggleVideo = this.toggleVideo.bind(this);
+    this.setVolume = this.setVolume.bind(this);
   }
 
   toggleControls(e) {
@@ -49,16 +55,36 @@ export default class Player extends Component {
     }
   }
 
+  toggleVideo() {
+    this.setState({playing: !this.state.playing});
+  }
+
+  setVolume(e) {
+    this.setState({volume: parseFloat(e.target.value)});
+  }
+
   render() {
     return (
       <Wrapper onMouseEnter={this.toggleControls} onMouseLeave={this.toggleControls}>
-        <ReactPlayer url="https://youtube.com/watch?v=ysz5S6PUM-U" width="100%" height="100%" />
+        <ReactPlayer 
+          playing={this.state.playing}
+          volume={this.state.volume}
+          onPlay={() => this.setState({playing: true})} 
+          onPause={() => this.setState({playing: false})}
+          url="https://youtube.com/watch?v=ysz5S6PUM-U"
+          width="100%"
+          height="100%" />
         <Progress>
           <ProgressFilled />
         </Progress>
         <Controls visible={this.state.showControls}>
-          <Toggle>►</Toggle>
-          <Volume type="range" name="volume" min={0} max={1} step={0.05} value={1} />
+          <Toggle onClick={this.toggleVideo}>►</Toggle>
+          <Volume
+            onChange={this.setVolume}
+            type="range"
+            name="volume"
+            min={0} max={1} step={0.05} 
+            value={this.state.volume} />
         </Controls>
       </Wrapper>
     );
