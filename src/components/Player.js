@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
@@ -21,7 +21,7 @@ const ProgressFilled = styled.div`
 
 const Controls = styled.div`
   width: 100%;
-  display: none;
+  display: ${props => props.visible ? 'block' : 'none'};
 `;
 
 const Toggle = styled.button`
@@ -29,30 +29,38 @@ const Toggle = styled.button`
 `;
 
 const Volume = styled.input`
-  
+  float: right;
 `;
 
-function toggleControls(e) {
-  console.log(e);
-  if(e.type === 'mouseenter') {
-    console.log('Show controls!');
-    
-  } else {
-    console.log('Hide controls!');
-  }
-}
+export default class Player extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showControls: false };
 
-export default () => {
-  return (
-    <Wrapper onMouseEnter={toggleControls} onMouseLeave={toggleControls}>
-      <ReactPlayer url="https://youtube.com/watch?v=ysz5S6PUM-U" width="100%" height="100%" />
-      <Progress>
-        <ProgressFilled />
-      </Progress>
-      <Controls>
-        <Toggle>►</Toggle>
-        <Volume type="range" name="volume" min={0} max={1} step={0.05} value={1} />
-      </Controls>
-    </Wrapper>
-  );
+    this.toggleControls = this.toggleControls.bind(this);
+  }
+
+  toggleControls(e) {
+    if(e.type === 'mouseenter') {
+      this.setState({showControls: true});
+      
+    } else {
+      this.setState({showControls: false});
+    }
+  }
+
+  render() {
+    return (
+      <Wrapper onMouseEnter={this.toggleControls} onMouseLeave={this.toggleControls}>
+        <ReactPlayer url="https://youtube.com/watch?v=ysz5S6PUM-U" width="100%" height="100%" />
+        <Progress>
+          <ProgressFilled />
+        </Progress>
+        <Controls visible={this.state.showControls}>
+          <Toggle>►</Toggle>
+          <Volume type="range" name="volume" min={0} max={1} step={0.05} value={1} />
+        </Controls>
+      </Wrapper>
+    );
+  }
 }
