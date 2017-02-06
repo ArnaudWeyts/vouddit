@@ -8,15 +8,16 @@ const Wrapper = styled.div`
 `;
 
 let Progress = styled.div`
+  cursor: pointer;
   width: 100%;
-  height: 5px;
+  height: ${props => props.extend ? '20' : '5'}px;
   background-color: #FFF;
 `;
 
 const ProgressFilled = styled.div`
   background-color: #000;
   height: 100%;
-  width: 5%;
+  width: ${props => props.played * 100}%;
 `;
 
 const Controls = styled.div`
@@ -25,6 +26,7 @@ const Controls = styled.div`
 `;
 
 const Toggle = styled.button`
+  margin-left: 5px;
   width: 40px;
   height: 35px;
   cursor: pointer;
@@ -45,6 +47,7 @@ const Volume = styled.input`
   color: #FFF;
   border: none;
   margin-top: 5px;
+  margin-right: 5px;
 
   &:focus {
     outline: none;
@@ -76,7 +79,9 @@ export default class Player extends Component {
     this.state = { 
       showControls: true,
       playing: false,
-      volume: 1
+      volume: 1,
+      played: 0,
+      seeking: false
     };
 
     this.toggleControls = this.toggleControls.bind(this);
@@ -101,22 +106,37 @@ export default class Player extends Component {
     this.setState({volume: parseFloat(e.target.value)});
   }
 
+  scrub(e) {
+    const seekTo = parseFloat(e.nativeEvent.offsetX / e.target.parentNode.offsetWidth);
+    this.player.seekTo(seekTo);
+    this.setState({played: seekTo});
+  }
+
   render() {
     return (
       <Wrapper onMouseEnter={this.toggleControls} onMouseLeave={this.toggleControls}>
         <ReactPlayer 
+          ref={player => {this.player = player}}
           playing={this.state.playing}
           volume={this.state.volume}
           onPlay={() => this.setState({playing: true})} 
           onPause={() => this.setState({playing: false})}
-          url="https://youtube.com/watch?v=ysz5S6PUM-U"
+          onProgress={({played}) => !this.state.seeking && this.setState({played: played})}
+          url="https://youtu.be/GFeBR_soN5s"
           width="100%"
           height="100%" />
-        <Progress>
-          <ProgressFilled />
+        <Progress
+          extend={this.state.showControls}
+          onClick={this.scrub.bind(this)}
+          onMouseMove={this.state.seeking && this.scrub.bind(this)}
+          onMouseDown={() => this.setState({seeking: true, playing: false})}
+          onMouseUp={() => this.setState({seeking: false, playing: true})}
+          onMouseLeave={() => this.setState({seeking: false, playing: true})}
+          >
+          <ProgressFilled played={this.state.played} />
         </Progress>
         <Controls visible={this.state.showControls}>
-          <Toggle onClick={this.toggleVideo}>►</Toggle>
+          <Toggle onClick={this.toggleVideo}>{this.state.playing ? '||' : '►'}</Toggle>
           <Volume
             onChange={this.setVolume}
             type="range"
