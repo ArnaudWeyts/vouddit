@@ -25,18 +25,56 @@ const Controls = styled.div`
 `;
 
 const Toggle = styled.button`
-  
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  color: #FFF;
+  border: 1px solid #FFF;
+  border-radius: 2px;
+  background: transparent;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Volume = styled.input`
+  -webkit-appearance: none;
+  background: transparent;
   float: right;
+  color: #FFF;
+  border: none;
+  margin-top: 5px;
+
+  &:focus {
+    outline: none;
+  }
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    background: #FFF;
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin-top: 5px;
+  }
+  &::-webkit-slider-thumb {
+    border: 1px solid #FFF;
+    background-color: #000;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5.6px;
+  }
 `;
 
 export default class Player extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showControls: false,
+      showControls: true,
       playing: false,
       volume: 1
     };
