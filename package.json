@@ -54,7 +54,6 @@
     "react-player": "^0.14.1",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
-    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
     "styled-components": "^1.4.3"
   },
