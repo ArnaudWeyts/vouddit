@@ -1,10 +1,12 @@
-import {REQUEST_POSTS, RECEIVE_POSTS} from './actions';
+import {REQUEST_POSTS, RECEIVE_POSTS, NEXT_POST} from './actions';
 
 const INITIAL_STATE = {
   posts: {},
   postActive: null,
   isFetching: false
 }
+
+let index = 1;
 
 export function postsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -17,9 +19,15 @@ export function postsReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         posts: action.posts,
-        postActive: action.posts.children[1].data,
+        postActive: {index, ...action.posts.children[1].data},
         isFetching: false
-      }
+      };
+    case NEXT_POST:
+      index++;
+      return {
+        ...state,
+        postActive: {index, ...state.posts.children[action.nextPost].data}
+      };
     default:
       return state;
   }

@@ -23,7 +23,10 @@ class App extends Component {
     return (
       <Wrapper>
         <Header />
-        <Player url={this.props.postActive ? this.props.postActive.url : ''} />
+        <Player
+          post={this.props.postActive ? this.props.postActive : ''} 
+          dispatch={this.props.dispatch} 
+        />
       </Wrapper>
     );
   }

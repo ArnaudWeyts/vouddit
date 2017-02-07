@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
+import {setNextPost} from '../redux/actions';
+
 const Wrapper = styled.div`
   width: 100vw;
   height: 80vh;
@@ -159,6 +161,12 @@ export default class Player extends Component {
       .join(":");
   }
 
+  getNextPost() {
+    const {post, dispatch} = this.props;
+    const next = setNextPost(post);
+    dispatch(next);
+  }
+
   render() {
     // state variables
     const {
@@ -188,9 +196,10 @@ export default class Player extends Component {
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
-          url={this.props.url}
+          url={this.props.post.url}
           width="100%"
           height="100%"
+          onEnded={this.getNextPost.bind(this)}
           />
         <ControlBar visible={showControls}>
           <Progress

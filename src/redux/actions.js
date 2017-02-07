@@ -2,8 +2,7 @@ import 'whatwg-fetch';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-
-const ROOT_URL = 'https://www.reddit.com';
+export const NEXT_POST = 'NEXT_POST';
 
 function requestPosts(subreddit) {
   return {
@@ -20,7 +19,15 @@ function recievePosts(subreddit, json) {
   }
 }
 
+function nextPost(nextPost) {
+  return {
+    type: NEXT_POST,
+    nextPost
+  }
+}
+
 export function fetchPosts(subreddit) {
+  const ROOT_URL = 'https://www.reddit.com';
   const url = `${ROOT_URL}/r/${subreddit}/hot.json?limit=10`;
 
   return dispatch => {
@@ -32,4 +39,9 @@ export function fetchPosts(subreddit) {
         console.warn(`Couldn't fetch from url: ${ex}`);
       });
   }
+}
+
+export function setNextPost(current) {
+  const indexNext = current.index + 1;
+  return dispatch => dispatch(nextPost(indexNext));
 }
