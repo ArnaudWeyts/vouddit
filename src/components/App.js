@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
@@ -15,22 +15,29 @@ const Wrapper = styled.div`
 
 class App extends Component {
   componentWillMount() {
-    this.props.fetchPosts('youtubehaiku');
+    const {dispatch} = this.props;
+    dispatch(fetchPosts('youtubehaiku'));
   }
 
   render() {
     return (
       <Wrapper>
         <Header />
-        <Player />
+        <Player url={this.props.postActive ? this.props.postActive.url : ''} />
       </Wrapper>
     );
   }
 }
 
+App.propTypes = {
+  posts:  PropTypes.object.isRequired,
+  activePost: PropTypes.object,
+  dispatch: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state, ownProps) => ({
   posts: state.posts,
-  activePost: state.activePost
+  postActive: state.postActive
 });
 
-export default connect(mapStateToProps, {fetchPosts})(App);
+export default connect(mapStateToProps)(App);

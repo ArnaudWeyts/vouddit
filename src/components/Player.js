@@ -96,8 +96,9 @@ const Volume = styled.input`
 export default class Player extends Component {
   constructor(props) {
     super(props);
+
     this.state = { 
-      showControls: true,
+      showControls: false,
       playing: false,
       volume: 1,
       played: 0,
@@ -187,7 +188,7 @@ export default class Player extends Component {
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
-          url="https://youtu.be/GFeBR_soN5s"
+          url={this.props.url}
           width="100%"
           height="100%"
           />
