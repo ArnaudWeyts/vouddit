@@ -31,7 +31,6 @@ const ProgressFilled = styled.div`
   height: 100%;
   width: ${props => props.played * 100}%;
   display: inline-block;
-  transition: width 0.2s;
 `;
 
 const Time = styled.div`
