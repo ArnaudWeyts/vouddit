@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
+
+import {fetchPosts} from '../redux/actions';
 
 import Header from './Header';
 import Player from './Player';
@@ -11,6 +14,10 @@ const Wrapper = styled.div`
 `;
 
 class App extends Component {
+  componentWillMount() {
+    this.props.fetchPosts('youtubehaiku');
+  }
+
   render() {
     return (
       <Wrapper>
@@ -21,4 +28,9 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+  posts: state.posts,
+  activePost: state.activePost
+});
+
+export default connect(mapStateToProps, {fetchPosts})(App);
