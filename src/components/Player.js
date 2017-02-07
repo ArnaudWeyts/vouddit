@@ -14,36 +14,47 @@ const AllControls = styled.div`
   position: absolute;
   background-color: #000;
   bottom: 0;
-  transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'};
+  transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-10px)'};
   transition: transform 0.2s;
 `;
 
 let Progress = styled.div`
-  cursor: pointer;
+  cursor: ew-resize;
   width: 100%;
-  height: ${props => props.extend ? '20' : '5'}px;
-  background-color: #FFF;
+  height: ${props => props.extend ? '15' : '5'}px;
+  background-color: #000;
   transition: height 0.2s;
 `;
 
 const ProgressFilled = styled.div`
-  background-color: #000;
+  background-color: #2196F3;
   height: 100%;
   width: ${props => props.played * 100}%;
+  display: inline-block;
+`;
+
+const Time = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #FFF;
 `;
 
 const Controls = styled.div`
-  width: 100%; 
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 35px;
 `;
 
 const Toggle = styled.button`
-  width: 40px;
-  height: 35px;
+  width: 30px;
+  height: 100%;
   cursor: pointer;
   color: #FFF;
-  border: 1px solid #FFF;
-  border-radius: 2px;
+  border: none;
   background: transparent;
+  font-size: 20px;
 
   &:focus {
     outline: none;
@@ -56,30 +67,29 @@ const Volume = styled.input`
   float: right;
   color: #FFF;
   border: none;
-  margin-top: 5px;
-  margin-right: 5px;
+  margin-left: auto;
+  margin-right: 10px;
 
   &:focus {
     outline: none;
   }
   &::-webkit-slider-runnable-track {
     width: 100%;
-    height: 10px;
+    height: 8px;
     cursor: pointer;
     background: #FFF;
     box-sizing: border-box;
     border-radius: 2px;
-    margin-top: 5px;
   }
   &::-webkit-slider-thumb {
     border: 1px solid #FFF;
     background-color: #000;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
+    box-sizing: content-box;
+    height: 16px;
+    width: 3px;
+    margin-top: -5px;
     cursor: pointer;
     -webkit-appearance: none;
-    margin-top: -5.6px;
   }
 `;
 
@@ -87,11 +97,12 @@ export default class Player extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      showControls: false,
+      showControls: true,
       playing: false,
       volume: 1,
       played: 0,
-      seeking: false
+      seeking: false,
+      duration: null
     };
 
     this.toggleControls = this.toggleControls.bind(this);
@@ -122,6 +133,31 @@ export default class Player extends Component {
     this.setState({played: seekTo});
   }
 
+  /**
+   * Accepts seconds and formats it for our video player
+   * 
+   * @param {int} secs
+   * @returns {time} HH:MM:SS
+   * 
+   * @memberOf Player
+   */
+  secToFormat(secs) {
+    if (secs === null) {
+      return '0:00';
+    }
+    const sec_num = parseInt(secs, 10)    
+    const hours   = Math.floor(sec_num / 3600) % 24
+    const minutes = Math.floor(sec_num / 60) % 60
+    const seconds = sec_num % 60    
+    return [hours,minutes,seconds]
+      // filter out hours if it's 0
+      .filter((t, index) => !(index === 0 && t === 0))
+      // map over everything and put a 0 in front, except when
+      // it's the first one
+      .map((t, index) => (index > 0) && t < 10 ? "0" + t: t)
+      .join(":");
+  }
+
   render() {
     return (
       <Wrapper onMouseEnter={this.toggleControls} onMouseLeave={this.toggleControls}>
@@ -132,6 +168,7 @@ export default class Player extends Component {
           onPlay={() => this.setState({playing: true})} 
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !this.state.seeking && this.setState({played: played})}
+          onDuration={(duration) => this.setState({duration: duration})}
           url="https://youtu.be/GFeBR_soN5s"
           width="100%"
           height="100%"
@@ -149,6 +186,7 @@ export default class Player extends Component {
           </Progress>
           <Controls>
             <Toggle onClick={this.toggleVideo}>{this.state.playing ? '||' : '►'}</Toggle>
+            <Time>{this.secToFormat(this.state.played * this.state.duration)} / {this.secToFormat(this.state.duration)}</Time>
             <Volume
               onChange={this.setVolume}
               type="range"
