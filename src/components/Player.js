@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-const AllControls = styled.div`
+const ControlBar = styled.div`
   width: 100%;
   position: absolute;
   background-color: #000;
@@ -192,7 +192,7 @@ export default class Player extends Component {
           width="100%"
           height="100%"
           />
-        <AllControls visible={showControls}>
+        <ControlBar visible={showControls}>
           <Progress
             extend={showControls}
             onClick={scrub.bind(this)}
@@ -213,7 +213,7 @@ export default class Player extends Component {
               min={0} max={1} step={0.05} 
               value={volume} />
           </Controls>
-        </AllControls>
+        </ControlBar>
       </Wrapper>
     );
   }
