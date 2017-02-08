@@ -13,7 +13,7 @@ const Title = styled.h1`
 export default () => {
   return (
     <Wrapper>
-      <Title>Vouddit</Title>
+      <Title>V</Title>
     </Wrapper>
   );
 }
