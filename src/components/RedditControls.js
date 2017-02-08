@@ -8,6 +8,8 @@ const Wrapper = styled.div`
 
 const NextVideo = styled.div`
   background-image: ${props => props.nextVideo ? `url(${props.nextVideo.data.thumbnail})` : ''};
+  background-size: cover;
+  background-position: center;
   height: 100px;
   width: 150px;
 `;
