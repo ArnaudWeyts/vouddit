@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {fetchPosts, selectSubreddit} from '../redux/actions';
+import {fetchPosts} from '../redux/actions';
 
 import Header from './Header';
 import Player from './Player';
