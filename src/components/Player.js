@@ -6,7 +6,7 @@ import {setNextPost} from '../redux/actions';
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 80vh;
+  height: 70vh;
   position: relative;
   overflow: hidden;
 `;
@@ -16,7 +16,7 @@ const ControlBar = styled.div`
   position: absolute;
   background-color: #000;
   bottom: 0;
-  transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-10px)'};
+  transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'};
   transition: transform 0.2s;
 `;
 
@@ -31,8 +31,7 @@ let Progress = styled.div`
 const ProgressFilled = styled.div`
   background-color: #2196F3;
   height: 100%;
-  width: ${props => props.played * 100}%;
-  display: inline-block;
+  width: ${props => Math.ceil(props.played * 10000)/100}%;
 `;
 
 const Time = styled.div`
@@ -183,7 +182,8 @@ export default class Player extends Component {
       toggleVideo,
       setVolume,
       scrub,
-      secToFormat
+      secToFormat,
+      getNextPost
     } = this;
 
     return (
@@ -199,7 +199,7 @@ export default class Player extends Component {
           url={this.props.post.url}
           width="100%"
           height="100%"
-          onEnded={this.getNextPost.bind(this)}
+          onEnded={getNextPost.bind(this)}
           />
         <ControlBar visible={showControls}>
           <Progress
