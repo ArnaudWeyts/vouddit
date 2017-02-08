@@ -2,13 +2,14 @@ import 'whatwg-fetch';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
 export const NEXT_POST = 'NEXT_POST';
 
 function requestPosts(subreddit) {
   return {
     type: REQUEST_POSTS,
     subreddit
-  }
+  };
 }
 
 function recievePosts(subreddit, json) {
@@ -16,14 +17,22 @@ function recievePosts(subreddit, json) {
     type: RECEIVE_POSTS,
     subreddit,
     posts: json.data
-  }
+  };
 }
+
 
 function nextPost(nextPost) {
   return {
     type: NEXT_POST,
     nextPost
-  }
+  };
+}
+
+export function selectSubreddit(subreddit) {
+  return {
+    type: SELECT_SUBREDDIT,
+    subreddit
+  };
 }
 
 export function fetchPosts(subreddit) {
@@ -38,10 +47,11 @@ export function fetchPosts(subreddit) {
       .catch(ex => {
         console.warn(`Couldn't fetch from url: ${ex}`);
       });
-  }
+  };
 }
 
-export function setNextPost(current) {
-  const indexNext = current.index + 1;
+export function setPrevNextPost(current, direction) {
+  // true is next, false is prev
+  const indexNext = current.index + (direction ? 1 : -1);
   return dispatch => dispatch(nextPost(indexNext));
 }

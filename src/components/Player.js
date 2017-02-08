@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
-import {setNextPost} from '../redux/actions';
+import {setPrevNextPost,} from '../redux/actions';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -97,6 +97,28 @@ const Volume = styled.input`
   }
 `;
 
+const PrevButton = styled.a`
+  cursor: pointer;
+  color: #FFF;
+  font-size: 60px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: ${props => props.visible ? 'translateX(0)' : 'translateX(-100%)'};
+  transition: transform .2s;
+`;
+
+const NextButton = styled.a`
+  cursor: pointer;
+  color: #FFF;
+  font-size: 60px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: ${props => props.visible ? 'translateX(0)' : 'translateX(100%)'};
+  transition: transform .2s;
+`;
+
 export default class Player extends Component {
   constructor(props) {
     super(props);
@@ -163,10 +185,10 @@ export default class Player extends Component {
       .join(":");
   }
 
-  getNextPost() {
+  getPrevNextPost(direction) {
     this.setState({played: 0});
     const {post, dispatch} = this.props;
-    const next = setNextPost(post);
+    const next = setPrevNextPost(post, direction);
     dispatch(next);
   }
 
@@ -187,7 +209,7 @@ export default class Player extends Component {
       setVolume,
       scrub,
       secToFormat,
-      getNextPost
+      getPrevNextPost
     } = this;
 
     return (
@@ -202,7 +224,7 @@ export default class Player extends Component {
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
-          onEnded={getNextPost.bind(this)}
+          onEnded={getPrevNextPost.bind(this, true)}
           width="100%"
           height="100%"
           />
@@ -228,6 +250,18 @@ export default class Player extends Component {
               value={volume} />
           </Controls>
         </ControlBar>
+        <PrevButton 
+          className="material-icons"
+          visible={showControls}
+          onClick={getPrevNextPost.bind(this, true)}>
+          chevron_left
+        </PrevButton>
+        <NextButton 
+          className="material-icons"
+          visible={showControls}
+          onClick={getPrevNextPost.bind(this, true)}>
+          chevron_right
+        </NextButton>
       </Wrapper>
     );
   }
