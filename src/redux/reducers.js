@@ -1,9 +1,13 @@
-import {REQUEST_POSTS, RECEIVE_POSTS, NEXT_POST} from './actions';
+import {
+  REQUEST_POSTS, RECEIVE_POSTS, NEXT_POST,
+  SELECT_SUBREDDIT
+} from './actions';
 
 const INITIAL_STATE = {
   posts: {},
   postActive: null,
-  isFetching: false
+  isFetching: false,
+  subreddit: 'videos'
 }
 
 let index = 1;
@@ -28,6 +32,11 @@ export function postsReducer(state = INITIAL_STATE, action) {
         ...state,
         postActive: {index, ...state.posts.children[action.nextPost].data}
       };
+    case SELECT_SUBREDDIT:
+      return {
+        ...state,
+        subreddit: action.subreddit
+      }
     default:
       return state;
   }

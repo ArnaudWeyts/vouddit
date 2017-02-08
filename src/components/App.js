@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {fetchPosts} from '../redux/actions';
+import {fetchPosts, selectSubreddit} from '../redux/actions';
 
 import Header from './Header';
 import Player from './Player';
@@ -15,8 +15,8 @@ const Wrapper = styled.div`
 
 class App extends Component {
   componentWillMount() {
-    const {dispatch} = this.props;
-    dispatch(fetchPosts('videos'));
+    const {dispatch, subreddit} = this.props;
+    dispatch(fetchPosts(subreddit));
   }
 
   render() {
@@ -38,12 +38,14 @@ class App extends Component {
 }
 
 App.propTypes = {
+  subreddit: PropTypes.string.isRequired,
   posts:  PropTypes.object.isRequired,
   activePost: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  subreddit: state.subreddit,
   posts: state.posts,
   postActive: state.postActive
 });
