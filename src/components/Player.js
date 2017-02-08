@@ -190,16 +190,17 @@ export default class Player extends Component {
       <Wrapper onMouseEnter={toggleControls} onMouseLeave={toggleControls}>
         <ReactPlayer 
           ref={player => {this.player = player}}
+          url={this.props.post.url}
+          progressFrequency={250}
           playing={playing}
           volume={volume}
           onPlay={() => this.setState({playing: true})} 
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
-          url={this.props.post.url}
+          onEnded={getNextPost.bind(this)}
           width="100%"
           height="100%"
-          onEnded={getNextPost.bind(this)}
           />
         <ControlBar visible={showControls}>
           <Progress
