@@ -56,6 +56,9 @@ const Toggle = styled.button`
   border: none;
   background: transparent;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
 
   &:focus {
     outline: none;
@@ -161,6 +164,7 @@ export default class Player extends Component {
   }
 
   getNextPost() {
+    this.setState({played: 0});
     const {post, dispatch} = this.props;
     const next = setNextPost(post);
     dispatch(next);
@@ -214,7 +218,7 @@ export default class Player extends Component {
             <ProgressFilled played={played} />
           </Progress>
           <Controls>
-            <Toggle onClick={toggleVideo}>{playing ? '||' : '►'}</Toggle>
+            <Toggle onClick={toggleVideo}><i className="material-icons">{playing ? 'pause' : 'play_arrow'}</i></Toggle>
             <Time>{secToFormat(played * duration)} / {secToFormat(duration)}</Time>
             <Volume
               onChange={setVolume}
