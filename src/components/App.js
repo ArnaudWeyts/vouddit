@@ -6,7 +6,7 @@ import {fetchPosts} from '../redux/actions';
 
 import Header from './Header';
 import Player from './Player';
-
+import RedditControls from './RedditControls';
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -16,16 +16,21 @@ const Wrapper = styled.div`
 class App extends Component {
   componentWillMount() {
     const {dispatch} = this.props;
-    dispatch(fetchPosts('youtubehaiku'));
+    dispatch(fetchPosts('videos'));
   }
 
   render() {
+    const {posts, postActive, dispatch} = this.props;
+
     return (
       <Wrapper>
         <Header />
         <Player
-          post={this.props.postActive ? this.props.postActive : ''} 
-          dispatch={this.props.dispatch} 
+          post={postActive ? postActive : ''} 
+          dispatch={dispatch} 
+        />
+        <RedditControls 
+          nextVideo={postActive ? posts.children[postActive.index + 1] : null}
         />
       </Wrapper>
     );
