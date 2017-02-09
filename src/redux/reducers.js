@@ -4,13 +4,13 @@ import {
 } from './actions';
 
 const INITIAL_STATE = {
-  posts: {},
+  posts: [],
   postActive: null,
   isFetching: false,
   subreddit: 'videos'
 }
 
-let index = 1;
+let index = 0;
 
 export function postsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -20,17 +20,27 @@ export function postsReducer(state = INITIAL_STATE, action) {
         isFetching: true
       };
     case RECEIVE_POSTS:
+      const posts = action.posts.children.filter(post => {
+        if (!post.data.media) return false;
+        const {type} = post.data.media;
+        return (
+          type === 'youtube.com' ||
+          type === 'vimeo.com' ||
+          type === 'soundcloud.com'
+        );
+      });
       return {
         ...state,
-        posts: action.posts,
-        postActive: {index, ...action.posts.children[1].data},
+        // filter out all the posts that don't have what we want
+        posts: posts,
+        postActive: {index, ...posts[0].data},
         isFetching: false
       };
     case NEXT_POST:
       action.nextPost >= index ? index++ : index--;
       return {
         ...state,
-        postActive: {index, ...state.posts.children[action.nextPost].data}
+        postActive: {index, ...state.posts[action.nextPost].data}
       };
     case SELECT_SUBREDDIT:
       return {

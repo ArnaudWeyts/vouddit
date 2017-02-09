@@ -45,7 +45,7 @@ class App extends Component {
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
         <RedditControls 
-          nextVideo={postActive ? posts.children[postActive.index + 1] : null}
+          nextVideo={postActive ? posts[postActive.index + 1] : null}
         />
       </Wrapper>
     );
@@ -54,7 +54,7 @@ class App extends Component {
 
 App.propTypes = {
   subreddit: PropTypes.string.isRequired,
-  posts:  PropTypes.object.isRequired,
+  posts:  PropTypes.array.isRequired,
   activePost: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 }
