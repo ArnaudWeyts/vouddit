@@ -12,14 +12,14 @@ function requestPosts(subreddit) {
   };
 }
 
-function recievePosts(subreddit, json) {
+function receivePosts(subreddit, update, json) {
   return {
     type: RECEIVE_POSTS,
     subreddit,
+    update,
     posts: json.data
   };
 }
-
 
 function nextPost(nextPost) {
   return {
@@ -35,15 +35,20 @@ export function selectSubreddit(subreddit) {
   };
 }
 
-export function fetchPosts(subreddit) {
+export function fetchPosts(subreddit, after = null) {
   const ROOT_URL = 'https://www.reddit.com';
-  const url = `${ROOT_URL}/r/${subreddit}/hot.json?limit=10`;
+  // if after is passed, add a string that fetches following posts
+  const grabString = after ? `&after=${after}` : '';
+  const url = `${ROOT_URL}/r/${subreddit}/hot.json?limit=10${grabString}`;
 
   return dispatch => {
     dispatch(requestPosts(subreddit));
     return fetch(url)
       .then(response => response.json())
-      .then(json => dispatch(recievePosts(subreddit, json)))
+      .then(json => {
+        // set boolean to see if it's an update or not
+        dispatch(receivePosts(subreddit, after ? true : false, json))
+      })
       .catch(ex => {
         console.warn(`Couldn't fetch from url: ${ex}`);
       });
@@ -53,5 +58,7 @@ export function fetchPosts(subreddit) {
 export function setPrevNextPost(current, direction) {
   // true is next, false is prev
   const indexNext = current.index + (direction ? 1 : -1);
-  return dispatch => dispatch(nextPost(indexNext));
+  return dispatch => {
+    dispatch(nextPost(indexNext));
+  }
 }

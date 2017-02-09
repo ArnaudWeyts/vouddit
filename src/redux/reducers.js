@@ -5,6 +5,7 @@ import {
 
 const INITIAL_STATE = {
   posts: [],
+  nextPosts: null,
   postActive: null,
   isFetching: false,
   subreddit: 'videos'
@@ -14,6 +15,7 @@ let index = 0;
 
 export function postsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    // isFetching gives us the option to show a loading bar
     case REQUEST_POSTS:
       return {
         ...state,
@@ -21,6 +23,7 @@ export function postsReducer(state = INITIAL_STATE, action) {
       };
     case RECEIVE_POSTS:
       const posts = action.posts.children.filter(post => {
+        // filter out all the posts we don't want
         if (!post.data.media) return false;
         const {type} = post.data.media;
         return (
@@ -31,12 +34,14 @@ export function postsReducer(state = INITIAL_STATE, action) {
       });
       return {
         ...state,
-        // filter out all the posts that don't have what we want
-        posts: posts,
+        // if update => add to state, else replace
+        posts: action.update ? [...state.posts, ...posts] : posts,
+        nextPosts: action.posts.after,
         postActive: {index, ...posts[0].data},
         isFetching: false
       };
     case NEXT_POST:
+      // decide if the index is higher or lower and update
       action.nextPost >= index ? index++ : index--;
       return {
         ...state,
