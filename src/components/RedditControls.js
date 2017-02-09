@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 `;
 
 const NextVideo = styled.div`
-  background-image: ${props => props.nextVideo ? `url(${props.nextVideo.data.thumbnail})` : ''};
+  background-image: ${props => props.nextVideo ? `url(${props.nextVideo.data.media.oembed.thumbnail_url})` : ''};
   background-size: cover;
   background-position: center;
   height: 100px;
