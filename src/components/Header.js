@@ -10,43 +10,49 @@ const Title = styled.h1`
   display: inline-block;
   margin: 20px 20px;
   color: #FFF;
+  flex-grow: 1;
 `;
 
-const SubSelect = styled.div`
+const Label = styled.label`
   color: #FFF;
+  margin-right: 10px;
+  font-size: 20px;
+`;
 
-  & label {
-    margin-right: 20px;
+const SubInput = styled.input`
+  margin-right: 20px;
+  width: 175px;
+  height: 30px;
+  padding: 1px 5px;
+  background-color: transparent;
+  border: 1px solid #FFF;
+  border-radius: 2px;
+  font-size: 20px;
+  color: #FFF;
+  appearance: none;
+
+  &:focus {
+    outline: none;
   }
 `;
 
 class Header extends Component {
-  renderSubs(currentSub) {
-    const subs = [
-      'videos',
-      'youtubehaiku',
-      'listentothis'
-    ];
-
-    return subs.map(sub => {
-      return `<option value=${sub} ${currentSub === sub && 'selected'}>${sub}</option>`;
-    });
-  }
   
   render() {
     return (
       <Wrapper>
         <Title>V</Title>
-        <SubSelect>
-          <label htmlFor="subreddit">Select a subreddit:</label>
-          {// eslint-disable-next-line
-          }<select 
-            name="subreddit"
-            id="subreddit"
-            dangerouslySetInnerHTML={{__html: this.renderSubs(this.props.currentSub)}}
-            onChange={(e) => this.props.changeSub(e.target.value)}>
-          </select>
-        </SubSelect>
+        <form 
+          onSubmit={e => {
+            e.preventDefault();
+            this.props.changeSub(e.target['sub'].value);
+            e.target['sub'].blur();
+          }}>
+          <Label for="sub">/r/</Label>
+          <SubInput 
+            name="sub"
+            placeholder="videos"/>
+        </form>
       </Wrapper>
     );
   }
