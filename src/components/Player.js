@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 const ControlBar = styled.div`
   width: 100%;
   position: absolute;
-  background-color: #000;
   bottom: 0;
   transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'};
   transition: transform 0.2s;
@@ -22,7 +21,7 @@ let Progress = styled.div`
   cursor: ew-resize;
   width: 100%;
   height: ${props => props.extend ? '15' : '5'}px;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.5);
   transition: height 0.2s;
 `;
 
@@ -30,6 +29,11 @@ const ProgressFilled = styled.div`
   background-color: #2196F3;
   height: 100%;
   width: ${props => Math.ceil(props.played * 10000)/100}%;
+  box-sizing: border-box;
+  border-right: 2px solid #2196F3;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  ${props => props.played === 0 ? 'border: none' : ''};
 `;
 
 const Time = styled.div`
@@ -40,6 +44,7 @@ const Time = styled.div`
 `;
 
 const Controls = styled.div`
+  background: #000;
   width: 100%;
   display: flex;
   align-items: center;
