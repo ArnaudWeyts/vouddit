@@ -97,6 +97,7 @@ const Volume = styled.input`
 
 const PrevButton = styled.a`
   cursor: pointer;
+  user-select: none;
   color: #FFF;
   font-size: 60px;
   position: absolute;
@@ -108,6 +109,7 @@ const PrevButton = styled.a`
 
 const NextButton = styled.a`
   cursor: pointer;
+  user-select: none;
   color: #FFF;
   font-size: 60px;
   position: absolute;
