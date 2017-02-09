@@ -39,7 +39,8 @@ class Header extends Component {
         <Title>V</Title>
         <SubSelect>
           <label htmlFor="subreddit">Select a subreddit:</label>
-          <select 
+          {// eslint-disable-next-line
+          }<select 
             name="subreddit"
             id="subreddit"
             dangerouslySetInnerHTML={{__html: this.renderSubs(this.props.currentSub)}}
