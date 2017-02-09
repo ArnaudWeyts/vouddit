@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {fetchPosts, selectSubreddit} from '../redux/actions';
+import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions';
 
 import Header from './Header';
 import Player from './Player';
@@ -20,23 +20,29 @@ class App extends Component {
     dispatch(fetchPosts(subreddit));
   }
 
+  // dispatch event when the subreddit is changed
   changeSub(dispatch, sub) {
     dispatch(selectSubreddit(sub));
     dispatch(fetchPosts(sub));
   }
 
+  // dispatch event for next/prev post
+  getPrevNextPost(dispatch, post, direction) {
+    dispatch(setPrevNextPost(post, direction));
+  }
+
   render() {
-    const {posts, postActive, dispatch} = this.props;
+    const {posts, postActive, dispatch, subreddit} = this.props;
 
     return (
       <Wrapper>
         <Header 
-          currentSub={this.props.subreddit}
+          currentSub={subreddit}
           changeSub={(sub) => this.changeSub(dispatch, sub)}
         />
         <Player
           post={postActive ? postActive : ''} 
-          dispatch={dispatch} 
+          getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
         <RedditControls 
           nextVideo={postActive ? posts.children[postActive.index + 1] : null}

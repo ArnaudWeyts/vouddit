@@ -27,7 +27,7 @@ export function postsReducer(state = INITIAL_STATE, action) {
         isFetching: false
       };
     case NEXT_POST:
-      index++;
+      action.nextPost >= index ? index++ : index--;
       return {
         ...state,
         postActive: {index, ...state.posts.children[action.nextPost].data}

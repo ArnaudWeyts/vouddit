@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
-import {setPrevNextPost,} from '../redux/actions';
-
 const Wrapper = styled.div`
   width: 100vw;
   height: 70vh;
@@ -185,12 +183,7 @@ export default class Player extends Component {
       .join(":");
   }
 
-  getPrevNextPost(direction) {
-    this.setState({played: 0});
-    const {post, dispatch} = this.props;
-    const next = setPrevNextPost(post, direction);
-    dispatch(next);
-  }
+  
 
   render() {
     // state variables
@@ -209,8 +202,9 @@ export default class Player extends Component {
       setVolume,
       scrub,
       secToFormat,
-      getPrevNextPost
     } = this;
+
+    const {getPrevNextPost} = this.props;
 
     return (
       <Wrapper onMouseEnter={toggleControls} onMouseLeave={toggleControls}>
@@ -224,7 +218,7 @@ export default class Player extends Component {
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
-          onEnded={getPrevNextPost.bind(this, true)}
+          onEnded={() => getPrevNextPost(true)}
           width="100%"
           height="100%"
           />
@@ -253,13 +247,13 @@ export default class Player extends Component {
         <PrevButton 
           className="material-icons"
           visible={showControls}
-          onClick={getPrevNextPost.bind(this, true)}>
+          onClick={() => getPrevNextPost(false)}>
           chevron_left
         </PrevButton>
         <NextButton 
           className="material-icons"
           visible={showControls}
-          onClick={getPrevNextPost.bind(this, true)}>
+          onClick={() => getPrevNextPost(true)}>
           chevron_right
         </NextButton>
       </Wrapper>
