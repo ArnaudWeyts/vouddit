@@ -2,11 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {fetchPosts} from '../redux/actions';
+import {fetchPosts, selectSubreddit} from '../redux/actions';
 
 import Header from './Header';
 import Player from './Player';
 import RedditControls from './RedditControls';
+
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -19,12 +20,20 @@ class App extends Component {
     dispatch(fetchPosts(subreddit));
   }
 
+  changeSub(dispatch, sub) {
+    dispatch(selectSubreddit(sub));
+    dispatch(fetchPosts(sub));
+  }
+
   render() {
     const {posts, postActive, dispatch} = this.props;
 
     return (
       <Wrapper>
-        <Header />
+        <Header 
+          currentSub={this.props.subreddit}
+          changeSub={(sub) => this.changeSub(dispatch, sub)}
+        />
         <Player
           post={postActive ? postActive : ''} 
           dispatch={dispatch} 

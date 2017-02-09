@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Title = styled.h1`
@@ -10,10 +12,43 @@ const Title = styled.h1`
   color: #FFF;
 `;
 
-export default () => {
-  return (
-    <Wrapper>
-      <Title>V</Title>
-    </Wrapper>
-  );
+const SubSelect = styled.div`
+  color: #FFF;
+
+  & label {
+    margin-right: 20px;
+  }
+`;
+
+class Header extends Component {
+  renderSubs(currentSub) {
+    const subs = [
+      'videos',
+      'youtubehaiku',
+      'listentothis'
+    ];
+
+    return subs.map(sub => {
+      return `<option value=${sub} ${currentSub === sub && 'selected'}>${sub}</option>`;
+    });
+  }
+  
+  render() {
+    return (
+      <Wrapper>
+        <Title>V</Title>
+        <SubSelect>
+          <label htmlFor="subreddit">Select a subreddit:</label>
+          <select 
+            name="subreddit"
+            id="subreddit"
+            dangerouslySetInnerHTML={{__html: this.renderSubs(this.props.currentSub)}}
+            onChange={(e) => this.props.changeSub(e.target.value)}>
+          </select>
+        </SubSelect>
+      </Wrapper>
+    );
+  }
 }
+
+export default Header;
