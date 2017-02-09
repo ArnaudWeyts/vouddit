@@ -225,7 +225,10 @@ export default class Player extends Component {
           onPause={() => this.setState({playing: false})}
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
-          onEnded={() => getPrevNextPost(true)}
+          onEnded={() => {
+            getPrevNextPost(true);
+            this.setState({played: 0})
+          }}
           width="100%"
           height="100%"
           />
