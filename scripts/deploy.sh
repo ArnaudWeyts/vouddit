@@ -25,8 +25,8 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]
 fi
 
 # Save some useful information
-REPO=${git config remote.origin.url}
-SHA=${git rev-parse --verify HEAD}
+REPO=$(git config remote.origin.url)
+SHA=$(git rev-parse --verify HEAD)
 
 # Clone repository
 git clone $REPO $DIRECTORY
@@ -54,7 +54,7 @@ cd $DIRECTORY
 git add -A
 
 # If there are no changes to the compiled build (e.g. this is a README update) then just bail.
-if [[ -z ${git diff --cached --exit-code} ]]; then
+if [[ -z $(git diff --cached --exit-code) ]]; then
     echo "No changes to the output on this push; exiting."
     exit 0
 fi
