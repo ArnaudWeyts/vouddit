@@ -32,6 +32,10 @@ export function postsReducer(state = INITIAL_STATE, action) {
           type === 'soundcloud.com'
         );
       });
+
+      // reset index
+      index = 0;
+      
       return {
         ...state,
         // if update => add to state, else replace
