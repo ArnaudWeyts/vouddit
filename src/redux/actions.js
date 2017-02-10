@@ -39,7 +39,7 @@ export function fetchPosts(subreddit, after = null) {
   const ROOT_URL = 'https://www.reddit.com';
   // if after is passed, add a string that fetches following posts
   const grabString = after ? `&after=${after}` : '';
-  const url = `${ROOT_URL}/r/${subreddit}/hot.json?limit=10${grabString}`;
+  const url = `${ROOT_URL}/r/${subreddit}/hot.json?${grabString}&limit=10`;
 
   return dispatch => {
     dispatch(requestPosts(subreddit));
