@@ -142,6 +142,10 @@ export default class Player extends Component {
     this.setVolume = this.setVolume.bind(this);
   }
 
+  componentWillReceiveProps() {
+    this.resetPlayer();
+  }
+
   toggleControls(e) {
     if(e.type === 'mouseenter') {
       this.setState({showControls: true});
@@ -190,7 +194,9 @@ export default class Player extends Component {
       .join(":");
   }
 
-  
+  resetPlayer() {
+    this.setState({played: 0});
+  }
 
   render() {
     // state variables
@@ -202,6 +208,7 @@ export default class Player extends Component {
       played,
       duration
     } = this.state;
+
     // functions
     const {
       toggleControls,
@@ -209,6 +216,7 @@ export default class Player extends Component {
       setVolume,
       scrub,
       secToFormat,
+      resetPlayer
     } = this;
 
     const {getPrevNextPost} = this.props;
@@ -227,7 +235,7 @@ export default class Player extends Component {
           onDuration={(duration) => this.setState({duration: duration})}
           onEnded={() => {
             getPrevNextPost(true);
-            this.setState({played: 0})
+            resetPlayer()
           }}
           width="100%"
           height="100%"
