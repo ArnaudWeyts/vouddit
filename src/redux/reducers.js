@@ -37,7 +37,8 @@ export function postsReducer(state = INITIAL_STATE, action) {
         // if update => add to state, else replace
         posts: action.update ? [...state.posts, ...posts] : posts,
         nextPosts: action.posts.after,
-        postActive: {index, ...posts[0].data},
+        // don't set the postactive to the first one after an update
+        postActive: action.update ? state.postActive : {index, ...posts[0].data},
         isFetching: false
       };
     case NEXT_POST:

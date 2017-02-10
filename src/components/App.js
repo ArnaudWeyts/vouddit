@@ -20,6 +20,29 @@ class App extends Component {
     dispatch(fetchPosts(subreddit));
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.checkForUpdate(nextProps);
+  }
+
+  checkForUpdate(nextProps) {
+    // we can't update without the current posts
+    if (!this.props.postActive) return;
+
+    const {
+      posts, nextPosts,
+      subreddit, isFetching, 
+      dispatch
+    } = this.props;
+
+    // never update while fetching
+    if (isFetching || nextProps.isFetching) return;
+
+    // fetch more posts if there are only 5 left
+    if (nextProps.postActive.index + 4 > posts.length) {
+      dispatch(fetchPosts(subreddit, nextPosts))
+    }
+  }
+
   // dispatch event when the subreddit is changed
   changeSub(dispatch, sub) {
     dispatch(selectSubreddit(sub));
@@ -55,13 +78,17 @@ class App extends Component {
 App.propTypes = {
   subreddit: PropTypes.string.isRequired,
   posts:  PropTypes.array.isRequired,
-  activePost: PropTypes.object,
+  nextPosts: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
+  postActive: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
   subreddit: state.subreddit,
   posts: state.posts,
+  nextPosts: state.nextPosts,
+  isFetching: state.isFetching,
   postActive: state.postActive
 });
 
