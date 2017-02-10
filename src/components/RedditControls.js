@@ -22,9 +22,13 @@ const TitleGroup = styled.div`
 `;
 
 const Title = styled.h2`
+  white-space: nowrap;
   font-weight: 200;
-  max-width: 80%;
+  width: 80%;
   margin: 0 auto auto 0;
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis
 `;
 
 const Link = styled.a`
