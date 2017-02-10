@@ -18,7 +18,7 @@ const Current = styled.div`
 const TitleGroup = styled.div`
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  margin-bottom: 20px
 `;
 
 const Title = styled.h2`

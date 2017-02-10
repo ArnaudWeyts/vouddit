@@ -143,7 +143,7 @@ export default class Player extends Component {
   }
 
   componentWillReceiveProps() {
-    this.resetPlayer();
+    this.resetPlayer(this);
   }
 
   toggleControls(e) {
@@ -194,8 +194,8 @@ export default class Player extends Component {
       .join(":");
   }
 
-  resetPlayer() {
-    this.setState({played: 0});
+  resetPlayer(context) {
+    context.setState({played: 0});
   }
 
   render() {
@@ -234,8 +234,8 @@ export default class Player extends Component {
           onProgress={({played}) => !seeking && this.setState({played: played})}
           onDuration={(duration) => this.setState({duration: duration})}
           onEnded={() => {
+            resetPlayer(this);
             getPrevNextPost(true);
-            resetPlayer()
           }}
           width="100%"
           height="100%"
