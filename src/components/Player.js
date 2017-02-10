@@ -231,7 +231,9 @@ export default class Player extends Component {
           }}
           width="100%"
           height="100%"
-          />
+          // this doesn't work with the default showinfo=0 option
+          // thank google for that but it's either the title bar or small logo
+          youtubeConfig={{playerVars: {modestbranding: 1}}} />
         <ControlBar visible={showControls}>
           <Progress
             extend={showControls}
