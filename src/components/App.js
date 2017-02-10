@@ -67,8 +67,10 @@ class App extends Component {
           post={postActive ? postActive : ''} 
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
-        <RedditControls 
-          nextVideo={postActive ? posts[postActive.index + 1] : null}
+        <RedditControls
+          currentVid={postActive} 
+          nextVid={postActive ? posts[postActive.index + 1] : null}
+          getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
       </Wrapper>
     );
