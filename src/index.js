@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {injectGlobal} from 'styled-components';
 
+import 'typeface-open-sans';
+
 import store from './redux/store';
 import App from './components/App';
 
@@ -11,7 +13,7 @@ injectGlobal`
   body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: Open Sans, --apple-system, sans-serif;
   }
 `;
 
