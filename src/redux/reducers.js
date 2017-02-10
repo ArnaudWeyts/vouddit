@@ -33,9 +33,9 @@ export function postsReducer(state = INITIAL_STATE, action) {
         );
       });
 
-      // reset index
-      index = 0;
-      
+      // reset index when it's a complete subreddit change
+      if (!action.update) index = 0;
+
       return {
         ...state,
         // if update => add to state, else replace
