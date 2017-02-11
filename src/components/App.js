@@ -64,7 +64,7 @@ class App extends Component {
           changeSub={(sub) => this.changeSub(dispatch, sub)}
         />
         <Player
-          post={postActive ? postActive : ''} 
+          url={postActive ? postActive.url : ''} 
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
         <RedditControls

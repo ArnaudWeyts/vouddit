@@ -50,7 +50,8 @@ class Player extends Component {
       showControls,
       duration,
       dispatch,
-      getPrevNextPost
+      getPrevNextPost,
+      url
     } = this.props;
 
     // functions
@@ -65,7 +66,7 @@ class Player extends Component {
         onMouseLeave={toggleControls.bind(this)}>
         <ReactPlayer 
           ref={player => {this.player = player}}
-          url={this.props.post.url}
+          url={url}
           progressFrequency={250}
           playing={playing}
           volume={volume}
@@ -142,7 +143,7 @@ const mapStateToProps = ({playerReducer}, ownProps) => {
     volume: playerReducer.volume,
     seeking: playerReducer.seeking,
     showControls: playerReducer.showControls,
-    duration: playerReducer.duration
+    duration: playerReducer.duration,
   }
 }
 
