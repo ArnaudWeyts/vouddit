@@ -60,8 +60,8 @@ const Next = styled.div`
   align-items: center;
 `;
 
-const NextIcon = styled.i`
-  font-size: 50px;
+const NextIcon = styled.img`
+  width: 30px;
 `;
 
 const NextVideo = styled.div`
@@ -95,7 +95,7 @@ const RedditControls = (props) => {
         </Ups>
       </Current>
       <Next>
-        <NextIcon className="material-icons">chevron_right</NextIcon>
+        <NextIcon src={icons.chevron_right}/>
         <NextVideo 
           nextVid={props.nextVid}
           onClick={() => props.getPrevNextPost(true)} />

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
+import icons from '../icons';
+
 const Wrapper = styled.div`
   width: 100vw;
   height: 70vh;
@@ -100,7 +102,8 @@ const Volume = styled.input`
   }
 `;
 
-const PrevButton = styled.a`
+const PrevButton = styled.img`
+  width: 50px;
   cursor: pointer;
   user-select: none;
   color: #FFF;
@@ -112,7 +115,8 @@ const PrevButton = styled.a`
   transition: transform .2s;
 `;
 
-const NextButton = styled.a`
+const NextButton = styled.img`
+  width: 60px;
   cursor: pointer;
   user-select: none;
   color: #FFF;
@@ -264,18 +268,14 @@ export default class Player extends Component {
               value={volume} />
           </Controls>
         </ControlBar>
-        <PrevButton 
-          className="material-icons"
+        <PrevButton
           visible={showControls}
-          onClick={() => getPrevNextPost(false)}>
-          chevron_left
-        </PrevButton>
+          onClick={() => getPrevNextPost(false)}
+          src={icons.chevron_left} />
         <NextButton 
-          className="material-icons"
           visible={showControls}
-          onClick={() => getPrevNextPost(true)}>
-          chevron_right
-        </NextButton>
+          onClick={() => getPrevNextPost(true)}
+          src={icons.chevron_right} />
       </Wrapper>
     );
   }
