@@ -1,7 +1,7 @@
 import {
   REQUEST_POSTS, RECEIVE_POSTS, NEXT_POST,
   SELECT_SUBREDDIT
-} from './actions';
+} from '../actions/postsActions';
 
 const INITIAL_STATE = {
   posts: [],
