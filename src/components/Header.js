@@ -44,6 +44,7 @@ class Header extends Component {
       <Wrapper>
         <Title>V</Title>
         <form 
+          autoComplete="off"
           onSubmit={e => {
             e.preventDefault();
             this.props.changeSub(e.target['sub'].value);
@@ -51,6 +52,7 @@ class Header extends Component {
           }}>
           <Label for="sub">/r/</Label>
           <SubInput 
+            autocomplete="off"
             name="sub"
             placeholder="videos"/>
         </form>
