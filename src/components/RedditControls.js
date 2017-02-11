@@ -83,7 +83,7 @@ const RedditControls = (props) => {
           <Title>
             {currentVid && currentVid.media.oembed.title}
           </Title>
-          <Link href={currentVid && `https://www.reddit.com/${currentVid.permalink}`} target="_blank">
+          <Link href={currentVid && `https://www.reddit.com${currentVid.permalink}`} target="_blank">
             <Icon src={icons.reddit} alt="reddit-icon" />
           </Link>
         </TitleGroup>
