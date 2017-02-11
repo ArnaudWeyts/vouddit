@@ -1,5 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactPlayer from 'react-player';
+import {connect} from 'react-redux';
+
+import {
+  togglePlayer, toggleControls,
+  setVolume, updatePlayed,
+  seek, setDuration
+} from '../redux/actions/playerActions';
 
 import icons from '../icons';
 
@@ -18,89 +25,56 @@ import {
 
 import {secToFormat} from '../lib/utils';
 
-export default class Player extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { 
-      showControls: false,
-      playing: false,
-      volume: 1,
-      played: 0,
-      seeking: false,
-      duration: null
-    };
-
-    this.toggleControls = this.toggleControls.bind(this);
-    this.toggleVideo = this.toggleVideo.bind(this);
-    this.setVolume = this.setVolume.bind(this);
-  }
-
-  componentWillReceiveProps() {
-    this.resetPlayer(this);
-  }
-
+class Player extends Component {
   toggleControls(e) {
     if(e.type === 'mouseenter') {
-      this.setState({showControls: true});
+      this.props.dispatch(toggleControls(true));
       
     } else {
-      this.setState({showControls: false});
+      this.props.dispatch(toggleControls(false));
     }
-  }
-
-  toggleVideo() {
-    this.setState({playing: !this.state.playing});
-  }
-
-  setVolume(e) {
-    this.setState({volume: parseFloat(e.target.value)});
   }
 
   scrub(e) {
     const seekTo = parseFloat(e.nativeEvent.offsetX / e.target.parentNode.offsetWidth);
     this.player.seekTo(seekTo);
-    this.setState({played: seekTo});
-  }
-
-  resetPlayer(context) {
-    context.setState({played: 0});
+    this.props.dispatch(updatePlayed(seekTo));
   }
 
   render() {
-    // state variables
+    // redux variables
     const {
       playing,
+      played,
       volume,
       seeking,
       showControls,
-      played,
-      duration
-    } = this.state;
+      duration,
+      dispatch,
+      getPrevNextPost
+    } = this.props;
 
     // functions
     const {
       toggleControls,
-      toggleVideo,
-      setVolume,
       scrub,
       resetPlayer
     } = this;
 
-    const {getPrevNextPost} = this.props;
-
     return (
-      <Wrapper onMouseEnter={toggleControls} onMouseLeave={toggleControls}>
+      <Wrapper 
+        onMouseEnter={toggleControls.bind(this)}
+        onMouseLeave={toggleControls.bind(this)}>
         <ReactPlayer 
           ref={player => {this.player = player}}
           url={this.props.post.url}
           progressFrequency={250}
           playing={playing}
           volume={volume}
-          onPlay={() => this.setState({playing: true})} 
-          onPause={() => this.setState({playing: false})}
-          onProgress={({played}) => !seeking && this.setState({played: played})}
-          onDuration={(duration) => this.setState({duration: duration})}
+          onPlay={() => dispatch(togglePlayer(true))} 
+          onPause={() => dispatch(togglePlayer(false))}
+          onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
+          onDuration={(duration) => dispatch(setDuration(duration))}
           onEnded={() => {
             resetPlayer(this);
             getPrevNextPost(true);
@@ -115,20 +89,24 @@ export default class Player extends Component {
             extend={showControls}
             onClick={scrub.bind(this)}
             onMouseMove={seeking && scrub.bind(this)}
-            onMouseDown={() => this.setState({seeking: true, playing: false})}
-            onMouseUp={() => this.setState({seeking: false, playing: true})}
-            onMouseLeave={() => seeking && this.setState({seeking: false, playing: true})}
+            onMouseDown={() => {
+              dispatch(seek(true), togglePlayer(false));
+            }}
+            onMouseUp={() => {
+              dispatch(seek(false), togglePlayer(true));
+            }}
+            onMouseLeave={() => seeking && dispatch(seek(false), togglePlayer(true))}
             >
             <ProgressFilled played={played} />
           </Progress>
           <Controls>
             <Toggle 
               src={playing ? icons.pause : icons.play_arrow}
-              onClick={toggleVideo}
+              onClick={() => dispatch(togglePlayer(!playing))}
             />
             <Time>{secToFormat(played * duration)} / {secToFormat(duration)}</Time>
             <Volume
-              onChange={setVolume}
+              onChange={(e) => dispatch(setVolume(parseFloat(e.target.value)))}
               type="range"
               name="volume"
               min={0} max={1} step={0.05} 
@@ -147,3 +125,26 @@ export default class Player extends Component {
     );
   }
 }
+
+Player.propTypes = {
+  playing: PropTypes.bool.isRequired,
+  played: PropTypes.number.isRequired,
+  volume: PropTypes.number.isRequired,
+  seeking: PropTypes.bool.isRequired,
+  showControls: PropTypes.bool.isRequired,
+  duration: PropTypes.number,
+  dispatch: PropTypes.func.isRequired
+}
+
+const mapStateToProps = ({playerReducer}, ownProps) => {
+  return {
+    playing: playerReducer.playing,
+    played: playerReducer.played,
+    volume: playerReducer.volume,
+    seeking: playerReducer.seeking,
+    showControls: playerReducer.showControls,
+    duration: playerReducer.duration
+  }
+}
+
+export default connect(mapStateToProps)(Player);
