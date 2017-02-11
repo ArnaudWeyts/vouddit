@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions';
+import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions/postsActions';
 
 import Header from './Header';
 import Player from './Player';
@@ -86,12 +86,12 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  subreddit: state.subreddit,
-  posts: state.posts,
-  nextPosts: state.nextPosts,
-  isFetching: state.isFetching,
-  postActive: state.postActive
+const mapStateToProps = ({postsReducer}, ownProps) => ({
+  subreddit: postsReducer.subreddit,
+  posts: postsReducer.posts,
+  nextPosts: postsReducer.nextPosts,
+  isFetching: postsReducer.isFetching,
+  postActive: postsReducer.postActive
 });
 
 export default connect(mapStateToProps)(App);
