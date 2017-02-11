@@ -28,8 +28,7 @@ import {secToFormat} from '../lib/utils';
 class Player extends Component {
   toggleControls(e) {
     if(e.type === 'mouseenter') {
-      this.props.dispatch(toggleControls(true));
-      
+      this.props.dispatch(toggleControls(true));    
     } else {
       this.props.dispatch(toggleControls(false));
     }
@@ -57,8 +56,7 @@ class Player extends Component {
     // functions
     const {
       toggleControls,
-      scrub,
-      resetPlayer
+      scrub
     } = this;
 
     return (
@@ -76,7 +74,8 @@ class Player extends Component {
           onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
           onDuration={(duration) => dispatch(setDuration(duration))}
           onEnded={() => {
-            resetPlayer(this);
+            // reset the player and start the next post
+            dispatch(updatePlayed(0));
             getPrevNextPost(true);
           }}
           width="100%"
