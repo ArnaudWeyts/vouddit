@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const Current = styled.div`
   margin: 0 20px;
-  width: 80%;
+  width: 70%;
 `;
 
 const TitleGroup = styled.div`
@@ -68,6 +68,7 @@ const Next = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
+  width: 30%;
 `;
 
 const NextVideo = styled.div`
@@ -76,7 +77,7 @@ const NextVideo = styled.div`
   background-size: cover;
   background-position: center;
   height: 100px;
-  width: 150px;
+  width: 100%;
   cursor: pointer;
 `;
 
