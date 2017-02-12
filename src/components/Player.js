@@ -26,6 +26,15 @@ import {
 import {secToFormat} from '../lib/utils';
 
 class Player extends Component {
+  componentWillReceiveProps(nextProps) {
+    // checks if a new video is being loaded
+    if(nextProps.url !== this.props.url) {
+      // reset the progress and time
+      this.props.dispatch(updatePlayed(0));
+      this.props.dispatch(setDuration(0));
+    }
+  }
+
   toggleControls(e) {
     if(e.type === 'mouseenter') {
       this.props.dispatch(toggleControls(true));    
@@ -67,9 +76,11 @@ class Player extends Component {
         <ReactPlayer 
           ref={player => {this.player = player}}
           url={url}
-          progressFrequency={250}
           playing={playing}
           volume={volume}
+          // this is pretty dodgy because this means we're updating
+          // the state alot, but it does give us a smooth bar
+          progressFrequency={duration < 1000 ? duration : 1000}
           onPlay={() => dispatch(togglePlayer(true))} 
           onPause={() => dispatch(togglePlayer(false))}
           onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
@@ -90,10 +101,12 @@ class Player extends Component {
             onClick={scrub.bind(this)}
             onMouseMove={seeking && scrub.bind(this)}
             onMouseDown={() => {
-              dispatch(seek(true), togglePlayer(false));
+              dispatch(seek(true));
+              dispatch(togglePlayer(false));
             }}
             onMouseUp={() => {
-              dispatch(seek(false), togglePlayer(true));
+              dispatch(seek(false));
+              dispatch(togglePlayer(true));
             }}
             onMouseLeave={() => seeking && dispatch(seek(false), togglePlayer(true))}
             >
