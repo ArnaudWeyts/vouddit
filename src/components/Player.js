@@ -60,7 +60,8 @@ class Player extends Component {
       duration,
       dispatch,
       getPrevNextPost,
-      url
+      url,
+      isFirst
     } = this.props;
 
     // functions
@@ -127,7 +128,7 @@ class Player extends Component {
           </Controls>
         </ControlBar>
         <PrevButton
-          visible={showControls}
+          visible={!isFirst && showControls}
           onClick={() => getPrevNextPost(false)}
           src={icons.chevron_left} />
         <NextButton 
