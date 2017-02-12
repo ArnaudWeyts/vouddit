@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   height: 70vh;
   position: relative;
   overflow: hidden;
+  user-select: none;
 `;
 
 export const ControlBar = styled.div`
@@ -39,6 +40,7 @@ export const Time = styled.div`
   display: flex;
   align-items: center;
   color: #FFF;
+  cursor: default;
 `;
 
 export const Controls = styled.div`
@@ -101,7 +103,6 @@ export const Volume = styled.input`
 export const PrevButton = styled.img`
   width: 50px;
   cursor: pointer;
-  user-select: none;
   color: #FFF;
   font-size: 60px;
   position: absolute;
@@ -114,7 +115,6 @@ export const PrevButton = styled.img`
 export const NextButton = styled.img`
   width: 60px;
   cursor: pointer;
-  user-select: none;
   color: #FFF;
   font-size: 60px;
   position: absolute;
