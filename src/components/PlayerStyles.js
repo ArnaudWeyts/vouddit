@@ -101,7 +101,7 @@ export const Volume = styled.input`
 `;
 
 export const PrevButton = styled.img`
-  width: 50px;
+  width: 60px;
   cursor: pointer;
   color: #FFF;
   font-size: 60px;
