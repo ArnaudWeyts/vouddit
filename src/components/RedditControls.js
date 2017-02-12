@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const Current = styled.div`
   margin: 0 20px;
-  width: 50%;
+  width: 80%;
 `;
 
 const TitleGroup = styled.div`
@@ -45,23 +45,29 @@ const Icon = styled.img`
   width: 30px;
 `;
 
+const IconSmall = styled.img`
+  margin-right: 5px;
+  width: 20px;
+`;
+
 const Author = styled.span`
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  float: left;
 `;
 
 const Ups = styled.span`
   float: right;
   color: #FC754E;
+  display: flex;
+  align-items: center;
 `;
 
 const Next = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-`;
-
-const NextIcon = styled.img`
-  width: 30px;
 `;
 
 const NextVideo = styled.div`
@@ -88,15 +94,17 @@ const RedditControls = (props) => {
           </Link>
         </TitleGroup>
         <Author>
+          <IconSmall src={icons.person} alt="author icon" />
           {currentVid && currentVid.author}
         </Author>
         <Ups>
+          <IconSmall src={icons.thumb_up} alt="upvoted icon" />
           {currentVid && currentVid.ups}
         </Ups>
       </Current>
       <Next>
-        <NextIcon src={icons.chevron_right}/>
-        <NextVideo 
+        <Icon src={icons.chevron_right} alt="chevron right icon" />
+        <NextVideo
           nextVid={props.nextVid}
           onClick={() => props.getPrevNextPost(true)} />
       </Next>
