@@ -24,7 +24,6 @@ const TitleGroup = styled.div`
 const Title = styled.h2`
   white-space: nowrap;
   font-weight: 200;
-  width: 80%;
   margin: 0 auto auto 0;
   max-height: 40px;
   overflow: hidden;
@@ -68,7 +67,6 @@ const Next = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-  width: 30%;
 `;
 
 const NextVideo = styled.div`
@@ -77,7 +75,7 @@ const NextVideo = styled.div`
   background-size: cover;
   background-position: center;
   height: 100px;
-  width: 100%;
+  width: 200px;
   cursor: pointer;
 `;
 
