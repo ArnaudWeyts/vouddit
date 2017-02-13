@@ -48,9 +48,6 @@ export function postsReducer(state = INITIAL_STATE, action) {
     case NEXT_POST:
       // decide if the index is higher or lower and update
       action.nextPost >= index ? index++ : index--;
-      if (action.nextPost < 0) {
-        return state;
-      }
       return {
         ...state,
         postActive: {index, ...state.posts[action.nextPost].data}

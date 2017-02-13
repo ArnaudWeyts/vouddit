@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const Current = styled.div`
   margin: 0 20px;
-  width: 75%;
+  flex-grow: 1;
 `;
 
 const TitleGroup = styled.div`
