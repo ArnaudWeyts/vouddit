@@ -77,6 +77,9 @@ const NextVideo = styled.div`
   height: 100px;
   width: 200px;
   cursor: pointer;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `;
 
 const RedditControls = (props) => {
