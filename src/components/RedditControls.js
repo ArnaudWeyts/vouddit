@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const Current = styled.div`
   margin: 0 20px;
-  width: 70%;
+  flex-grow: 1;
 `;
 
 const TitleGroup = styled.div`
@@ -24,7 +24,6 @@ const TitleGroup = styled.div`
 const Title = styled.h2`
   white-space: nowrap;
   font-weight: 200;
-  width: 80%;
   margin: 0 auto auto 0;
   max-height: 40px;
   overflow: hidden;
@@ -65,10 +64,8 @@ const Ups = styled.span`
 `;
 
 const Next = styled.div`
-  margin-left: auto;
   display: flex;
   align-items: center;
-  width: 30%;
 `;
 
 const NextVideo = styled.div`
@@ -77,8 +74,11 @@ const NextVideo = styled.div`
   background-size: cover;
   background-position: center;
   height: 100px;
-  width: 100%;
+  width: 200px;
   cursor: pointer;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `;
 
 const RedditControls = (props) => {
