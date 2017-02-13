@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions/postsActions';
 
+import {debounce} from '../lib/utils';
+
 import Header from './Header';
 import Player from './Player';
 import RedditControls from './RedditControls';
@@ -15,13 +17,40 @@ const Wrapper = styled.div`
 `;
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
   componentWillMount() {
     const {dispatch, subreddit} = this.props;
     dispatch(fetchPosts(subreddit));
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', debounce(this.handleKeyDown, 100));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', debounce(this.handleKeyDown, 100));
+  }
+
   componentWillReceiveProps(nextProps) {
     this.checkForUpdate(nextProps);
+  }
+
+  // keyboard shortcuts wheeeee
+  handleKeyDown({key}) {
+    const {dispatch, postActive} = this.props;
+    switch(key) {
+      case 'ArrowRight':
+        return dispatch(setPrevNextPost(postActive, true));
+      case 'ArrowLeft':
+        return dispatch(setPrevNextPost(postActive, false));
+      default:
+        return;
+    }
   }
 
   checkForUpdate(nextProps) {
