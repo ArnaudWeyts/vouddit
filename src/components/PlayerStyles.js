@@ -14,6 +14,7 @@ export const ControlBar = styled.div`
   bottom: 0;
   transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'};
   transition: transform 0.2s;
+  ${props => props.hideCompletely && 'display: none'} 
 `;
 
 export const Progress = styled.div`

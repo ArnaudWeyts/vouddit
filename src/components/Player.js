@@ -61,7 +61,8 @@ class Player extends Component {
       dispatch,
       getPrevNextPost,
       url,
-      isFirst
+      isFirst,
+      hideControls
     } = this.props;
 
     // functions
@@ -96,7 +97,7 @@ class Player extends Component {
           // this doesn't work with the default showinfo=0 option
           // thank google for that but it's either the title bar or small logo
           youtubeConfig={{playerVars: {modestbranding: 1}}} />
-        <ControlBar visible={showControls}>
+        <ControlBar visible={showControls} hideCompletely={hideControls}>
           <Progress
             extend={showControls}
             onClick={scrub.bind(this)}

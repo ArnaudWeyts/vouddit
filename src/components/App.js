@@ -100,6 +100,8 @@ class App extends Component {
         />
         <Player
           url={postActive ? postActive.url : ''}
+          // TODO make this a toggleable setting
+          hideControls={postActive ? postActive.media.type === 'vimeo.com' : false}
           isFirst={postActive ? postActive.index === 0 : false}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
