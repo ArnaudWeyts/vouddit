@@ -27,7 +27,7 @@ const Title = styled.h2`
   margin: 0 auto auto 0;
   max-height: 40px;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
 `;
 
 const Link = styled.a`
@@ -83,7 +83,7 @@ const NextVideo = styled.div`
 `;
 
 const RedditControls = (props) => {
-  const {currentVid} = props;
+  const {currentVid, togglePlayer} = props;
   return (
     <Wrapper>
       <Current>
@@ -91,7 +91,10 @@ const RedditControls = (props) => {
           <Title>
             {currentVid && currentVid.title}
           </Title>
-          <Link href={currentVid && `https://www.reddit.com${currentVid.permalink}`} target="_blank">
+          <Link 
+            href={currentVid && `https://www.reddit.com${currentVid.permalink}`}
+            target="_blank"
+            onClick={togglePlayer}>
             <Icon src={icons.reddit} alt="reddit-icon" />
           </Link>
         </TitleGroup>

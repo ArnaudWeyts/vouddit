@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions/postsActions';
+import {togglePlayer} from '../redux/actions/playerActions';
 
 import {debounce} from '../lib/utils';
 
@@ -83,6 +84,11 @@ class App extends Component {
     dispatch(setPrevNextPost(post, direction));
   }
 
+  // dispatch for togglePlayer
+  togglePlayerDisp(dispatch, playing) {
+    dispatch(togglePlayer(playing));
+  }
+
   render() {
     const {posts, postActive, dispatch, subreddit} = this.props;
 
@@ -98,6 +104,7 @@ class App extends Component {
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
         <RedditControls
+          togglePlayer={() => this.togglePlayerDisp(dispatch, false)}
           currentVid={postActive} 
           nextVid={postActive ? posts[postActive.index + 1] : null}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
