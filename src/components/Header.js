@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
+import icons from '../icons';
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -37,6 +39,11 @@ const SubInput = styled.input`
   }
 `;
 
+const Icon = styled.img`
+  cursor: pointer;
+  margin-right: 20px;
+`;
+
 class Header extends Component {
   
   render() {
@@ -56,6 +63,7 @@ class Header extends Component {
             name="sub"
             placeholder="videos"/>
         </form>
+        <Icon src={icons.settings} alt="settings icon" />
       </Wrapper>
     );
   }
