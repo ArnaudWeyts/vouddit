@@ -13,17 +13,17 @@ const INITIAL_STATE = {
   duration: null
 };
 
-export function playerReducer(state = INITIAL_STATE, action) {
+export default function playerReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
     case TOGGLE_PLAYER:
       return {
         ...state,
-        playing: action.playing
+        playing: !state.playing
       }
     case TOGGLE_CONTROLS:
       return {
         ...state,
-        showControls: action.controls
+        showControls: !state.showControls
       }
     case UPDATE_PLAYED:
      return {

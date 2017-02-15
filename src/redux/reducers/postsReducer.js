@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 
 let index = 0;
 
-export function postsReducer(state = INITIAL_STATE, action) {
+export default function postsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     // isFetching gives us the option to show a loading bar
     case REQUEST_POSTS:
