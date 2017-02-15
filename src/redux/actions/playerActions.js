@@ -5,17 +5,15 @@ export const SET_VOLUME = 'SET_VOLUME';
 export const SEEKING = 'SEEKING';
 export const SET_DURATION = 'SET_DURATION';
 
-export function togglePlayer(playing) {
+export function togglePlayer() {
   return {
-    type: TOGGLE_PLAYER,
-    playing
+    type: TOGGLE_PLAYER
   }
 }
 
-export function toggleControls(controls) {
+export function toggleControls() {
   return {
-    type: TOGGLE_CONTROLS,
-    controls
+    type: TOGGLE_CONTROLS
   }
 }
 

@@ -85,8 +85,8 @@ class App extends Component {
   }
 
   // dispatch for togglePlayer
-  togglePlayerDisp(dispatch, playing) {
-    dispatch(togglePlayer(playing));
+  togglePlayerDisp(dispatch) {
+    dispatch(togglePlayer());
   }
 
   render() {
@@ -106,7 +106,7 @@ class App extends Component {
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
         <RedditControls
-          togglePlayer={() => this.togglePlayerDisp(dispatch, false)}
+          togglePlayer={() => this.togglePlayerDisp(dispatch)}
           currentVid={postActive} 
           nextVid={postActive ? posts[postActive.index + 1] : null}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}

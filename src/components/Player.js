@@ -37,9 +37,9 @@ class Player extends Component {
 
   toggleControls(e) {
     if(e.type === 'mouseenter') {
-      this.props.dispatch(toggleControls(true));    
+      this.props.dispatch(toggleControls());    
     } else {
-      this.props.dispatch(toggleControls(false));
+      this.props.dispatch(toggleControls());
     }
   }
 
@@ -83,8 +83,8 @@ class Player extends Component {
           // this is pretty dodgy because this means we're updating
           // the state alot, but it does give us a smooth bar
           progressFrequency={duration < 1000 ? duration : 1000}
-          onPlay={() => dispatch(togglePlayer(true))} 
-          onPause={() => dispatch(togglePlayer(false))}
+          onPlay={() => dispatch(togglePlayer())} 
+          onPause={() => dispatch(togglePlayer())}
           onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
           onDuration={(duration) => dispatch(setDuration(duration))}
           onEnded={() => {
@@ -104,20 +104,20 @@ class Player extends Component {
             onMouseMove={seeking && scrub.bind(this)}
             onMouseDown={() => {
               dispatch(seek(true));
-              dispatch(togglePlayer(false));
+              dispatch(togglePlayer());
             }}
             onMouseUp={() => {
               dispatch(seek(false));
-              dispatch(togglePlayer(true));
+              dispatch(togglePlayer());
             }}
-            onMouseLeave={() => seeking && dispatch(seek(false), togglePlayer(true))}
+            onMouseLeave={() => seeking && dispatch(seek(false), togglePlayer())}
             >
             <ProgressFilled played={played} />
           </Progress>
           <Controls>
             <Toggle 
               src={playing ? icons.pause : icons.play_arrow}
-              onClick={() => dispatch(togglePlayer(!playing))}
+              onClick={() => dispatch(togglePlayer())}
             />
             <Time>{secToFormat(played * duration)} / {secToFormat(duration)}</Time>
             <Volume
