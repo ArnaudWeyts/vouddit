@@ -125,12 +125,12 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({postsReducer}, ownProps) => ({
-  subreddit: postsReducer.subreddit,
-  posts: postsReducer.posts,
-  nextPosts: postsReducer.nextPosts,
-  isFetching: postsReducer.isFetching,
-  postActive: postsReducer.postActive
+const mapStateToProps = ({posts}, ownProps) => ({
+  subreddit: posts.subreddit,
+  posts: posts.posts,
+  nextPosts: posts.nextPosts,
+  isFetching: posts.isFetching,
+  postActive: posts.postActive
 });
 
 export default connect(mapStateToProps)(App);
