@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux';
 
-import postsReducer from './postsReducer';
-import playerReducer from './playerReducer';
-import settingsReducer from './settingsReducer';
+import posts from './postsReducer';
+import player from './playerReducer';
+import settings from './settingsReducer';
 
 export default combineReducers({
-  postsReducer,
-  playerReducer,
-  settingsReducer
+  posts,
+  player,
+  settings
 });
