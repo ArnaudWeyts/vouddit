@@ -83,8 +83,8 @@ class Player extends Component {
           // this is pretty dodgy because this means we're updating
           // the state alot, but it does give us a smooth bar
           progressFrequency={duration < 1000 ? duration : 1000}
-          onPlay={() => dispatch(togglePlayer())} 
-          onPause={() => dispatch(togglePlayer())}
+          onPlay={() => (dispatch(togglePlayer(true)))} 
+          onPause={() => dispatch(togglePlayer(false))}
           onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
           onDuration={(duration) => dispatch(setDuration(duration))}
           onEnded={() => {
@@ -104,13 +104,13 @@ class Player extends Component {
             onMouseMove={seeking && scrub.bind(this)}
             onMouseDown={() => {
               dispatch(seek(true));
-              dispatch(togglePlayer());
+              dispatch(togglePlayer(false));
             }}
             onMouseUp={() => {
               dispatch(seek(false));
-              dispatch(togglePlayer());
+              dispatch(togglePlayer(true));
             }}
-            onMouseLeave={() => seeking && dispatch(seek(false), togglePlayer())}
+            onMouseLeave={() => seeking && dispatch(seek(false), togglePlayer(true))}
             >
             <ProgressFilled played={played} />
           </Progress>
@@ -151,14 +151,14 @@ Player.propTypes = {
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({playerReducer}, ownProps) => {
+const mapStateToProps = ({player}, ownProps) => {
   return {
-    playing: playerReducer.playing,
-    played: playerReducer.played,
-    volume: playerReducer.volume,
-    seeking: playerReducer.seeking,
-    showControls: playerReducer.showControls,
-    duration: playerReducer.duration,
+    playing: player.playing,
+    played: player.played,
+    volume: player.volume,
+    seeking: player.seeking,
+    showControls: player.showControls,
+    duration: player.duration,
   }
 }
 
