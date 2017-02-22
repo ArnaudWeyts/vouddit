@@ -4,12 +4,14 @@ import styled from 'styled-components';
 
 import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions/postsActions';
 import {togglePlayer} from '../redux/actions/playerActions';
+import {toggleSettings} from '../redux/actions/settingsActions';
 
 import {debounce} from '../lib/utils';
 
 import Header from './Header';
 import Player from './Player';
 import RedditControls from './RedditControls';
+import SettingsModal from './SettingsModal';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -89,6 +91,10 @@ class App extends Component {
     dispatch(togglePlayer());
   }
 
+  toggleSettingsDisp(dispatch) {
+    dispatch(toggleSettings());
+  }
+
   render() {
     const {posts, postActive, dispatch, subreddit} = this.props;
 
@@ -97,6 +103,7 @@ class App extends Component {
         <Header 
           currentSub={subreddit}
           changeSub={(sub) => this.changeSub(dispatch, sub)}
+          toggleSettings={() => this.toggleSettingsDisp(dispatch)}
         />
         <Player
           url={postActive ? postActive.url : ''}
@@ -111,6 +118,7 @@ class App extends Component {
           nextVid={postActive ? posts[postActive.index + 1] : null}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
+        <SettingsModal />
       </Wrapper>
     );
   }
@@ -130,7 +138,7 @@ const mapStateToProps = ({posts}, ownProps) => ({
   posts: posts.posts,
   nextPosts: posts.nextPosts,
   isFetching: posts.isFetching,
-  postActive: posts.postActive
+  postActive: posts.postActive,
 });
 
 export default connect(mapStateToProps)(App);
