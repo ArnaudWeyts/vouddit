@@ -63,7 +63,10 @@ class Header extends Component {
             name="sub"
             placeholder="videos"/>
         </form>
-        <Icon src={icons.settings} alt="settings icon" />
+        <Icon 
+          src={icons.settings}
+          alt="settings icon"
+          onClick={this.props.toggleSettings} />
       </Wrapper>
     );
   }
