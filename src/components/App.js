@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
@@ -96,10 +97,20 @@ class App extends Component {
   }
 
   render() {
-    const {posts, postActive, dispatch, subreddit} = this.props;
+    const {posts, postActive, dispatch, subreddit, showSettings} = this.props;
 
     return (
-      <Wrapper>
+      <Wrapper
+        onClick={e => {
+          const settingsModal = ReactDOM.findDOMNode(this.refs.settingsModal);
+          // check if you're clicking on the settings window
+          // or any child of it, and exit if so
+          if (!settingsModal || settingsModal.contains(e.target)) return;
+
+          // hide the settings window, because we clicked outside of it
+          e.target !== settingsModal && dispatch(toggleSettings());
+        }}
+      >
         <Header 
           currentSub={subreddit}
           changeSub={(sub) => this.changeSub(dispatch, sub)}
@@ -111,6 +122,7 @@ class App extends Component {
           hideControls={postActive ? postActive.media.type === 'vimeo.com' : false}
           isFirst={postActive ? postActive.index === 0 : false}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
+          showSettings={showSettings}
         />
         <RedditControls
           togglePlayer={() => this.togglePlayerDisp(dispatch)}
@@ -118,7 +130,8 @@ class App extends Component {
           nextVid={postActive ? posts[postActive.index + 1] : null}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
-        <SettingsModal />
+        <SettingsModal 
+          ref="settingsModal" />
       </Wrapper>
     );
   }
@@ -130,15 +143,17 @@ App.propTypes = {
   nextPosts: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   postActive: PropTypes.object,
+  showSettings: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({posts}, ownProps) => ({
+const mapStateToProps = ({posts, settings}, ownProps) => ({
   subreddit: posts.subreddit,
   posts: posts.posts,
   nextPosts: posts.nextPosts,
   isFetching: posts.isFetching,
   postActive: posts.postActive,
+  showSettings: settings.showSettings
 });
 
 export default connect(mapStateToProps)(App);
