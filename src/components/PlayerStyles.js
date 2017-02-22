@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
   user-select: none;
+  ${props => props.showSettings ? 'pointer-events: none;' : ''}
 `;
 
 export const ControlBar = styled.div`

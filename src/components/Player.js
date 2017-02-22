@@ -62,7 +62,8 @@ class Player extends Component {
       getPrevNextPost,
       url,
       isFirst,
-      hideControls
+      hideControls,
+      showSettings
     } = this.props;
 
     // functions
@@ -74,7 +75,8 @@ class Player extends Component {
     return (
       <Wrapper 
         onMouseEnter={toggleControls.bind(this)}
-        onMouseLeave={toggleControls.bind(this)}>
+        onMouseLeave={toggleControls.bind(this)}
+        showSettings={showSettings}>
         <ReactPlayer 
           ref={player => {this.player = player}}
           url={url}
