@@ -76,6 +76,7 @@ class Player extends Component {
       <Wrapper 
         onMouseEnter={toggleControls.bind(this)}
         onMouseLeave={toggleControls.bind(this)}
+        // check playerstyles to find out why this is passed
         showSettings={showSettings}>
         <ReactPlayer 
           ref={player => {this.player = player}}
