@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
+import {toggleSettings} from '../redux/actions/settingsActions';
+
 const Wrapper = styled.div`
   position: fixed;
   width: 300px;
@@ -17,9 +19,22 @@ const Wrapper = styled.div`
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `;
 
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Title = styled.h2`
   color: #FFF;
   margin: 0;
+  display: inline-block;
+  flex-grow: 1;
+`;
+
+const Close = styled.span`
+  cursor: pointer;
+  float: right;
+  color: #FFF;
 `;
 
 const SettingsModal = (props) => {
@@ -28,7 +43,13 @@ const SettingsModal = (props) => {
 
   return (
     <Wrapper>
-      <Title>Settings</Title>
+      <Top>
+        <Title>Settings</Title>
+        <Close
+          onClick={() => props.dispatch(toggleSettings())}>
+          ╳
+        </Close>
+      </Top>
     </Wrapper>
   );
 }
