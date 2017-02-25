@@ -6,6 +6,9 @@ export const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
   user-select: none;
+  /* disable events on the video, we should eventually disable events 
+     on every component other than our settings I think 
+     We can just wrap every other component and use this */
   ${props => props.showSettings ? 'pointer-events: none;' : ''}
 `;
 
