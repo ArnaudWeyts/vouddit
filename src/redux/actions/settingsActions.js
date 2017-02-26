@@ -1,5 +1,5 @@
 export const TOGGLE_SETTINGS = 'TOGGLE_SETTINGS';
-export const TOGGLE_USE_DEFAULT = 'TOGGLE_USE_DEFAULT';
+export const TOGGLE_USE_DEFAULT_PLAYER = 'TOGGLE_USE_DEFAULT_PLAYER';
 
 export function toggleSettings() {
   return {
@@ -9,6 +9,6 @@ export function toggleSettings() {
 
 export function toggleUseDefault() {
   return {
-    type: TOGGLE_USE_DEFAULT
+    type: TOGGLE_USE_DEFAULT_PLAYER
   }
 }

@@ -63,7 +63,8 @@ class Player extends Component {
       url,
       isFirst,
       hideControls,
-      showSettings
+      showSettings,
+      useDefaultPlayer
     } = this.props;
 
     // functions
@@ -81,6 +82,7 @@ class Player extends Component {
         <ReactPlayer 
           ref={player => {this.player = player}}
           url={url}
+          controls={useDefaultPlayer}
           playing={playing}
           volume={volume}
           // this is pretty dodgy because this means we're updating
@@ -100,7 +102,7 @@ class Player extends Component {
           // this doesn't work with the default showinfo=0 option
           // thank google for that but it's either the title bar or small logo
           youtubeConfig={{playerVars: {modestbranding: 1}}} />
-        <ControlBar visible={showControls} hideCompletely={hideControls}>
+        <ControlBar visible={showControls} hideCompletely={useDefaultPlayer ? true : hideControls}>
           <Progress
             extend={showControls}
             onClick={scrub.bind(this)}
@@ -151,10 +153,11 @@ Player.propTypes = {
   seeking: PropTypes.bool.isRequired,
   showControls: PropTypes.bool.isRequired,
   duration: PropTypes.number,
+  useDefaultPlayer: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({player}, ownProps) => {
+const mapStateToProps = ({player, settings}, ownProps) => {
   return {
     playing: player.playing,
     played: player.played,
@@ -162,6 +165,7 @@ const mapStateToProps = ({player}, ownProps) => {
     seeking: player.seeking,
     showControls: player.showControls,
     duration: player.duration,
+    useDefaultPlayer: settings.useDefaultPlayer
   }
 }
 
