@@ -90,7 +90,8 @@ class Player extends Component {
           progressFrequency={duration < 1000 ? duration : 1000}
           onPlay={() => (dispatch(togglePlayer(true)))} 
           onPause={() => dispatch(togglePlayer(false))}
-          onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
+          // stop update played action spam for now
+          // onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
           onDuration={(duration) => dispatch(setDuration(duration))}
           onEnded={() => {
             // reset the player and start the next post
