@@ -1,4 +1,4 @@
-import {TOGGLE_SETTINGS, TOGGLE_USE_DEFAULT} from '../actions/settingsActions';
+import {TOGGLE_SETTINGS, TOGGLE_USE_DEFAULT_PLAYER} from '../actions/settingsActions';
 
 const INITIAL_STATE = {
   showSettings: false,
@@ -12,7 +12,7 @@ export default function settingsReducer(state = INITIAL_STATE, action) {
         ...state,
         showSettings: !state.showSettings
       }
-    case TOGGLE_USE_DEFAULT:
+    case TOGGLE_USE_DEFAULT_PLAYER:
       return {
         ...state,
         useDefaultPlayer: !state.useDefaultPlayer
