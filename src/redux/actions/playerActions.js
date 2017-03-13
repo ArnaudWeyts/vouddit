@@ -5,7 +5,7 @@ export const SET_VOLUME = 'SET_VOLUME';
 export const SEEKING = 'SEEKING';
 export const SET_DURATION = 'SET_DURATION';
 
-export function togglePlayer(play) {
+export function togglePlayer(play = null) {
   return {
     type: TOGGLE_PLAYER,
     play
