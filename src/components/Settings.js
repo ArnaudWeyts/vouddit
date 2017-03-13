@@ -7,16 +7,16 @@ import {toggleSettings} from '../redux/actions/settingsActions';
 const Wrapper = styled.div`
   position: fixed;
   width: 300px;
-  height: 300px;
-  top: 50%;
-  left: 50%;
-  margin-top: -150px; /* Negative half of height. */
-  margin-left: -150px; /* Negative half of width. */
+  height: 100%;
+  top: 0;
+  right: 0;
   background-color: #151516;
   padding: 20px;
   border-radius: 2px;
   border: none;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  ${props => !props.showSettings && 'transform: translateX(400px)'};
+  transition: transform 0.3s ease-in-out;
 `;
 
 const Top = styled.div`
@@ -37,12 +37,9 @@ const Close = styled.span`
   color: #FFF;
 `;
 
-const SettingsModal = (props) => {
-  // don't render anything if not open
-  if (!props.showSettings) return null;
-
+const Settings = (props) => {
   return (
-    <Wrapper>
+    <Wrapper showSettings={props.showSettings}>
       <Top>
         <Title>Settings</Title>
         <Close
@@ -54,7 +51,7 @@ const SettingsModal = (props) => {
   );
 }
 
-SettingsModal.propTypes = {
+Settings.propTypes = {
   showSettings: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 }
@@ -63,4 +60,4 @@ const mapStateToProps = ({settings}, ownProps) => ({
   showSettings: settings.showSettings
 });
 
-export default connect(mapStateToProps)(SettingsModal);
+export default connect(mapStateToProps)(Settings);

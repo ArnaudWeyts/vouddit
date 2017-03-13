@@ -12,7 +12,7 @@ import {debounce} from '../lib/utils';
 import Header from './Header';
 import Player from './Player/index';
 import RedditControls from './RedditControls';
-import SettingsModal from './SettingsModal';
+import Settings from './Settings';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -104,13 +104,13 @@ class App extends Component {
     return (
       <Wrapper
         onClick={e => {
-          const settingsModal = ReactDOM.findDOMNode(this.refs.settingsModal);
+          const settings = ReactDOM.findDOMNode(this.refs.settings);
           // check if you're clicking on the settings window
           // or any child of it, and exit if so
-          if (!settingsModal || settingsModal.contains(e.target)) return;
+          if (!settings || settings.contains(e.target)) return;
           if (!showSettings) return;
           // hide the settings window, because we clicked outside of it
-          e.target !== settingsModal && dispatch(toggleSettings());
+          e.target !== settings && dispatch(toggleSettings());
         }}
       >
         <Header 
@@ -132,8 +132,8 @@ class App extends Component {
           nextVid={postActive ? posts[postActive.index + 1] : null}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
         />
-        <SettingsModal 
-          ref="settingsModal" />
+        <Settings 
+          ref="settings" />
       </Wrapper>
     );
   }
