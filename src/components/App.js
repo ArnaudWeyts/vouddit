@@ -52,6 +52,8 @@ class App extends Component {
         return dispatch(setPrevNextPost(postActive, true));
       case 'ArrowLeft':
         return dispatch(setPrevNextPost(postActive, false));
+      case ' ':
+        return dispatch(togglePlayer()); 
       default:
         return;
     }
@@ -106,7 +108,7 @@ class App extends Component {
           // check if you're clicking on the settings window
           // or any child of it, and exit if so
           if (!settingsModal || settingsModal.contains(e.target)) return;
-
+          if (!showSettings) return;
           // hide the settings window, because we clicked outside of it
           e.target !== settingsModal && dispatch(toggleSettings());
         }}
