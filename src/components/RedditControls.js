@@ -88,7 +88,7 @@ const RedditControls = (props) => {
     <Wrapper>
       <Current>
         <TitleGroup>
-          <Title>
+          <Title title={currentVid && currentVid.title}>
             {currentVid && currentVid.title}
           </Title>
           <Link 
