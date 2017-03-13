@@ -7,13 +7,13 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   height: 10vh;
+  justify-content: space-between;
 `;
 
 const Title = styled.h1`
   display: inline-block;
   margin: 20px 20px;
   color: #FFF;
-  flex-grow: 1;
 `;
 
 const Label = styled.label`
