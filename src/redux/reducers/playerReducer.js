@@ -18,7 +18,7 @@ export default function playerReducer(state = INITIAL_STATE, action) {
     case TOGGLE_PLAYER:
       return {
         ...state,
-        playing: action.play
+        playing: action.play === null ? !state.playing : action.play
       }
     case TOGGLE_CONTROLS:
       return {
