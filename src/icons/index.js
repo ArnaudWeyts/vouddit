@@ -6,6 +6,7 @@ import chevron_right from './chevron_right.svg';
 import thumb_up from './thumb_up.svg';
 import person from './person.svg';
 import settings from './settings.svg';
+import menu from './menu.svg';
 
 export default {
   reddit,
@@ -15,5 +16,6 @@ export default {
   chevron_right,
   thumb_up,
   person,
-  settings
+  settings,
+  menu
 }
