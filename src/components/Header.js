@@ -8,12 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 10vh;
   justify-content: space-between;
-`;
-
-const Title = styled.h1`
-  display: inline-block;
-  margin: 20px 20px;
-  color: #FFF;
+  padding: 0 20px;
 `;
 
 const Label = styled.label`
@@ -41,7 +36,6 @@ const SubInput = styled.input`
 
 const Icon = styled.img`
   cursor: pointer;
-  margin-right: 20px;
 `;
 
 class Header extends Component {
@@ -49,7 +43,10 @@ class Header extends Component {
   render() {
     return (
       <Wrapper>
-        <Title>V</Title>
+        <Icon 
+          src={icons.menu}
+          alt="menu icon"
+        />
         <form 
           autoComplete="off"
           onSubmit={e => {
