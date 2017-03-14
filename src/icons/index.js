@@ -7,6 +7,7 @@ import thumb_up from './thumb_up.svg';
 import person from './person.svg';
 import settings from './settings.svg';
 import menu from './menu.svg';
+import search from './search.svg';
 
 export default {
   reddit,
@@ -17,5 +18,6 @@ export default {
   thumb_up,
   person,
   settings,
-  menu
+  menu,
+  search
 }

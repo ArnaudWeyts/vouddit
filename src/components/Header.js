@@ -13,29 +13,43 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
   color: #FFF;
-  margin-right: 10px;
   font-size: 20px;
 `;
 
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+`;
+
 const SubInput = styled.input`
-  margin-right: 20px;
   width: 175px;
   height: 30px;
   padding: 1px 5px;
+  margin: 0 10px;
   background-color: transparent;
-  border: 1px solid #FFF;
-  border-radius: 2px;
+  border: 0;
+  border-bottom: 1px solid #FFF;
   font-size: 20px;
-  color: #FFF;
+  color: #2196F3;
   appearance: none;
+  transition: all 0.2s ease-in-out;
 
   &:focus {
     outline: none;
+    border-bottom: 1px solid #2196F3;
   }
 `;
 
 const Icon = styled.img`
-  cursor: pointer;
+  cursor: pointer; 
+`;
+
+const Submit = styled.input`
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 class Header extends Component {
@@ -47,7 +61,7 @@ class Header extends Component {
           src={icons.menu}
           alt="menu icon"
         />
-        <form 
+        <Form
           autoComplete="off"
           onSubmit={e => {
             e.preventDefault();
@@ -59,7 +73,11 @@ class Header extends Component {
             autocomplete="off"
             name="sub"
             placeholder="videos"/>
-        </form>
+          <Submit
+            src={icons.search}
+            type="image"
+            alt="Submit" />
+        </Form>
         <Icon 
           src={icons.settings}
           alt="settings icon"
