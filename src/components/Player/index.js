@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 
 import {
   togglePlayer, toggleControls,
-  setVolume, updatePlayed,
-  seek, setDuration
+  updatePlayed, setDuration
 } from '../../redux/actions/playerActions';
 
 import {Wrapper, PrevButton, NextButton} from './PlayerStyles';
@@ -40,24 +39,29 @@ class Player extends Component {
     // redux variables
     const {
       playing,
-      played,
       volume,
-      seeking,
       showControls,
       duration,
       dispatch,
       getPrevNextPost,
       url,
       isFirst,
-      hideControls,
       showSettings,
+      delay,
       useDefaultPlayer
     } = this.props;
+
+
+    /*if(!useDefaultPlayer) {
+      const { 
+        played, seeking,
+        hideControls, scrub
+      } = this.props;
+    }*/
 
     // functions
     const {
       toggleControls,
-      scrub
     } = this;
 
     return (
@@ -83,7 +87,9 @@ class Player extends Component {
           onEnded={() => {
             // reset the player and start the next post
             dispatch(updatePlayed(0));
-            getPrevNextPost(true);
+            setTimeout(() => {
+              getPrevNextPost(true)
+            }, delay);
           }}
           width="100%"
           height="100%"

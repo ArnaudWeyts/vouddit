@@ -1,26 +1,30 @@
 import React from 'react';
 
 import {
-  Wrapper,
   ControlBar,
   Progress,
   ProgressFilled,
   Time,
   Controls,
   Toggle,
-  Volume,
-  PrevButton,
-  NextButton
+  Volume
 } from './PlayerStyles';
 
 import icons from '../../icons';
 
 import {secToFormat} from '../../lib/utils';
 
-const ControlBar = (props) => {
+const ControlBarComponent = (props) => {
+
+  const {
+    showControls, scrub,
+    seeking, seek,
+    played, playing,
+    duration, volume
+   } = props;
 
   return (
-    <ControlBar visible={showControls} hideCompletely={useDefaultPlayer ? true : hideControls}>
+    <ControlBar visible={showControls}>
       <Progress
         extend={showControls}
         onClick={scrub.bind(this)}
@@ -53,3 +57,5 @@ const ControlBar = (props) => {
     </ControlBar>
   );
 }
+
+export default ControlBarComponent;
