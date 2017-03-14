@@ -80,6 +80,11 @@ const SliderValue = styled.span`
   border-radius: 2px;
 `;
 
+const Label = styled.label`
+  color: #FFF;
+  margin-right: 20px;
+`;
+
 const Settings = (props) => {
   return (
     <Wrapper showSettings={props.showSettings}>
@@ -91,7 +96,9 @@ const Settings = (props) => {
         </Close>
       </Top>
       <Slider delay={props.delay}>
+        <Label htmlFor="delay">Delay</Label>
         <Input 
+          name="delay"
           type="range"
           min="0" max="25"
           value={Math.round(props.delay/1000)}
