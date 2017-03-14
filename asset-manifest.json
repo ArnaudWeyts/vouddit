@@ -1,10 +1,11 @@
 {
   "main.css": "static/css/main.2d75b344.css",
   "main.css.map": "static/css/main.2d75b344.css.map",
-  "main.js": "static/js/main.d5f9a94e.js",
-  "main.js.map": "static/js/main.d5f9a94e.js.map",
+  "main.js": "static/js/main.370be52b.js",
+  "main.js.map": "static/js/main.370be52b.js.map",
   "static/media/chevron_left.svg": "static/media/chevron_left.3a2bbfb0.svg",
   "static/media/chevron_right.svg": "static/media/chevron_right.fbba8092.svg",
+  "static/media/menu.svg": "static/media/menu.c800523f.svg",
   "static/media/open-sans-latin-300.eot": "static/media/open-sans-latin-300.52268081.eot",
   "static/media/open-sans-latin-300.svg": "static/media/open-sans-latin-300.11569a38.svg",
   "static/media/open-sans-latin-300.woff": "static/media/open-sans-latin-300.0d0d7107.woff",
@@ -49,5 +50,6 @@
   "static/media/person.svg": "static/media/person.990364a0.svg",
   "static/media/play_arrow.svg": "static/media/play_arrow.72deaf2d.svg",
   "static/media/reddit.svg": "static/media/reddit.56a1d0c1.svg",
+  "static/media/settings.svg": "static/media/settings.6acc27e6.svg",
   "static/media/thumb_up.svg": "static/media/thumb_up.c901d585.svg"
 }
