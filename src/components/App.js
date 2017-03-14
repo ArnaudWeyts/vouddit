@@ -99,7 +99,11 @@ class App extends Component {
   }
 
   render() {
-    const {posts, postActive, dispatch, subreddit, showSettings} = this.props;
+    const {
+      posts, postActive,
+      dispatch, subreddit,
+      showSettings, delay
+    } = this.props;
 
     return (
       <Wrapper
@@ -124,6 +128,7 @@ class App extends Component {
           hideControls={postActive ? postActive.media.type === 'vimeo.com' : false}
           isFirst={postActive ? postActive.index === 0 : false}
           getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
+          delay={delay}
           showSettings={showSettings}
         />
         <RedditControls
@@ -146,6 +151,7 @@ App.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   postActive: PropTypes.object,
   showSettings: PropTypes.bool.isRequired,
+  delay: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
@@ -155,7 +161,8 @@ const mapStateToProps = ({posts, settings}, ownProps) => ({
   nextPosts: posts.nextPosts,
   isFetching: posts.isFetching,
   postActive: posts.postActive,
-  showSettings: settings.showSettings
+  showSettings: settings.showSettings,
+  delay: settings.delay
 });
 
 export default connect(mapStateToProps)(App);
