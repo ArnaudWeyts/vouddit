@@ -1,15 +1,11 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 70vh;
   position: relative;
   overflow: hidden;
   user-select: none;
-  /* disable events on the video, we should eventually disable events 
-     on every component other than our settings I think 
-     We can just wrap every other component and use this */
-  ${props => props.showSettings ? 'pointer-events: none;' : ''}
 `;
 
 export const ControlBar = styled.div`

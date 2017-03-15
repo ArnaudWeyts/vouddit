@@ -6,17 +6,20 @@ import {toggleSettings, setDelay} from '../redux/actions/settingsActions';
 
 const Wrapper = styled.div`
   position: fixed;
-  width: 300px;
+  overflow-x: hidden;
   height: 100%;
   top: 0;
   right: 0;
   background-color: #151516;
-  padding: 20px;
   border-radius: 2px;
   border: none;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  ${props => !props.showSettings && 'transform: translateX(400px)'};
-  transition: transform 0.3s ease-in-out;
+  width: ${props => props.showSettings ? '300px' : 0};
+  transition: 0.3s;
+`;
+
+const InnerWrapper = styled.div`
+  padding: 20px;
 `;
 
 const Top = styled.div`
@@ -88,23 +91,25 @@ const Label = styled.label`
 const Settings = (props) => {
   return (
     <Wrapper showSettings={props.showSettings}>
-      <Top>
-        <Title>Settings</Title>
-        <Close
-          onClick={() => props.dispatch(toggleSettings())}>
-          ╳
-        </Close>
-      </Top>
-      <Slider delay={props.delay}>
-        <Label htmlFor="delay">Delay</Label>
-        <Input 
-          name="delay"
-          type="range"
-          min="0" max="25"
-          value={Math.round(props.delay/1000)}
-          onChange={(e) => props.dispatch(setDelay(e.target.value*1000))}/>
-        <SliderValue>{Math.round(props.delay/1000)}s</SliderValue>
-      </Slider>
+      <InnerWrapper>
+        <Top>
+          <Title>Settings</Title>
+          <Close
+            onClick={() => props.dispatch(toggleSettings())}>
+            ╳
+          </Close>
+        </Top>
+        <Slider delay={props.delay}>
+          <Label htmlFor="delay">Delay</Label>
+          <Input 
+            name="delay"
+            type="range"
+            min="0" max="25"
+            value={Math.round(props.delay/1000)}
+            onChange={(e) => props.dispatch(setDelay(e.target.value*1000))}/>
+          <SliderValue>{Math.round(props.delay/1000)}s</SliderValue>
+        </Slider>
+      </InnerWrapper>
     </Wrapper>
   );
 }

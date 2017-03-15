@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
@@ -18,6 +18,12 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: #151516;
+  overflow: hidden;
+`;
+
+const ContentWrapper = styled.div`
+  margin-right: ${props => props.showSettings ? '300px' : 0};
+  transition: margin-right 0.3s ease-in-out;
 `;
 
 class App extends Component {
@@ -107,6 +113,9 @@ class App extends Component {
 
     return (
       <Wrapper
+        /**
+        this makes the menu disappear if we click on the wrapper,
+        not needed atm 
         onClick={e => {
           const settings = ReactDOM.findDOMNode(this.refs.settings);
           // check if you're clicking on the settings window
@@ -115,28 +124,27 @@ class App extends Component {
           if (!showSettings) return;
           // hide the settings window, because we clicked outside of it
           e.target !== settings && dispatch(toggleSettings());
-        }}
+        }}**/
       >
-        <Header 
-          currentSub={subreddit}
-          changeSub={(sub) => this.changeSub(dispatch, sub)}
-          toggleSettings={() => this.toggleSettingsDisp(dispatch)}
-        />
-        <Player
-          url={postActive ? postActive.url : ''}
-          // TODO make this a toggleable setting
-          hideControls={postActive ? postActive.media.type === 'vimeo.com' : false}
-          isFirst={postActive ? postActive.index === 0 : false}
-          getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
-          delay={delay}
-          showSettings={showSettings}
-        />
-        <RedditControls
-          togglePlayer={() => this.togglePlayerDisp(dispatch)}
-          currentVid={postActive} 
-          nextVid={postActive ? posts[postActive.index + 1] : null}
-          getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
-        />
+        <ContentWrapper showSettings={showSettings}>
+          <Header 
+            currentSub={subreddit}
+            changeSub={(sub) => this.changeSub(dispatch, sub)}
+            toggleSettings={() => this.toggleSettingsDisp(dispatch)} />
+          <Player
+            url={postActive ? postActive.url : ''}
+            // TODO make this a toggleable setting
+            hideControls={postActive ? postActive.media.type === 'vimeo.com' : false}
+            isFirst={postActive ? postActive.index === 0 : false}
+            getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
+            delay={delay}
+            showSettings={showSettings} />
+          <RedditControls
+            togglePlayer={() => this.togglePlayerDisp(dispatch)}
+            currentVid={postActive} 
+            nextVid={postActive ? posts[postActive.index + 1] : null}
+            getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)} />
+        </ContentWrapper>
         <Settings 
           ref="settings" />
       </Wrapper>
