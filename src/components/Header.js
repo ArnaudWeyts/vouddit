@@ -44,6 +44,11 @@ const Icon = styled.img`
   cursor: pointer; 
 `;
 
+const IconSettings = styled.img`
+  cursor: pointer;
+  ${props => props.showSettings && 'width: 0;'}
+`;
+
 const Submit = styled.input`
   border: 0;
 
@@ -78,9 +83,10 @@ class Header extends Component {
             type="image"
             alt="Submit" />
         </Form>
-        <Icon 
+        <IconSettings 
           src={icons.settings}
           alt="settings icon"
+          showSettings={this.props.showSettings}
           onClick={this.props.toggleSettings} />
       </Wrapper>
     );

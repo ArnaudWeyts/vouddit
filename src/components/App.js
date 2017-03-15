@@ -130,7 +130,8 @@ class App extends Component {
           <Header 
             currentSub={subreddit}
             changeSub={(sub) => this.changeSub(dispatch, sub)}
-            toggleSettings={() => this.toggleSettingsDisp(dispatch)} />
+            toggleSettings={() => this.toggleSettingsDisp(dispatch)} 
+            showSettings={showSettings} />
           <Player
             url={postActive ? postActive.url : ''}
             // TODO make this a toggleable setting
