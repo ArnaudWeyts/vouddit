@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 
-import {toggleSettings, setDelay} from '../redux/actions/settingsActions';
+import {toggleSettings, setDelay, setSort, SORT_OPTIONS} from '../redux/actions/settingsActions';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -109,6 +109,14 @@ const Settings = (props) => {
             onChange={(e) => props.dispatch(setDelay(e.target.value*1000))}/>
           <SliderValue>{Math.round(props.delay/1000)}s</SliderValue>
         </Slider>
+        <Label htmlFor="sort">Sort</Label>
+        <select
+          value={props.sort}
+          name="sort"
+          onChange={e => props.dispatch(setSort(e.target.value))}
+        >
+          {SORT_OPTIONS.map(method => <option value={method} key={method}>{method}</option>)}
+        </select>
       </InnerWrapper>
     </Wrapper>
   );
@@ -122,7 +130,8 @@ Settings.propTypes = {
 
 const mapStateToProps = ({settings}, ownProps) => ({
   showSettings: settings.showSettings,
-  delay: settings.delay
+  delay: settings.delay,
+  sort: settings.sort,
 });
 
 export default connect(mapStateToProps)(Settings);
