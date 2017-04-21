@@ -3,11 +3,11 @@
 
 # Vouddit
 
-Vouddit is a reddit video browser built using React-Redux.
+Vouddit is a reddit video browser built using React - Redux.
 
-This app is running on an ejected create-react-app config.
+This app is built using [create-react-app](https://github.com/facebookincubator/create-react-app).
 
-To run Vouddit locally in dev mode, use the following commands:
+To run Vouddit locally in dev mode, use the following commands (or the corresponding yarn commands) :
 
 ```sh
 $ npm install
