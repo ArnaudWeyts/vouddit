@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import icons from '../icons';
+import icons from './shared/icons';
 
 const Wrapper = styled.div`
   color: #FFF;
@@ -71,7 +71,7 @@ const Next = styled.div`
 
 const NextVideo = styled.div`
   margin: 0 20px;
-  background-image: ${props => props.nextVid ? `url(${props.nextVid.data.media.oembed.thumbnail_url})` : ''};
+  background-image: ${props => (props.nextVid ? `url(${props.nextVid.data.media.oembed.thumbnail_url})` : '')};
   background-size: cover;
   background-position: center;
   height: 100px;
@@ -82,8 +82,8 @@ const NextVideo = styled.div`
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `;
 
-const RedditControls = (props) => {
-  const {currentVid, togglePlayer} = props;
+const RedditControls = props => {
+  const { currentVid, togglePlayer } = props;
   return (
     <Wrapper>
       <Current>
@@ -91,10 +91,11 @@ const RedditControls = (props) => {
           <Title title={currentVid && currentVid.title}>
             {currentVid && currentVid.title}
           </Title>
-          <Link 
+          <Link
             href={currentVid && `https://www.reddit.com${currentVid.permalink}`}
             target="_blank"
-            onClick={togglePlayer}>
+            onClick={togglePlayer}
+          >
             <Icon src={icons.reddit} alt="reddit-icon" />
           </Link>
         </TitleGroup>
@@ -111,10 +112,11 @@ const RedditControls = (props) => {
         <Icon src={icons.chevron_right} alt="chevron right icon" />
         <NextVideo
           nextVid={props.nextVid}
-          onClick={() => props.getPrevNextPost(true)} />
+          onClick={() => props.getPrevNextPost(true)}
+        />
       </Next>
     </Wrapper>
   );
-}
+};
 
 export default RedditControls;

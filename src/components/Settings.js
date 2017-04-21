@@ -5,6 +5,9 @@ import styled from 'styled-components';
 
 import { toggleSettings, setDelay } from '../redux/actions/settingsActions';
 
+import Slider from './shared/Slider';
+import Select from './shared/Select';
+
 const Wrapper = styled.div`
   position: fixed;
   overflow-x: hidden;
@@ -41,53 +44,18 @@ const Close = styled.span`
   color: #FFF;
 `;
 
-const Slider = styled.div`
-  display: inline-block;
-  position: relative;
-  margin: 20px 0;
-`;
-
-const Input = styled.input`
-  -webkit-appearance: none;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    margin-top: -0.52em;
-    height: 1.3em;
-    width: 1.3em;
-    border-radius: 1em;
-    background: #2196F3;
-    cursor: pointer;
-  }
-  &::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 3px;
-  margin-top: -0.8em;
-  cursor: pointer;
-  background-color: #FFF;
-  }
-
-  &:focus::-webkit-slider-runnable-track {
-    background-color: #FFF;
-  }
-`;
-
-const SliderValue = styled.span`
-  background: #2196F3;
-  color: #FFF;
-  margin-left: 20px;
-  padding: 5px;
-  border-radius: 2px;
-`;
-
 const Label = styled.label`
   color: #FFF;
   margin-right: 20px;
 `;
+
+function handleSliderChange(e, dispatch) {
+  dispatch(setDelay(e.target.value * 1000));
+}
+
+function handleSelectChange(e, dispatch) {
+  dispatch(setSort(e.target.value));
+}
 
 const Settings = props => {
   return (
@@ -99,18 +67,21 @@ const Settings = props => {
             ╳
           </Close>
         </Top>
-        <Slider delay={props.delay}>
-          <Label htmlFor="delay">Delay</Label>
-          <Input
-            name="delay"
-            type="range"
-            min="0"
-            max="25"
-            value={Math.round(props.delay / 1000)}
-            onChange={e => props.dispatch(setDelay(e.target.value * 1000))}
-          />
-          <SliderValue>{Math.round(props.delay / 1000)}s</SliderValue>
-        </Slider>
+        <Label htmlFor="delay">Delay</Label>
+        <Slider
+          name="delay"
+          value={Math.round(props.delay / 1000)}
+          min={0}
+          max={25}
+          handleChange={(e, dispatch) => handleSliderChange(e, props.dispatch)}
+        />
+        <Label htmlFor="sort">Sort by</Label>
+        <Select
+          name="sort"
+          options={SORT_OPTIONS}
+          sort={props.sort}
+          handleChange={(e, dispatch) => handleSelectChange(e, props.dispatch)}
+        />
       </InnerWrapper>
     </Wrapper>
   );
@@ -119,6 +90,7 @@ const Settings = props => {
 Settings.propTypes = {
   showSettings: PropTypes.bool.isRequired,
   delay: PropTypes.number.isRequired,
+  sort: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import icons from '../icons';
+import icons from './shared/icons';
 
 const Wrapper = styled.div`
   display: flex;

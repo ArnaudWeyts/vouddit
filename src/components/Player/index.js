@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 
@@ -10,9 +9,9 @@ import {
   setDuration
 } from '../../redux/actions/playerActions';
 
-import { Wrapper, PrevButton, NextButton, Timer } from './PlayerStyles';
+import { Wrapper, PrevButton, NextButton } from './PlayerStyles';
 
-import icons from '../../icons';
+import icons from '../shared/icons';
 
 class Player extends Component {
   componentWillReceiveProps(nextProps) {
@@ -66,20 +65,6 @@ class Player extends Component {
     // functions
     const { toggleControls } = this;
 
-    let ended = false;
-
-    const renderTimer = () => {
-      if (ended) {
-        return (
-          <Timer>
-            <svg className="svg">
-              <circle className="circle" r="75" cx="77" cy="77" delay={delay} />
-            </svg>
-          </Timer>
-        );
-      }
-    };
-
     return (
       <Wrapper
         onMouseEnter={toggleControls.bind(this)}
@@ -127,7 +112,6 @@ class Player extends Component {
           onClick={() => getPrevNextPost(true)}
           src={icons.chevron_right}
         />
-        {renderTimer()}
       </Wrapper>
     );
   }
