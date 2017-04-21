@@ -39,8 +39,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const { dispatch, subreddit } = this.props;
-    dispatch(fetchPosts(subreddit));
+    const { dispatch, subreddit, sort } = this.props;
+    dispatch(fetchPosts(subreddit, null, sort));
   }
 
   componentDidMount() {
@@ -74,21 +74,29 @@ class App extends Component {
     // we can't update without the current posts
     if (!this.props.postActive) return;
 
-    const { posts, nextPosts, subreddit, isFetching, dispatch } = this.props;
+    const {
+      posts,
+      nextPosts,
+      subreddit,
+      isFetching,
+      dispatch,
+      sort
+    } = this.props;
 
     // never update while fetching
     if (isFetching || nextProps.isFetching) return;
 
     // fetch more posts if there are only 5 left
     if (nextProps.postActive.index + 4 > posts.length) {
-      dispatch(fetchPosts(subreddit, nextPosts));
+      dispatch(fetchPosts(subreddit, nextPosts, sort));
     }
   }
 
   // dispatch event when the subreddit is changed
   changeSub(dispatch, sub) {
+    const { sort } = this.props;
     dispatch(selectSubreddit(sub));
-    dispatch(fetchPosts(sub));
+    dispatch(fetchPosts(sub, null, sort));
   }
 
   // dispatch event for next/prev post
@@ -171,6 +179,7 @@ App.propTypes = {
   postActive: PropTypes.object,
   showSettings: PropTypes.bool.isRequired,
   delay: PropTypes.number.isRequired,
+  sort: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -181,7 +190,8 @@ const mapStateToProps = ({ posts, settings }, ownProps) => ({
   isFetching: posts.isFetching,
   postActive: posts.postActive,
   showSettings: settings.showSettings,
-  delay: settings.delay
+  delay: settings.delay,
+  sort: settings.sort
 });
 
 export default connect(mapStateToProps)(App);

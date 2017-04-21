@@ -3,10 +3,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { toggleSettings, setDelay } from '../redux/actions/settingsActions';
+import {
+  toggleSettings,
+  setDelay,
+  setSort,
+  SORT_OPTIONS
+} from '../redux/actions/settingsActions';
 
-import Slider from './shared/Slider';
-import Select from './shared/Select';
+import SliderInput from './shared/Slider';
+import SelectInput from './shared/Select';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -46,7 +51,8 @@ const Close = styled.span`
 
 const Label = styled.label`
   color: #FFF;
-  margin-right: 20px;
+  margin-bottom: 10px;
+  display: block;
 `;
 
 function handleSliderChange(e, dispatch) {
@@ -68,7 +74,7 @@ const Settings = props => {
           </Close>
         </Top>
         <Label htmlFor="delay">Delay</Label>
-        <Slider
+        <SliderInput
           name="delay"
           value={Math.round(props.delay / 1000)}
           min={0}
@@ -76,7 +82,7 @@ const Settings = props => {
           handleChange={(e, dispatch) => handleSliderChange(e, props.dispatch)}
         />
         <Label htmlFor="sort">Sort by</Label>
-        <Select
+        <SelectInput
           name="sort"
           options={SORT_OPTIONS}
           sort={props.sort}
@@ -96,7 +102,8 @@ Settings.propTypes = {
 
 const mapStateToProps = ({ settings }, ownProps) => ({
   showSettings: settings.showSettings,
-  delay: settings.delay
+  delay: settings.delay,
+  sort: settings.sort
 });
 
 export default connect(mapStateToProps)(Settings);

@@ -35,11 +35,11 @@ export function selectSubreddit(subreddit) {
   };
 }
 
-export function fetchPosts(subreddit, after = null) {
+export function fetchPosts(subreddit, after = null, sort = 'hot') {
   const ROOT_URL = 'https://www.reddit.com';
   // if after is passed, add a string that fetches following posts
   const grabString = after ? `&after=${after}` : '';
-  const url = `${ROOT_URL}/r/${subreddit}/hot.json?${grabString}&limit=10`;
+  const url = `${ROOT_URL}/r/${subreddit}/${sort}.json?${grabString}&limit=10`;
 
   return dispatch => {
     dispatch(requestPosts(subreddit));
