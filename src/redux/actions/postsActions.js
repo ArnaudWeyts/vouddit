@@ -35,13 +35,15 @@ export function selectSubreddit(subreddit) {
   };
 }
 
-export function fetchPosts(subreddit, after = null, sort = 'hot') {
-  const ROOT_URL = 'https://www.reddit.com';
-  // if after is passed, add a string that fetches following posts
-  const grabString = after ? `&after=${after}` : '';
-  const url = `${ROOT_URL}/r/${subreddit}/${sort}.json?${grabString}&limit=10`;
+export function fetchPosts(subreddit = null, after = null, sort = 'hot') {
+  return (dispatch, getState) => {
+    const ROOT_URL = 'https://www.reddit.com';
+    // if a no sub is passed, we just refresh
+    const newSub = subreddit ? subreddit : getState().posts.subreddit;
+    // if after is passed, add a string that fetches following posts
+    const grabString = after ? `&after=${after}` : '';
+    const url = `${ROOT_URL}/r/${newSub}/${sort}.json?${grabString}&limit=10`;
 
-  return dispatch => {
     dispatch(requestPosts(subreddit));
     return fetch(url)
       .then(response => response.json())

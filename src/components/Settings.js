@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   toggleSettings,
   setDelay,
-  setSort,
+  setSortAndFetch,
   SORT_OPTIONS
 } from '../redux/actions/settingsActions';
 
@@ -60,7 +60,7 @@ function handleSliderChange(e, dispatch) {
 }
 
 function handleSelectChange(e, dispatch) {
-  dispatch(setSort(e.target.value));
+  dispatch(setSortAndFetch(e.target.value));
 }
 
 const Settings = props => {
@@ -85,7 +85,7 @@ const Settings = props => {
         <SelectInput
           name="sort"
           options={SORT_OPTIONS}
-          sort={props.sort}
+          selected={props.sort}
           handleChange={(e, dispatch) => handleSelectChange(e, props.dispatch)}
         />
       </InnerWrapper>
