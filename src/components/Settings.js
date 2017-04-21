@@ -1,8 +1,13 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import {toggleSettings, setDelay, setSort, SORT_OPTIONS} from '../redux/actions/settingsActions';
+import {
+  toggleSettings,
+  setDelay,
+  setSort,
+  SORT_OPTIONS
+} from '../redux/actions/settingsActions';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -14,7 +19,7 @@ const Wrapper = styled.div`
   border-radius: 2px;
   border: none;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  width: ${props => props.showSettings ? '300px' : 0};
+  width: ${props => (props.showSettings ? '300px' : 0)};
   transition: 0.3s;
 `;
 
@@ -75,6 +80,22 @@ const Input = styled.input`
   }
 `;
 
+const Select = styled.select`
+  -webkit-appearance: none;
+  background-color: transparent;
+  padding: 2px;
+  color: #FFF;
+  border: none;
+  font-size: 14px;
+  border-radius: 0;
+  border-bottom: 1px solid #2196F3;
+  width: 60%;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const SliderValue = styled.span`
   background: #2196F3;
   color: #FFF;
@@ -85,53 +106,57 @@ const SliderValue = styled.span`
 
 const Label = styled.label`
   color: #FFF;
-  margin-right: 20px;
+  margin-bottom: 10px;
+  display: block;
 `;
 
-const Settings = (props) => {
+const Settings = props => {
   return (
     <Wrapper showSettings={props.showSettings}>
       <InnerWrapper>
         <Top>
           <Title>Settings</Title>
-          <Close
-            onClick={() => props.dispatch(toggleSettings())}>
+          <Close onClick={() => props.dispatch(toggleSettings())}>
             ╳
           </Close>
         </Top>
         <Slider delay={props.delay}>
           <Label htmlFor="delay">Delay</Label>
-          <Input 
+          <Input
             name="delay"
             type="range"
-            min="0" max="25"
-            value={Math.round(props.delay/1000)}
-            onChange={(e) => props.dispatch(setDelay(e.target.value*1000))}/>
-          <SliderValue>{Math.round(props.delay/1000)}s</SliderValue>
+            min="0"
+            max="25"
+            value={Math.round(props.delay / 1000)}
+            onChange={e => props.dispatch(setDelay(e.target.value * 1000))}
+          />
+          <SliderValue>{Math.round(props.delay / 1000)}s</SliderValue>
         </Slider>
-        <Label htmlFor="sort">Sort</Label>
-        <select
+        <Label htmlFor="sort">Sort by</Label>
+        <Select
           value={props.sort}
           name="sort"
           onChange={e => props.dispatch(setSort(e.target.value))}
         >
-          {SORT_OPTIONS.map(method => <option value={method} key={method}>{method}</option>)}
-        </select>
+          {SORT_OPTIONS.map(method => (
+            <option value={method} key={method}>{method}</option>
+          ))}
+        </Select>
       </InnerWrapper>
     </Wrapper>
   );
-}
+};
 
 Settings.propTypes = {
   showSettings: PropTypes.bool.isRequired,
   delay: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired
-}
+};
 
-const mapStateToProps = ({settings}, ownProps) => ({
+const mapStateToProps = ({ settings }, ownProps) => ({
   showSettings: settings.showSettings,
   delay: settings.delay,
-  sort: settings.sort,
+  sort: settings.sort
 });
 
 export default connect(mapStateToProps)(Settings);
