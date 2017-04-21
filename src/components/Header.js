@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import icons from '../icons';
@@ -58,36 +58,28 @@ const Submit = styled.input`
 `;
 
 class Header extends Component {
-  
   render() {
     return (
       <Wrapper>
-        <Icon 
-          src={icons.menu}
-          alt="menu icon"
-        />
+        <Icon src={icons.menu} alt="menu icon" />
         <Form
           autoComplete="off"
           onSubmit={e => {
             e.preventDefault();
             this.props.changeSub(e.target['sub'].value);
             e.target['sub'].blur();
-          }}>
+          }}
+        >
           <Label for="sub">/r/</Label>
-          <SubInput 
-            autocomplete="off"
-            name="sub"
-            placeholder="videos"/>
-          <Submit
-            src={icons.search}
-            type="image"
-            alt="Submit" />
+          <SubInput autocomplete="off" name="sub" placeholder="videos" />
+          <Submit src={icons.search} type="image" alt="Submit" />
         </Form>
-        <IconSettings 
+        <IconSettings
           src={icons.settings}
           alt="settings icon"
           showSettings={this.props.showSettings}
-          onClick={this.props.toggleSettings} />
+          onClick={this.props.toggleSettings}
+        />
       </Wrapper>
     );
   }

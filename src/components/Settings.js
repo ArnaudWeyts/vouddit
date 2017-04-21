@@ -1,8 +1,9 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import {toggleSettings, setDelay} from '../redux/actions/settingsActions';
+import { toggleSettings, setDelay } from '../redux/actions/settingsActions';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
   border-radius: 2px;
   border: none;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  width: ${props => props.showSettings ? '300px' : 0};
+  width: ${props => (props.showSettings ? '300px' : 0)};
   transition: 0.3s;
 `;
 
@@ -88,39 +89,40 @@ const Label = styled.label`
   margin-right: 20px;
 `;
 
-const Settings = (props) => {
+const Settings = props => {
   return (
     <Wrapper showSettings={props.showSettings}>
       <InnerWrapper>
         <Top>
           <Title>Settings</Title>
-          <Close
-            onClick={() => props.dispatch(toggleSettings())}>
+          <Close onClick={() => props.dispatch(toggleSettings())}>
             ╳
           </Close>
         </Top>
         <Slider delay={props.delay}>
           <Label htmlFor="delay">Delay</Label>
-          <Input 
+          <Input
             name="delay"
             type="range"
-            min="0" max="25"
-            value={Math.round(props.delay/1000)}
-            onChange={(e) => props.dispatch(setDelay(e.target.value*1000))}/>
-          <SliderValue>{Math.round(props.delay/1000)}s</SliderValue>
+            min="0"
+            max="25"
+            value={Math.round(props.delay / 1000)}
+            onChange={e => props.dispatch(setDelay(e.target.value * 1000))}
+          />
+          <SliderValue>{Math.round(props.delay / 1000)}s</SliderValue>
         </Slider>
       </InnerWrapper>
     </Wrapper>
   );
-}
+};
 
 Settings.propTypes = {
   showSettings: PropTypes.bool.isRequired,
   delay: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired
-}
+};
 
-const mapStateToProps = ({settings}, ownProps) => ({
+const mapStateToProps = ({ settings }, ownProps) => ({
   showSettings: settings.showSettings,
   delay: settings.delay
 });

@@ -1,13 +1,16 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import {
-  togglePlayer, toggleControls,
-  updatePlayed, setDuration
+  togglePlayer,
+  toggleControls,
+  updatePlayed,
+  setDuration
 } from '../../redux/actions/playerActions';
 
-import {Wrapper, PrevButton, NextButton, Timer} from './PlayerStyles';
+import { Wrapper, PrevButton, NextButton, Timer } from './PlayerStyles';
 
 import icons from '../../icons';
 
@@ -30,7 +33,9 @@ class Player extends Component {
   }
 
   scrub(e) {
-    const seekTo = parseFloat(e.nativeEvent.offsetX / e.target.parentNode.offsetWidth);
+    const seekTo = parseFloat(
+      e.nativeEvent.offsetX / e.target.parentNode.offsetWidth
+    );
     this.player.seekTo(seekTo);
     this.props.dispatch(updatePlayed(seekTo));
   }
@@ -51,7 +56,6 @@ class Player extends Component {
       useDefaultPlayer
     } = this.props;
 
-
     /*if(!useDefaultPlayer) {
       const { 
         played, seeking,
@@ -60,9 +64,7 @@ class Player extends Component {
     }*/
 
     // functions
-    const {
-      toggleControls,
-    } = this;
+    const { toggleControls } = this;
 
     let ended = false;
 
@@ -71,13 +73,10 @@ class Player extends Component {
         return (
           <Timer>
             <svg className="svg">
-              <circle
-                className="circle"
-                r="75" cx="77" cy="77"
-                delay={delay} />
+              <circle className="circle" r="75" cx="77" cy="77" delay={delay} />
             </svg>
           </Timer>
-        )
+        );
       }
     };
 
@@ -86,9 +85,12 @@ class Player extends Component {
         onMouseEnter={toggleControls.bind(this)}
         onMouseLeave={toggleControls.bind(this)}
         // check playerstyles to find out why this is passed
-        showSettings={showSettings}>
+        showSettings={showSettings}
+      >
         <ReactPlayer
-          ref={player => { this.player = player }}
+          ref={player => {
+            this.player = player;
+          }}
           url={url}
           controls={useDefaultPlayer}
           playing={playing}
@@ -96,16 +98,16 @@ class Player extends Component {
           // this is pretty dodgy because this means we're updating
           // the state alot, but it does give us a smooth bar
           progressFrequency={duration < 1000 ? duration : 1000}
-          onPlay={() => (dispatch(togglePlayer(true)))}
+          onPlay={() => dispatch(togglePlayer(true))}
           onPause={() => dispatch(togglePlayer(false))}
           // stop update played action spam for now
           // onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
-          onDuration={(duration) => dispatch(setDuration(duration))}
+          onDuration={duration => dispatch(setDuration(duration))}
           onEnded={() => {
             // reset the player and start the next post
             ended = true;
             setTimeout(() => {
-              getPrevNextPost(true)
+              getPrevNextPost(true);
             }, delay);
             dispatch(updatePlayed(0));
           }}
@@ -113,15 +115,18 @@ class Player extends Component {
           height="100%"
           // this doesn't work with the default showinfo=0 option
           // thank google for that but it's either the title bar or small logo
-          youtubeConfig={{ playerVars: { modestbranding: 1 } }} />      
+          youtubeConfig={{ playerVars: { modestbranding: 1 } }}
+        />
         <PrevButton
           visible={!isFirst && showControls}
           onClick={() => getPrevNextPost(false)}
-          src={icons.chevron_left} />
+          src={icons.chevron_left}
+        />
         <NextButton
           visible={showControls}
           onClick={() => getPrevNextPost(true)}
-          src={icons.chevron_right} />
+          src={icons.chevron_right}
+        />
         {renderTimer()}
       </Wrapper>
     );
@@ -137,9 +142,9 @@ Player.propTypes = {
   duration: PropTypes.number,
   useDefaultPlayer: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
-}
+};
 
-const mapStateToProps = ({player, settings}, ownProps) => {
+const mapStateToProps = ({ player, settings }, ownProps) => {
   return {
     playing: player.playing,
     played: player.played,
@@ -148,7 +153,7 @@ const mapStateToProps = ({player, settings}, ownProps) => {
     showControls: player.showControls,
     duration: player.duration,
     useDefaultPlayer: settings.useDefaultPlayer
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Player);

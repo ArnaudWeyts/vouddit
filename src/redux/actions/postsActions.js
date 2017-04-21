@@ -47,7 +47,7 @@ export function fetchPosts(subreddit, after = null) {
       .then(response => response.json())
       .then(json => {
         // set boolean to see if it's an update or not
-        dispatch(receivePosts(subreddit, after ? true : false, json))
+        dispatch(receivePosts(subreddit, after ? true : false, json));
       })
       .catch(ex => {
         console.warn(`Couldn't fetch from url: ${ex}`);
@@ -60,5 +60,5 @@ export function setPrevNextPost(current, direction) {
   const indexNext = current.index + (direction ? 1 : -1);
   return dispatch => {
     dispatch(nextPost(indexNext));
-  }
+  };
 }

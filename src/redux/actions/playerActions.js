@@ -9,39 +9,39 @@ export function togglePlayer(play = null) {
   return {
     type: TOGGLE_PLAYER,
     play
-  }
+  };
 }
 
 export function toggleControls() {
   return {
     type: TOGGLE_CONTROLS
-  }
+  };
 }
 
 export function updatePlayed(played) {
   return {
     type: UPDATE_PLAYED,
     played
-  }
+  };
 }
 
 export function setVolume(volume) {
   return {
     type: SET_VOLUME,
     volume
-  }
+  };
 }
 
 export function seek(seek) {
   return {
     type: SEEKING,
     seek
-  }
+  };
 }
 
 export function setDuration(duration) {
   return {
     type: SET_DURATION,
     duration
-  }
+  };
 }

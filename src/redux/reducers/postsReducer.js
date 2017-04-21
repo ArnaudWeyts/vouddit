@@ -1,5 +1,7 @@
 import {
-  REQUEST_POSTS, RECEIVE_POSTS, NEXT_POST,
+  REQUEST_POSTS,
+  RECEIVE_POSTS,
+  NEXT_POST,
   SELECT_SUBREDDIT
 } from '../actions/postsActions';
 
@@ -9,7 +11,7 @@ const INITIAL_STATE = {
   postActive: null,
   isFetching: false,
   subreddit: 'videos'
-}
+};
 
 let index = 0;
 
@@ -25,7 +27,7 @@ export default function postsReducer(state = INITIAL_STATE, action) {
       const posts = action.posts.children.filter(post => {
         // filter out all the posts we don't want
         if (!post.data.media) return false;
-        const {type} = post.data.media;
+        const { type } = post.data.media;
         return (
           type === 'youtube.com' ||
           type === 'vimeo.com' ||
@@ -42,7 +44,9 @@ export default function postsReducer(state = INITIAL_STATE, action) {
         posts: action.update ? [...state.posts, ...posts] : posts,
         nextPosts: action.posts.after,
         // don't set the postactive to the first one after an update
-        postActive: action.update ? state.postActive : {index, ...posts[0].data},
+        postActive: action.update
+          ? state.postActive
+          : { index, ...posts[0].data },
         isFetching: false
       };
     case NEXT_POST:
@@ -53,13 +57,13 @@ export default function postsReducer(state = INITIAL_STATE, action) {
       }
       return {
         ...state,
-        postActive: {index, ...state.posts[action.nextPost].data}
+        postActive: { index, ...state.posts[action.nextPost].data }
       };
     case SELECT_SUBREDDIT:
       return {
         ...state,
         subreddit: action.subreddit
-      }
+      };
     default:
       return state;
   }

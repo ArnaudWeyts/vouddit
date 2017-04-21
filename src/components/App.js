@@ -1,13 +1,18 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import {fetchPosts, selectSubreddit, setPrevNextPost} from '../redux/actions/postsActions';
-import {togglePlayer} from '../redux/actions/playerActions';
-import {toggleSettings} from '../redux/actions/settingsActions';
+import {
+  fetchPosts,
+  selectSubreddit,
+  setPrevNextPost
+} from '../redux/actions/postsActions';
+import { togglePlayer } from '../redux/actions/playerActions';
+import { toggleSettings } from '../redux/actions/settingsActions';
 
-import {debounce} from '../lib/utils';
+import { debounce } from '../lib/utils';
 
 import Header from './Header';
 import Player from './Player/index';
@@ -22,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  margin-right: ${props => props.showSettings ? '300px' : 0};
+  margin-right: ${props => (props.showSettings ? '300px' : 0)};
   transition: margin-right 0.3s ease-in-out;
 `;
 
@@ -34,7 +39,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    const {dispatch, subreddit} = this.props;
+    const { dispatch, subreddit } = this.props;
     dispatch(fetchPosts(subreddit));
   }
 
@@ -51,15 +56,15 @@ class App extends Component {
   }
 
   // keyboard shortcuts wheeeee
-  handleKeyDown({key}) {
-    const {dispatch, postActive} = this.props;
-    switch(key) {
+  handleKeyDown({ key }) {
+    const { dispatch, postActive } = this.props;
+    switch (key) {
       case 'ArrowRight':
         return dispatch(setPrevNextPost(postActive, true));
       case 'ArrowLeft':
         return dispatch(setPrevNextPost(postActive, false));
       case ' ':
-        return dispatch(togglePlayer()); 
+        return dispatch(togglePlayer());
       default:
         return;
     }
@@ -69,18 +74,14 @@ class App extends Component {
     // we can't update without the current posts
     if (!this.props.postActive) return;
 
-    const {
-      posts, nextPosts,
-      subreddit, isFetching, 
-      dispatch
-    } = this.props;
+    const { posts, nextPosts, subreddit, isFetching, dispatch } = this.props;
 
     // never update while fetching
     if (isFetching || nextProps.isFetching) return;
 
     // fetch more posts if there are only 5 left
     if (nextProps.postActive.index + 4 > posts.length) {
-      dispatch(fetchPosts(subreddit, nextPosts))
+      dispatch(fetchPosts(subreddit, nextPosts));
     }
   }
 
@@ -106,14 +107,17 @@ class App extends Component {
 
   render() {
     const {
-      posts, postActive,
-      dispatch, subreddit,
-      showSettings, delay
+      posts,
+      postActive,
+      dispatch,
+      subreddit,
+      showSettings,
+      delay
     } = this.props;
 
     return (
       <Wrapper
-        /**
+      /**
         this makes the menu disappear if we click on the wrapper,
         not needed atm 
         onClick={e => {
@@ -127,27 +131,33 @@ class App extends Component {
         }}**/
       >
         <ContentWrapper showSettings={showSettings}>
-          <Header 
+          <Header
             currentSub={subreddit}
-            changeSub={(sub) => this.changeSub(dispatch, sub)}
-            toggleSettings={() => this.toggleSettingsDisp(dispatch)} 
-            showSettings={showSettings} />
+            changeSub={sub => this.changeSub(dispatch, sub)}
+            toggleSettings={() => this.toggleSettingsDisp(dispatch)}
+            showSettings={showSettings}
+          />
           <Player
             url={postActive ? postActive.url : ''}
             // TODO make this a toggleable setting
-            hideControls={postActive ? postActive.media.type === 'vimeo.com' : false}
+            hideControls={
+              postActive ? postActive.media.type === 'vimeo.com' : false
+            }
             isFirst={postActive ? postActive.index === 0 : false}
-            getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)}
+            getPrevNextPost={direction =>
+              this.getPrevNextPost(dispatch, postActive, direction)}
             delay={delay}
-            showSettings={showSettings} />
+            showSettings={showSettings}
+          />
           <RedditControls
             togglePlayer={() => this.togglePlayerDisp(dispatch)}
-            currentVid={postActive} 
+            currentVid={postActive}
             nextVid={postActive ? posts[postActive.index + 1] : null}
-            getPrevNextPost={(direction) => this.getPrevNextPost(dispatch, postActive, direction)} />
+            getPrevNextPost={direction =>
+              this.getPrevNextPost(dispatch, postActive, direction)}
+          />
         </ContentWrapper>
-        <Settings 
-          ref="settings" />
+        <Settings ref="settings" />
       </Wrapper>
     );
   }
@@ -155,16 +165,16 @@ class App extends Component {
 
 App.propTypes = {
   subreddit: PropTypes.string.isRequired,
-  posts:  PropTypes.array.isRequired,
+  posts: PropTypes.array.isRequired,
   nextPosts: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   postActive: PropTypes.object,
   showSettings: PropTypes.bool.isRequired,
   delay: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired
-}
+};
 
-const mapStateToProps = ({posts, settings}, ownProps) => ({
+const mapStateToProps = ({ posts, settings }, ownProps) => ({
   subreddit: posts.subreddit,
   posts: posts.posts,
   nextPosts: posts.nextPosts,

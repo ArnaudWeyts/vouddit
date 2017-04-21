@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ export const ControlBar = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0;
-  transform: ${props => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'};
+  transform: ${props => (props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)')};
   transition: transform 0.2s;
   ${props => props.hideCompletely && 'display: none'} 
 `;
@@ -20,7 +20,7 @@ export const ControlBar = styled.div`
 export const Progress = styled.div`
   cursor: ew-resize;
   width: 100%;
-  height: ${props => props.extend ? '15' : '5'}px;
+  height: ${props => (props.extend ? '15' : '5')}px;
   background-color: rgba(0, 0, 0, 0.5);
   transition: height 0.2s;
 `;
@@ -33,7 +33,7 @@ export const ProgressFilled = styled.div`
   border-right: 2px solid #2196F3;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  ${props => props.played === 0 ? 'border: none' : ''};
+  ${props => (props.played === 0 ? 'border: none' : '')};
 `;
 
 export const Time = styled.div`
@@ -109,7 +109,7 @@ export const PrevButton = styled.img`
   position: absolute;
   top: 50%;
   left: 0;
-  transform: ${props => props.visible ? 'translateX(0)' : 'translateX(-100%)'};
+  transform: ${props => (props.visible ? 'translateX(0)' : 'translateX(-100%)')};
   transition: transform .2s;
 `;
 
@@ -121,7 +121,7 @@ export const NextButton = styled.img`
   position: absolute;
   top: 50%;
   right: 0;
-  transform: ${props => props.visible ? 'translateX(0)' : 'translateX(100%)'};
+  transform: ${props => (props.visible ? 'translateX(0)' : 'translateX(100%)')};
   transition: transform .2s;
 `;
 
@@ -132,7 +132,7 @@ const countdown = keyframes`
   to {
     stroke-dashoffset: 471px;
   }
-`
+`;
 
 export const Timer = styled.div`
   position: absolute;
