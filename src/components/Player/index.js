@@ -7,7 +7,7 @@ import {
   updatePlayed, setDuration
 } from '../../redux/actions/playerActions';
 
-import {Wrapper, PrevButton, NextButton} from './PlayerStyles';
+import {Wrapper, PrevButton, NextButton, Timer} from './PlayerStyles';
 
 import icons from '../../icons';
 
@@ -64,6 +64,23 @@ class Player extends Component {
       toggleControls,
     } = this;
 
+    let ended = false;
+
+    const renderTimer = () => {
+      if (ended) {
+        return (
+          <Timer>
+            <svg className="svg">
+              <circle
+                className="circle"
+                r="75" cx="77" cy="77"
+                delay={delay} />
+            </svg>
+          </Timer>
+        )
+      }
+    };
+
     return (
       <Wrapper
         onMouseEnter={toggleControls.bind(this)}
@@ -86,10 +103,11 @@ class Player extends Component {
           onDuration={(duration) => dispatch(setDuration(duration))}
           onEnded={() => {
             // reset the player and start the next post
-            dispatch(updatePlayed(0));
+            ended = true;
             setTimeout(() => {
               getPrevNextPost(true)
             }, delay);
+            dispatch(updatePlayed(0));
           }}
           width="100%"
           height="100%"
@@ -104,6 +122,7 @@ class Player extends Component {
           visible={showControls}
           onClick={() => getPrevNextPost(true)}
           src={icons.chevron_right} />
+        {renderTimer()}
       </Wrapper>
     );
   }

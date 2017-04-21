@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -123,4 +123,44 @@ export const NextButton = styled.img`
   right: 0;
   transform: ${props => props.visible ? 'translateX(0)' : 'translateX(100%)'};
   transition: transform .2s;
+`;
+
+const countdown = keyframes`
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 471px;
+  }
+`
+
+export const Timer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 154px;
+  height: 154px;
+  margin-left: -77px;
+  margin-top: -77px;
+  text-align: center;
+
+  .svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 154px;
+    height: 154px;
+    transform: rotateY(-180deg) rotateZ(-90deg);
+  }
+
+  .svg .circle {
+    stroke-dasharray: 471px;
+    stroke-dashoffset: 0px;
+    stroke-linecap: round;
+    stroke-linecap: round;
+    stroke-width: 2px;
+    stroke: white;
+    fill: none;
+    animation: ${countdown} ${props => props.delay} linear infinite forwards;
+  }
 `;
