@@ -1,3 +1,5 @@
+import { fetchPosts } from './postsActions';
+
 export const TOGGLE_SETTINGS = 'TOGGLE_SETTINGS';
 export const TOGGLE_USE_DEFAULT_PLAYER = 'TOGGLE_USE_DEFAULT_PLAYER';
 export const SET_DELAY = 'SET_DELAY';
@@ -10,7 +12,7 @@ export const SORT_OPTIONS = [
   'controversial',
   'top',
   'gilded',
-  'promoted',
+  'promoted'
 ];
 
 export function toggleSettings() {
@@ -36,5 +38,13 @@ export function setSort(sort) {
   return {
     type: SET_SORT,
     sort
-  }
+  };
+}
+
+export function setSortAndFetch(sort) {
+  return (dispatch, getState) => {
+    const { subreddit } = getState().posts;
+    dispatch(setSort(sort));
+    dispatch(fetchPosts(subreddit, undefined, sort));
+  };
 }
