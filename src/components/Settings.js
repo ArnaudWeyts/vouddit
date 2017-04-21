@@ -51,7 +51,7 @@ const Close = styled.span`
 
 const Label = styled.label`
   color: #FFF;
-  margin-bottom: 10px;
+  margin: 20px 0 10px 0;
   display: block;
 `;
 

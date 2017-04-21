@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const Slider = styled.div`
   display: inline-block;
   position: relative;
-  margin: 20px 0;
 `;
 
 const Input = styled.input`
