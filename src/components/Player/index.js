@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 
@@ -90,7 +91,6 @@ class Player extends Component {
           onDuration={duration => dispatch(setDuration(duration))}
           onEnded={() => {
             // reset the player and start the next post
-            ended = true;
             setTimeout(() => {
               getPrevNextPost(true);
             }, delay);
