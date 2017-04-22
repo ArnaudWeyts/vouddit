@@ -8,12 +8,14 @@ import {
   toggleControls,
   updatePlayed,
   setDuration,
-  toggleEnded
+  toggleEnded,
+  setTimer
 } from '../../redux/actions/playerActions';
 
 import { Wrapper, PrevButton, NextButton, Timer, Circle } from './PlayerStyles';
 
 import icons from '../shared/icons';
+import Button from '../shared/Button';
 
 class Player extends Component {
   componentWillReceiveProps(nextProps) {
@@ -43,15 +45,18 @@ class Player extends Component {
 
   handleEnded() {
     const { dispatch, getPrevNextPost, delay } = this.props;
+
     dispatch(toggleEnded());
     // start the next post, reset the player
-    return new Promise(() => {
-      setTimeout(() => {
-        getPrevNextPost(true);
-        dispatch(updatePlayed(0));
-        dispatch(toggleEnded());
-      }, delay);
-    });
+    dispatch(
+      setTimer(
+        setTimeout(() => {
+          getPrevNextPost(true);
+          dispatch(updatePlayed(0));
+          dispatch(toggleEnded());
+        }, delay)
+      )
+    );
   }
 
   renderTimer() {
@@ -60,6 +65,15 @@ class Player extends Component {
         <svg className="svg">
           <Circle r="75" cx="77" cy="77" delay={this.props.delay} />
         </svg>
+        <Button
+          className="button"
+          onClick={() => {
+            clearTimeout(this.props.timer);
+            this.props.dispatch(toggleEnded());
+          }}
+        >
+          Cancel
+        </Button>
       </Timer>
     );
   }
@@ -157,6 +171,7 @@ const mapStateToProps = ({ player, settings }, ownProps) => {
     showControls: player.showControls,
     duration: player.duration,
     ended: player.ended,
+    timer: player.timer,
     useDefaultPlayer: settings.useDefaultPlayer
   };
 };

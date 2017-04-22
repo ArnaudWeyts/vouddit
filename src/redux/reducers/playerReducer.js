@@ -5,7 +5,8 @@ import {
   SEEKING,
   SET_DURATION,
   UPDATE_PLAYED,
-  TOGGLE_ENDED
+  TOGGLE_ENDED,
+  SET_TIMER
 } from '../actions/playerActions';
 
 const INITIAL_STATE = {
@@ -15,7 +16,8 @@ const INITIAL_STATE = {
   volume: 1,
   seeking: false,
   duration: null,
-  ended: false
+  ended: false,
+  timer: null
 };
 
 export default function playerReducer(state = INITIAL_STATE, action) {
@@ -54,6 +56,11 @@ export default function playerReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         ended: !state.ended
+      };
+    case SET_TIMER:
+      return {
+        ...state,
+        timer: action.timer
       };
     default:
       return state;

@@ -139,7 +139,7 @@ export const Timer = styled.div`
   top: 50%;
   left: 50%;
   width: 154px;
-  height: 154px;
+  height: 220px;
   margin-left: -77px;
   margin-top: -77px;
   text-align: center;
@@ -151,6 +151,14 @@ export const Timer = styled.div`
     width: 154px;
     height: 154px;
     transform: rotateY(-180deg) rotateZ(-90deg);
+  }
+
+  .button {
+    width: 50px;
+    left: 50%;
+    bottom: 0;
+    position: absolute;
+    margin-left: -35px;;
   }
 `;
 

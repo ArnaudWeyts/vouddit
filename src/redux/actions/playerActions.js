@@ -5,6 +5,7 @@ export const SET_VOLUME = 'SET_VOLUME';
 export const SEEKING = 'SEEKING';
 export const SET_DURATION = 'SET_DURATION';
 export const TOGGLE_ENDED = 'TOGGLE_ENDED';
+export const SET_TIMER = 'SET_TIMER';
 
 export function togglePlayer(play = null) {
   return {
@@ -50,5 +51,12 @@ export function setDuration(duration) {
 export function toggleEnded() {
   return {
     type: TOGGLE_ENDED
+  };
+}
+
+export function setTimer(timer) {
+  return {
+    type: SET_TIMER,
+    timer
   };
 }
