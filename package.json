@@ -2,7 +2,7 @@
   "name": "vouddit",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://weyts.xyz/vouddit",
+  "homepage": "https://vouddit.com",
   "dependencies": {
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
