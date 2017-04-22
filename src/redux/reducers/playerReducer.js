@@ -4,7 +4,8 @@ import {
   SET_VOLUME,
   SEEKING,
   SET_DURATION,
-  UPDATE_PLAYED
+  UPDATE_PLAYED,
+  TOGGLE_ENDED
 } from '../actions/playerActions';
 
 const INITIAL_STATE = {
@@ -13,7 +14,8 @@ const INITIAL_STATE = {
   played: 0,
   volume: 1,
   seeking: false,
-  duration: null
+  duration: null,
+  ended: false
 };
 
 export default function playerReducer(state = INITIAL_STATE, action) {
@@ -47,6 +49,11 @@ export default function playerReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         duration: action.duration
+      };
+    case TOGGLE_ENDED:
+      return {
+        ...state,
+        ended: !state.ended
       };
     default:
       return state;

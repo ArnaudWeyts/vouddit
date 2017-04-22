@@ -4,6 +4,7 @@ export const UPDATE_PLAYED = 'UPDATE_PLAYED';
 export const SET_VOLUME = 'SET_VOLUME';
 export const SEEKING = 'SEEKING';
 export const SET_DURATION = 'SET_DURATION';
+export const TOGGLE_ENDED = 'TOGGLE_ENDED';
 
 export function togglePlayer(play = null) {
   return {
@@ -43,5 +44,11 @@ export function setDuration(duration) {
   return {
     type: SET_DURATION,
     duration
+  };
+}
+
+export function toggleEnded() {
+  return {
+    type: TOGGLE_ENDED
   };
 }

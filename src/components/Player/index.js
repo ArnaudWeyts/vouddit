@@ -7,10 +7,11 @@ import {
   togglePlayer,
   toggleControls,
   updatePlayed,
-  setDuration
+  setDuration,
+  toggleEnded
 } from '../../redux/actions/playerActions';
 
-import { Wrapper, PrevButton, NextButton } from './PlayerStyles';
+import { Wrapper, PrevButton, NextButton, Timer, Circle } from './PlayerStyles';
 
 import icons from '../shared/icons';
 
@@ -40,6 +41,29 @@ class Player extends Component {
     this.props.dispatch(updatePlayed(seekTo));
   }
 
+  handleEnded() {
+    const { dispatch, getPrevNextPost, delay } = this.props;
+    dispatch(toggleEnded());
+    // start the next post, reset the player
+    return new Promise(() => {
+      setTimeout(() => {
+        getPrevNextPost(true);
+        dispatch(updatePlayed(0));
+        dispatch(toggleEnded());
+      }, delay);
+    });
+  }
+
+  renderTimer() {
+    return (
+      <Timer>
+        <svg className="svg">
+          <Circle r="75" cx="77" cy="77" delay={this.props.delay} />
+        </svg>
+      </Timer>
+    );
+  }
+
   render() {
     // redux variables
     const {
@@ -52,8 +76,8 @@ class Player extends Component {
       url,
       isFirst,
       showSettings,
-      delay,
-      useDefaultPlayer
+      useDefaultPlayer,
+      ended
     } = this.props;
 
     /*if(!useDefaultPlayer) {
@@ -89,19 +113,14 @@ class Player extends Component {
           // stop update played action spam for now
           // onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
           onDuration={duration => dispatch(setDuration(duration))}
-          onEnded={() => {
-            // reset the player and start the next post
-            setTimeout(() => {
-              getPrevNextPost(true);
-            }, delay);
-            dispatch(updatePlayed(0));
-          }}
+          onEnded={() => this.handleEnded()}
           width="100%"
           height="100%"
           // this doesn't work with the default showinfo=0 option
           // thank google for that but it's either the title bar or small logo
           youtubeConfig={{ playerVars: { modestbranding: 1 } }}
         />
+        {ended && this.renderTimer()}
         <PrevButton
           visible={!isFirst && showControls}
           onClick={() => getPrevNextPost(false)}
@@ -124,6 +143,7 @@ Player.propTypes = {
   seeking: PropTypes.bool.isRequired,
   showControls: PropTypes.bool.isRequired,
   duration: PropTypes.number,
+  ended: PropTypes.bool.isRequired,
   useDefaultPlayer: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 };
@@ -136,6 +156,7 @@ const mapStateToProps = ({ player, settings }, ownProps) => {
     seeking: player.seeking,
     showControls: player.showControls,
     duration: player.duration,
+    ended: player.ended,
     useDefaultPlayer: settings.useDefaultPlayer
   };
 };

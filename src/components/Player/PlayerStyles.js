@@ -152,15 +152,15 @@ export const Timer = styled.div`
     height: 154px;
     transform: rotateY(-180deg) rotateZ(-90deg);
   }
+`;
 
-  .svg .circle {
-    stroke-dasharray: 471px;
-    stroke-dashoffset: 0px;
-    stroke-linecap: round;
-    stroke-linecap: round;
-    stroke-width: 2px;
-    stroke: white;
-    fill: none;
-    animation: ${countdown} ${props => props.delay} linear infinite forwards;
-  }
+export const Circle = styled.circle`
+  stroke-dasharray: 471px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  stroke: white;
+  fill: none;
+  animation: ${countdown} ${props => `${props.delay}ms`} linear infinite forwards;
 `;
