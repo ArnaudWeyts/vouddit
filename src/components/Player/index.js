@@ -12,7 +12,14 @@ import {
   setTimer
 } from '../../redux/actions/playerActions';
 
-import { Wrapper, PrevButton, NextButton, Timer, Circle } from './PlayerStyles';
+import {
+  Wrapper,
+  Dimmed,
+  PrevButton,
+  NextButton,
+  Timer,
+  Circle
+} from './PlayerStyles';
 
 import icons from '../shared/icons';
 import Button from '../shared/Button';
@@ -130,10 +137,12 @@ class Player extends Component {
           onEnded={() => this.handleEnded()}
           width="100%"
           height="100%"
+          style={{ position: 'absolute', zIndex: '-1' }}
           // this doesn't work with the default showinfo=0 option
           // thank google for that but it's either the title bar or small logo
           youtubeConfig={{ playerVars: { modestbranding: 1 } }}
         />
+        <Dimmed visible={ended} />
         {ended && this.renderTimer()}
         <PrevButton
           visible={!isFirst && showControls}

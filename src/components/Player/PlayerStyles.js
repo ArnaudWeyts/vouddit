@@ -6,6 +6,13 @@ export const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
   user-select: none;
+  z-index: 10;
+`;
+
+export const Dimmed = styled.div`
+  height: 100%;
+  position: relative;
+  ${props => (props.visible ? 'background: rgba(0, 0, 0, 0.7)' : 'display: none')};
 `;
 
 export const ControlBar = styled.div`
