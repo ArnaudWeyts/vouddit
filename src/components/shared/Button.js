@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ButtonInput = styled.a`
+const Button = styled.a`
   cursor: pointer;
   background: #FFF;
   color: #000;
@@ -9,12 +9,12 @@ const ButtonInput = styled.a`
   padding: 10px;
 `;
 
-const Button = ({ onClick, children, className }) => {
+const ButtonInput = ({ onClick, children, className }) => {
   return (
-    <ButtonInput className={className} onClick={onClick}>
+    <Button className={className} onClick={onClick}>
       {children}
-    </ButtonInput>
+    </Button>
   );
 };
 
-export default Button;
+export default ButtonInput;
