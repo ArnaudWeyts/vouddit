@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
+// @flow
+
 import React, { Component } from 'react';
-//import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -31,11 +31,33 @@ const ContentWrapper = styled.div`
   transition: margin-right 0.3s ease-in-out;
 `;
 
+type Props = {
+  subreddit: string,
+  posts: Array<{}>,
+  nextPosts: string,
+  isFetching: boolean,
+  postActive: {
+    title: string,
+    author: string,
+    index: number,
+    url: string,
+    ups: number,
+    permalink: string,
+    media: { type: string }
+  },
+  showSettings: boolean,
+  delay: number,
+  sort: string,
+  dispatch: void => void
+};
+
 class App extends Component {
-  constructor(props) {
+  props: Props;
+
+  constructor(props: Props) {
     super(props);
 
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    (this: any).handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentWillMount() {
@@ -109,6 +131,7 @@ class App extends Component {
     dispatch(togglePlayer());
   }
 
+  // dispatch for settings
   toggleSettingsDisp(dispatch) {
     dispatch(toggleSettings());
   }
@@ -124,20 +147,7 @@ class App extends Component {
     } = this.props;
 
     return (
-      <Wrapper
-      /**
-        this makes the menu disappear if we click on the wrapper,
-        not needed atm 
-        onClick={e => {
-          const settings = ReactDOM.findDOMNode(this.refs.settings);
-          // check if you're clicking on the settings window
-          // or any child of it, and exit if so
-          if (!settings || settings.contains(e.target)) return;
-          if (!showSettings) return;
-          // hide the settings window, because we clicked outside of it
-          e.target !== settings && dispatch(toggleSettings());
-        }}**/
-      >
+      <Wrapper>
         <ContentWrapper showSettings={showSettings}>
           <Header
             currentSub={subreddit}
@@ -170,18 +180,6 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  subreddit: PropTypes.string.isRequired,
-  posts: PropTypes.array.isRequired,
-  nextPosts: PropTypes.string,
-  isFetching: PropTypes.bool.isRequired,
-  postActive: PropTypes.object,
-  showSettings: PropTypes.bool.isRequired,
-  delay: PropTypes.number.isRequired,
-  sort: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 
 const mapStateToProps = ({ posts, settings }, ownProps) => ({
   subreddit: posts.subreddit,

@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+// @flow
+
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -91,13 +92,6 @@ const Settings = props => {
       </InnerWrapper>
     </Wrapper>
   );
-};
-
-Settings.propTypes = {
-  showSettings: PropTypes.bool.isRequired,
-  delay: PropTypes.number.isRequired,
-  sort: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ settings }, ownProps) => ({

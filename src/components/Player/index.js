@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+// @flow
+
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
@@ -25,6 +26,8 @@ import icons from '../shared/icons';
 import Button from '../shared/Button';
 
 class Player extends Component {
+  player: any;
+
   componentWillReceiveProps(nextProps) {
     // checks if a new video is being loaded
     if (nextProps.url !== this.props.url) {
@@ -86,7 +89,6 @@ class Player extends Component {
   }
 
   render() {
-    // redux variables
     const {
       playing,
       volume,
@@ -158,18 +160,6 @@ class Player extends Component {
     );
   }
 }
-
-Player.propTypes = {
-  playing: PropTypes.bool.isRequired,
-  played: PropTypes.number.isRequired,
-  volume: PropTypes.number.isRequired,
-  seeking: PropTypes.bool.isRequired,
-  showControls: PropTypes.bool.isRequired,
-  duration: PropTypes.number,
-  ended: PropTypes.bool.isRequired,
-  useDefaultPlayer: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 
 const mapStateToProps = ({ player, settings }, ownProps) => {
   return {

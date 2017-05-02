@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -82,8 +84,20 @@ const NextVideo = styled.div`
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `;
 
-const RedditControls = props => {
-  const { currentVid, togglePlayer } = props;
+const RedditControls = (
+  props: {
+    currentVid: {
+      title: string,
+      permalink: string,
+      author: string,
+      ups: number
+    },
+    togglePlayer: () => void,
+    getPrevNextPost: boolean => void,
+    nextVid: ?{}
+  }
+) => {
+  const { currentVid, togglePlayer, getPrevNextPost } = props;
   return (
     <Wrapper>
       <Current>
@@ -112,7 +126,7 @@ const RedditControls = props => {
         <Icon src={icons.chevron_right} alt="chevron right icon" />
         <NextVideo
           nextVid={props.nextVid}
-          onClick={() => props.getPrevNextPost(true)}
+          onClick={() => getPrevNextPost(true)}
         />
       </Next>
     </Wrapper>
