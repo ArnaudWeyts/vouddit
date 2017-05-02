@@ -1,6 +1,4 @@
-// @flow
-
-import React, { Component } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 import icons from './shared/icons';
@@ -59,7 +57,7 @@ const Submit = styled.input`
   }
 `;
 
-class Header extends Component {
+class Header implements React.StatelessComponent {
   render() {
     return (
       <Wrapper>

@@ -1,6 +1,4 @@
-// @flow
-
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -19,6 +17,8 @@ import Player from './Player/index';
 import RedditControls from './RedditControls';
 import Settings from './Settings';
 
+/// <reference path="./interfaces.d.ts"/>
+
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -26,38 +26,28 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+interface ContentWrapperProps { showSettings: boolean }
 const ContentWrapper = styled.div`
-  margin-right: ${props => (props.showSettings ? '300px' : 0)};
+  margin-right: ${(props: ContentWrapperProps) => (props.showSettings ? '300px' : 0)};
   transition: margin-right 0.3s ease-in-out;
 `;
 
-type Props = {
-  subreddit: string,
-  posts: Array<{}>,
-  nextPosts: string,
-  isFetching: boolean,
-  postActive: {
-    title: string,
-    author: string,
-    index: number,
-    url: string,
-    ups: number,
-    permalink: string,
-    media: { type: string }
-  },
-  showSettings: boolean,
-  delay: number,
-  sort: string,
-  dispatch: void => void
-};
+const mapStateToProps = ({ posts, settings }: { posts: IPosts, settings: ISettings }) => ({
+  subreddit: posts.subreddit,
+  posts: posts.posts,
+  nextPosts: posts.nextPosts,
+  isFetching: posts.isFetching,
+  postActive: posts.postActive,
+  showSettings: settings.showSettings,
+  delay: settings.delay,
+  sort: settings.sort
+});
 
-class App extends Component {
-  props: Props;
-
-  constructor(props: Props) {
+class App extends React.Component<IAppProps, any> {
+  constructor(props: IAppProps) {
     super(props);
 
-    (this: any).handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentWillMount() {
@@ -73,12 +63,12 @@ class App extends Component {
     window.removeEventListener('keydown', debounce(this.handleKeyDown, 100));
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IAppProps) {
     this.checkForUpdate(nextProps);
   }
 
   // keyboard shortcuts wheeeee
-  handleKeyDown({ key }) {
+  handleKeyDown({ key }: { key: string }) {
     const { dispatch, postActive } = this.props;
     switch (key) {
       case 'ArrowRight':
@@ -92,7 +82,7 @@ class App extends Component {
     }
   }
 
-  checkForUpdate(nextProps) {
+  checkForUpdate(nextProps: IAppProps) {
     // we can't update without the current posts
     if (!this.props.postActive) return;
 
@@ -115,24 +105,24 @@ class App extends Component {
   }
 
   // dispatch event when the subreddit is changed
-  changeSub(dispatch, sub) {
+  changeSub(dispatch: IDispatch<any>, sub: string) {
     const { sort } = this.props;
     dispatch(selectSubreddit(sub));
     dispatch(fetchPosts(sub, null, sort));
   }
 
   // dispatch event for next/prev post
-  getPrevNextPost(dispatch, post, direction) {
+  getPrevNextPost(dispatch: IDispatch<any>, post: IPost, direction: boolean) {
     dispatch(setPrevNextPost(post, direction));
   }
 
   // dispatch for togglePlayer
-  togglePlayerDisp(dispatch) {
+  togglePlayerDisp(dispatch: IDispatch<any>) {
     dispatch(togglePlayer());
   }
 
   // dispatch for settings
-  toggleSettingsDisp(dispatch) {
+  toggleSettingsDisp(dispatch: IDispatch<any>) {
     dispatch(toggleSettings());
   }
 
@@ -151,7 +141,7 @@ class App extends Component {
         <ContentWrapper showSettings={showSettings}>
           <Header
             currentSub={subreddit}
-            changeSub={sub => this.changeSub(dispatch, sub)}
+            changeSub={(sub: string) => this.changeSub(dispatch, sub)}
             toggleSettings={() => this.toggleSettingsDisp(dispatch)}
             showSettings={showSettings}
           />
@@ -162,7 +152,7 @@ class App extends Component {
               postActive ? postActive.media.type === 'vimeo.com' : false
             }
             isFirst={postActive ? postActive.index === 0 : false}
-            getPrevNextPost={direction =>
+            getPrevNextPost={(direction: boolean) =>
               this.getPrevNextPost(dispatch, postActive, direction)}
             delay={delay}
             showSettings={showSettings}
@@ -181,15 +171,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, settings }, ownProps) => ({
-  subreddit: posts.subreddit,
-  posts: posts.posts,
-  nextPosts: posts.nextPosts,
-  isFetching: posts.isFetching,
-  postActive: posts.postActive,
-  showSettings: settings.showSettings,
-  delay: settings.delay,
-  sort: settings.sort
-});
-
-export default connect(mapStateToProps)(App);
+export default connect<IAppProps, {}, {}>(mapStateToProps)(App);
