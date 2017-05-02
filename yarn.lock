@@ -3299,6 +3299,10 @@ lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
+lodash.omit@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
+
 lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
@@ -4192,7 +4196,7 @@ qs@6.4.0, qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
-query-string@^4.1.0, query-string@^4.2.3:
+query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   dependencies:
@@ -4266,14 +4270,14 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-react-player@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.15.0.tgz#ce76415132ecd17c44e5495c5b558faba233107c"
+react-player@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.17.0.tgz#56499c7590aaa21b6035fe997c112c2cc9ea88dd"
   dependencies:
     fetch-jsonp "^1.0.2"
     load-script "^1.0.0"
+    lodash.omit "^4.5.0"
     prop-types "^15.5.6"
-    query-string "^4.2.3"
 
 react-redux@^5.0.4:
   version "5.0.4"
