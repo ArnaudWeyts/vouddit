@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import icons from './shared/icons';
 
+/// <reference path="./interfaces.d.ts"/>
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -57,32 +59,30 @@ const Submit = styled.input`
   }
 `;
 
-class Header implements React.StatelessComponent {
-  render() {
-    return (
-      <Wrapper>
-        <Icon src={icons.menu} alt="menu icon" />
-        <Form
-          autoComplete="off"
-          onSubmit={e => {
-            e.preventDefault();
-            this.props.changeSub(e.target['sub'].value);
-            e.target['sub'].blur();
-          }}
-        >
-          <Label for="sub">/r/</Label>
-          <SubInput autocomplete="off" name="sub" placeholder="videos" />
-          <Submit src={icons.search} type="image" alt="Submit" />
-        </Form>
-        <IconSettings
-          src={icons.settings}
-          alt="settings icon"
-          showSettings={this.props.showSettings}
-          onClick={this.props.toggleSettings}
-        />
-      </Wrapper>
-    );
-  }
+const Header: React.StatelessComponent<IHeaderProps> = props => {
+  return (
+    <Wrapper>
+      <Icon src={icons.menu} alt="menu icon" />
+      <Form
+        autoComplete="off"
+        onSubmit={e => {
+          e.preventDefault();
+          props.changeSub(e.target['sub'].value);
+          e.target['sub'].blur();
+        }}
+      >
+        <Label for="sub">/r/</Label>
+        <SubInput autocomplete="off" name="sub" placeholder="videos" />
+        <Submit src={icons.search} type="image" alt="Submit" />
+      </Form>
+      <IconSettings
+        src={icons.settings}
+        alt="settings icon"
+        showSettings={props.showSettings}
+        onClick={props.toggleSettings}
+      />
+    </Wrapper>
+  );
 }
 
 export default Header;

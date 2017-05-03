@@ -37,3 +37,9 @@ interface ISettings {
   delay: number,
   sort: string
 }
+
+interface IHeaderProps {
+  showSettings: boolean,
+  changeSub: void,
+  toggleSettings: void
+}
