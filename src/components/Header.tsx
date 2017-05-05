@@ -48,7 +48,7 @@ const Icon = styled.img`
 
 const IconSettings = styled.img`
   cursor: pointer;
-  ${props => props.showSettings && 'width: 0;'}
+  ${(props: { showSettings: boolean }) => props.showSettings ? 'width: 0;' : ''}
 `;
 
 const Submit = styled.input`
@@ -71,8 +71,8 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
           e.target['sub'].blur();
         }}
       >
-        <Label for="sub">/r/</Label>
-        <SubInput autocomplete="off" name="sub" placeholder="videos" />
+        <Label htmlFor="sub">/r/</Label>
+        <SubInput autoComplete="off" name="sub" placeholder="videos" />
         <Submit src={icons.search} type="image" alt="Submit" />
       </Form>
       <IconSettings

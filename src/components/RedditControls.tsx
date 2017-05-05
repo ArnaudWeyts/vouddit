@@ -1,9 +1,9 @@
-// @flow
-
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 import icons from './shared/icons';
+
+/// <reference path="./interfaces.d.ts"/>
 
 const Wrapper = styled.div`
   color: #FFF;
@@ -73,7 +73,7 @@ const Next = styled.div`
 
 const NextVideo = styled.div`
   margin: 0 20px;
-  background-image: ${props => (props.nextVid ? `url(${props.nextVid.data.media.oembed.thumbnail_url})` : '')};
+  background-image: ${(props: { nextVidImg: string }) => (props.nextVidImg ? `url(${props.nextVidImg})` : '')};
   background-size: cover;
   background-position: center;
   height: 100px;
@@ -84,19 +84,7 @@ const NextVideo = styled.div`
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 `;
 
-const RedditControls = (
-  props: {
-    currentVid: {
-      title: string,
-      permalink: string,
-      author: string,
-      ups: number
-    },
-    togglePlayer: () => void,
-    getPrevNextPost: boolean => void,
-    nextVid: ?{}
-  }
-) => {
+const RedditControls: React.StatelessComponent<IControlsProps> = props => {
   const { currentVid, togglePlayer, getPrevNextPost } = props;
   return (
     <Wrapper>
@@ -125,7 +113,7 @@ const RedditControls = (
       <Next>
         <Icon src={icons.chevron_right} alt="chevron right icon" />
         <NextVideo
-          nextVid={props.nextVid}
+          nextVidImg={props.nextVid ? props.nextVid.data.media.oembed.thumbnail_url : ''}
           onClick={() => getPrevNextPost(true)}
         />
       </Next>
