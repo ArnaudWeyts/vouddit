@@ -1,5 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
+
+/// <reference path="./interfaces.d.ts"/>
 
 const Slider = styled.div`
   display: inline-block;
@@ -43,7 +45,7 @@ const SliderValue = styled.span`
   border-radius: 2px;
 `;
 
-const SliderInput = ({ name, value, min, max, handleChange }) => {
+const SliderInput = ({ name, value, min, max, handleChange }: ISliderProps) => {
   return (
     <Slider value={value}>
       <Input
