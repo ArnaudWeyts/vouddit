@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
@@ -26,8 +24,6 @@ import icons from '../shared/icons';
 import Button from '../shared/Button';
 
 class Player extends Component {
-  player: any;
-
   componentWillReceiveProps(nextProps) {
     // checks if a new video is being loaded
     if (nextProps.url !== this.props.url) {
