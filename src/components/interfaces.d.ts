@@ -30,6 +30,13 @@ interface IPost {
   ups: number,
   permalink: string,
   media: { type: string }
+  data: {
+    media: {
+      oembed: {
+        thumbnail_url: string
+      }
+    }
+  }
 }
 
 interface ISettings {
@@ -39,7 +46,15 @@ interface ISettings {
 }
 
 interface IHeaderProps {
+  currentSub: string,
   showSettings: boolean,
-  changeSub: void,
-  toggleSettings: void
+  changeSub: (value: string) => void,
+  toggleSettings: () => void
+}
+
+interface IControlsProps {
+  currentVid: IPost,
+  togglePlayer: () => void,
+  getPrevNextPost: (next: boolean) => void,
+  nextVid?: IPost
 }
