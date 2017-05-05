@@ -1,5 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
+
+/// <reference path="./interfaces.d.ts"/>
 
 const Button = styled.a`
   cursor: pointer;
@@ -9,7 +11,7 @@ const Button = styled.a`
   padding: 10px;
 `;
 
-const ButtonInput = ({ onClick, children, className }) => {
+const ButtonInput = ({ onClick, children, className }: IButtonProps) => {
   return (
     <Button className={className} onClick={onClick}>
       {children}
