@@ -52,7 +52,7 @@ class App extends React.Component<IAppProps, any> {
 
   componentWillMount() {
     const { dispatch, subreddit, sort } = this.props;
-    dispatch(fetchPosts(subreddit, null, sort));
+    dispatch(fetchPosts(subreddit, undefined, sort));
   }
 
   componentDidMount() {
@@ -108,7 +108,7 @@ class App extends React.Component<IAppProps, any> {
   changeSub(dispatch: IDispatch<any>, sub: string) {
     const { sort } = this.props;
     dispatch(selectSubreddit(sub));
-    dispatch(fetchPosts(sub, null, sort));
+    dispatch(fetchPosts(sub, undefined, sort));
   }
 
   // dispatch event for next/prev post
@@ -160,7 +160,7 @@ class App extends React.Component<IAppProps, any> {
           <RedditControls
             togglePlayer={() => this.togglePlayerDisp(dispatch)}
             currentVid={postActive}
-            nextVid={postActive ? posts[postActive.index + 1] : null}
+            nextVid={postActive ? posts[postActive.index + 1] : undefined}
             getPrevNextPost={direction =>
               this.getPrevNextPost(dispatch, postActive, direction)}
           />
@@ -171,4 +171,4 @@ class App extends React.Component<IAppProps, any> {
   }
 }
 
-export default connect<IAppProps, {}, {}>(mapStateToProps)(App);
+export default connect(mapStateToProps)(App);
