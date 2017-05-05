@@ -35,7 +35,7 @@ export function selectSubreddit(subreddit) {
   };
 }
 
-export function fetchPosts(subreddit = null, after = null, sort = 'hot') {
+export function fetchPosts(subreddit, after, sort = 'hot') {
   return (dispatch, getState) => {
     const ROOT_URL = 'https://www.reddit.com';
     // if a no sub is passed, we just refresh
