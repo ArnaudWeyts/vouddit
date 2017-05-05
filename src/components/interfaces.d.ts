@@ -58,3 +58,7 @@ interface IControlsProps {
   getPrevNextPost: (next: boolean) => void,
   nextVid?: IPost
 }
+
+interface ISettingsProps extends ISettings {
+  dispatch: IDispatch<any>
+}
