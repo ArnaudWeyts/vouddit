@@ -32,17 +32,6 @@ const ContentWrapper = styled.div`
   transition: margin-right 0.3s ease-in-out;
 `;
 
-const mapStateToProps = ({ posts, settings }: { posts: IPosts, settings: ISettings }) => ({
-  subreddit: posts.subreddit,
-  posts: posts.posts,
-  nextPosts: posts.nextPosts,
-  isFetching: posts.isFetching,
-  postActive: posts.postActive,
-  showSettings: settings.showSettings,
-  delay: settings.delay,
-  sort: settings.sort
-});
-
 class App extends React.Component<IAppProps, any> {
   constructor(props: IAppProps) {
     super(props);
@@ -170,5 +159,16 @@ class App extends React.Component<IAppProps, any> {
     );
   }
 }
+
+const mapStateToProps = ({ posts, settings }: { posts: IPosts, settings: ISettings }) => ({
+  subreddit: posts.subreddit,
+  posts: posts.posts,
+  nextPosts: posts.nextPosts,
+  isFetching: posts.isFetching,
+  postActive: posts.postActive,
+  showSettings: settings.showSettings,
+  delay: settings.delay,
+  sort: settings.sort
+});
 
 export default connect(mapStateToProps)(App);
