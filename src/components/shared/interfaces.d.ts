@@ -3,22 +3,22 @@ interface IDispatch<T> {
 }
 
 interface IButtonProps {
-  onClick: () => void,
-  children?: any,
+  onClick: () => void
+  children?: any
   className: string
 }
 
 interface ISelectProps {
-  name: string,
-  options: Array<string>,
-  selected: string,
+  name: string
+  options: Array<string>
+  selected: string
   handleChange: (e: any, dispatch?: IDispatch<any>) => void
 }
 
 interface ISliderProps {
-  name: string,
-  value: number,
-  min: number,
-  max: number,
+  name: string
+  value: number
+  min: number
+  max: number
   handleChange: (e: any, dispatch?: IDispatch<any>) => void
 }
