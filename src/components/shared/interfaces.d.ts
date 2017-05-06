@@ -4,7 +4,7 @@ interface IDispatch<T> {
 
 interface IButtonProps {
   onClick: () => void,
-  children: any,
+  children?: any,
   className: string
 }
 
