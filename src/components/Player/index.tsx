@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 
@@ -23,8 +23,14 @@ import {
 import icons from '../shared/icons';
 import Button from '../shared/Button';
 
-class Player extends Component {
-  componentWillReceiveProps(nextProps) {
+/// <reference path="./interfaces.d.ts"/>
+
+class Player extends React.Component<IPlayerProps, any> {
+  refs: {
+    player: any
+  }
+
+  componentWillReceiveProps(nextProps: IPlayerProps) {
     // checks if a new video is being loaded
     if (nextProps.url !== this.props.url) {
       // reset the progress and time
@@ -33,7 +39,7 @@ class Player extends Component {
     }
   }
 
-  toggleControls(e) {
+  toggleControls(e: Event) {
     if (e.type === 'mouseenter') {
       this.props.dispatch(toggleControls());
     } else {
@@ -41,11 +47,11 @@ class Player extends Component {
     }
   }
 
-  scrub(e) {
+  scrub(e: any) {
     const seekTo = parseFloat(
-      e.nativeEvent.offsetX / e.target.parentNode.offsetWidth
+      String(e.nativeEvent.offsetX / e.target.parentNode.offsetWidth)
     );
-    this.player.seekTo(seekTo);
+    this.refs.player.seekTo(seekTo);
     this.props.dispatch(updatePlayed(seekTo));
   }
 
@@ -94,7 +100,6 @@ class Player extends Component {
       getPrevNextPost,
       url,
       isFirst,
-      showSettings,
       useDefaultPlayer,
       ended
     } = this.props;
@@ -113,22 +118,20 @@ class Player extends Component {
       <Wrapper
         onMouseEnter={toggleControls.bind(this)}
         onMouseLeave={toggleControls.bind(this)}
-        // check playerstyles to find out why this is passed
-        showSettings={showSettings}
       >
         <ReactPlayer
           ref={player => {
-            this.player = player;
+            this.refs.player = player;
           }}
           url={url}
           controls={useDefaultPlayer}
           playing={playing}
           volume={volume}
-          // this is pretty dodgy because this means we're updating
-          // the state alot, but it does give us a smooth bar
           progressFrequency={duration < 1000 ? duration : 1000}
           onPlay={() => dispatch(togglePlayer(true))}
           onPause={() => dispatch(togglePlayer(false))}
+          // this is pretty dodgy because this means we're updating
+          // the state alot, but it does give us a smooth bar
           // stop update played action spam for now
           // onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
           onDuration={duration => dispatch(setDuration(duration))}
@@ -136,9 +139,6 @@ class Player extends Component {
           width="100%"
           height="100%"
           style={{ position: 'absolute', zIndex: '-1' }}
-          // this doesn't work with the default showinfo=0 option
-          // thank google for that but it's either the title bar or small logo
-          youtubeConfig={{ playerVars: { modestbranding: 1 } }}
         />
         <Dimmed visible={ended} />
         {ended && this.renderTimer()}
@@ -157,7 +157,7 @@ class Player extends Component {
   }
 }
 
-const mapStateToProps = ({ player, settings }, ownProps) => {
+const mapStateToProps = ({ player, settings }: { player: IPlayer, settings: ISettings }) => {
   return {
     playing: player.playing,
     played: player.played,
