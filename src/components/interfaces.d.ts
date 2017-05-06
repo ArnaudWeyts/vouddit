@@ -1,12 +1,12 @@
 interface IAppProps {
-  subreddit: string,
-  posts: Array<IPost>,
-  nextPosts: Array<IPost>,
-  isFetching: boolean,
-  postActive: IPost,
-  showSettings: boolean,
-  delay: number,
-  sort: string,
+  subreddit: string
+  posts: Array<IPost>
+  nextPosts: Array<IPost>
+  isFetching: boolean
+  postActive: IPost
+  showSettings: boolean
+  delay: number
+  sort: string
   dispatch: IDispatch<any>
 }
 
@@ -15,20 +15,20 @@ interface IDispatch<T> {
 }
 
 interface IPosts {
-  subreddit: string,
+  subreddit: string
   posts: Array<IPost>
   nextPosts: Array<IPost>
-  isFetching: boolean,
-  postActive: IPost,
+  isFetching: boolean
+  postActive: IPost
 }
 
 interface IPost {
-  title: string,
-  author: string,
-  index: number,
-  url: string,
-  ups: number,
-  permalink: string,
+  title: string
+  author: string
+  index: number
+  url: string
+  ups: number
+  permalink: string
   media: { type: string }
   data: {
     media: {
@@ -40,22 +40,23 @@ interface IPost {
 }
 
 interface ISettings {
-  showSettings: boolean,
-  delay: number,
+  showSettings: boolean
+  delay: number
   sort: string
+  useDefaultPlayer: boolean
 }
 
 interface IHeaderProps {
-  currentSub: string,
-  showSettings: boolean,
-  changeSub: (value: string) => void,
+  currentSub: string
+  showSettings: boolean
+  changeSub: (value: string) => void
   toggleSettings: () => void
 }
 
 interface IControlsProps {
-  currentVid: IPost,
-  togglePlayer: () => void,
-  getPrevNextPost: (next: boolean) => void,
+  currentVid: IPost
+  togglePlayer: () => void
+  getPrevNextPost: (next: boolean) => void
   nextVid?: IPost
 }
 
