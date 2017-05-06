@@ -144,7 +144,6 @@ class App extends React.Component<IAppProps, any> {
             getPrevNextPost={(direction: boolean) =>
               this.getPrevNextPost(dispatch, postActive, direction)}
             delay={delay}
-            showSettings={showSettings}
           />
           <RedditControls
             togglePlayer={() => this.togglePlayerDisp(dispatch)}
