@@ -2,12 +2,11 @@ interface IPlayer {
   played: number
   seeking: boolean
   playing: boolean
-  timer: number
   volume: number
   showControls: boolean
-  duration: number
   ended: boolean
-  dispatch: IDispatch<any>
+  duration?: number
+  timer?: number
 }
 
 interface IPlayerProps {
@@ -17,4 +16,5 @@ interface IPlayerProps {
   useDefaultPlayer?: boolean
   isFirst: boolean
   getPrevNextPost: (direction: boolean) => void
+  dispatch: IDispatch<any>
 }
