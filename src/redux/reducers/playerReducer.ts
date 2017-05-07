@@ -9,18 +9,18 @@ import {
   SET_TIMER
 } from '../actions/playerActions';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: IPlayer = {
   showControls: false,
   playing: false,
   played: 0,
   volume: 1,
   seeking: false,
-  duration: null,
+  duration: undefined,
   ended: false,
-  timer: null
+  timer: undefined
 };
 
-export default function playerReducer(state = INITIAL_STATE, action) {
+export default function playerReducer(state = INITIAL_STATE, action: IPlayerAction) {
   switch (action.type) {
     case TOGGLE_PLAYER:
       return {
@@ -45,7 +45,7 @@ export default function playerReducer(state = INITIAL_STATE, action) {
     case SEEKING:
       return {
         ...state,
-        seeking: action.seek
+        seeking: action.seeking
       };
     case SET_DURATION:
       return {
