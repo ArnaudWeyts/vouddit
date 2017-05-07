@@ -28,7 +28,7 @@ import Button from '../shared/Button';
 class Player extends React.Component<IPlayer & IPlayerProps, any> {
   refs: {
     player: any
-  }
+  };
 
   componentWillReceiveProps(nextProps: IPlayer & IPlayerProps) {
     // checks if a new video is being loaded
@@ -62,11 +62,14 @@ class Player extends React.Component<IPlayer & IPlayerProps, any> {
     // start the next post, reset the player
     dispatch(
       setTimer(
-        setTimeout(() => {
-          getPrevNextPost(true);
-          dispatch(updatePlayed(0));
-          dispatch(toggleEnded());
-        }, delay)
+        setTimeout(
+          () => {
+            getPrevNextPost(true);
+            dispatch(updatePlayed(0));
+            dispatch(toggleEnded());
+          },
+          delay
+        )
       )
     );
   }
@@ -112,12 +115,14 @@ class Player extends React.Component<IPlayer & IPlayerProps, any> {
     }*/
 
     // functions
-    const { toggleControls } = this;
+    // const { toggleControls } = this;
 
     return (
       <Wrapper
+      /*
         onMouseEnter={toggleControls.bind(this)}
         onMouseLeave={toggleControls.bind(this)}
+      */
       >
         <ReactPlayer
           ref={player => {

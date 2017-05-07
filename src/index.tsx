@@ -8,6 +8,7 @@ import 'typeface-open-sans';
 import store from './redux/store';
 import App from './components/App';
 
+// tslint:disable-next-line
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
   body {
