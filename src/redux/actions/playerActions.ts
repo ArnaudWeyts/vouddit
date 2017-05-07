@@ -7,7 +7,7 @@ export const SET_DURATION = 'SET_DURATION';
 export const TOGGLE_ENDED = 'TOGGLE_ENDED';
 export const SET_TIMER = 'SET_TIMER';
 
-export function togglePlayer(play: boolean) {
+export function togglePlayer(play?: boolean) {
   return {
     type: TOGGLE_PLAYER,
     play
