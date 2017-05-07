@@ -21,7 +21,9 @@ export const ControlBar = styled.div`
   bottom: 0;
   transition: transform 0.2s;
   ${(props) => props.hideCompletely ? 'display: none' : ''} 
-  transform: ${(props: { visible: boolean, hideCompletely: boolean }) => props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'};
+  transform: ${(props: { visible: boolean, hideCompletely: boolean }) =>
+    props.visible ? 'translateY(0)' : 'translateY(100%) translateY(-5px)'
+  };
 `;
 
 export const Progress = styled.div`
