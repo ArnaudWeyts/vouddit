@@ -23,14 +23,12 @@ import {
 import icons from '../shared/icons';
 import Button from '../shared/Button';
 
-/// <reference path="./interfaces.d.ts"/>
-
-class Player extends React.Component<IPlayer & IPlayerProps, any> {
+class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
   refs: {
     player: any
   };
 
-  componentWillReceiveProps(nextProps: IPlayer & IPlayerProps) {
+  componentWillReceiveProps(nextProps: IPlayerProps & IPlayerPassedProps) {
     // checks if a new video is being loaded
     if (nextProps.url !== this.props.url) {
       // reset the progress and time
@@ -83,6 +81,7 @@ class Player extends React.Component<IPlayer & IPlayerProps, any> {
         <Button
           className="button"
           onClick={() => {
+            if (!this.props.timer) { return; }
             clearTimeout(this.props.timer);
             this.props.dispatch(toggleEnded());
           }}
@@ -98,7 +97,7 @@ class Player extends React.Component<IPlayer & IPlayerProps, any> {
       playing,
       volume,
       showControls,
-      duration,
+      // duration,
       dispatch,
       getPrevNextPost,
       url,
@@ -132,7 +131,7 @@ class Player extends React.Component<IPlayer & IPlayerProps, any> {
           controls={useDefaultPlayer}
           playing={playing}
           volume={volume}
-          progressFrequency={duration < 1000 ? duration : 1000}
+          // progressFrequency={duration < 1000 ? duration : 1000}
           onPlay={() => dispatch(togglePlayer(true))}
           onPause={() => dispatch(togglePlayer(false))}
           // this is pretty dodgy because this means we're updating
@@ -176,4 +175,4 @@ const mapStateToProps = ({ player, settings }: { player: IPlayer, settings: ISet
   };
 };
 
-export default connect<{}, {}, IPlayerProps>(mapStateToProps)(Player);
+export default connect<{}, {}, IPlayerPassedProps>(mapStateToProps)(Player);
