@@ -67,8 +67,9 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
         autoComplete="off"
         onSubmit={e => {
           e.preventDefault();
-          props.changeSub(e.target['sub'].value);
-          e.target['sub'].blur();
+          const key = 'sub';
+          props.changeSub(e.target[key].value);
+          e.target[key].blur();
         }}
       >
         <Label htmlFor="sub">/r/</Label>
@@ -83,6 +84,6 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
       />
     </Wrapper>
   );
-}
+};
 
 export default Header;

@@ -26,13 +26,13 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-interface ContentWrapperProps { showSettings: boolean }
+interface ContentWrapperProps { showSettings: boolean; }
 const ContentWrapper = styled.div`
   margin-right: ${(props: ContentWrapperProps) => (props.showSettings ? '300px' : 0)};
   transition: margin-right 0.3s ease-in-out;
 `;
 
-class App extends React.Component<IAppProps, any> {
+class App extends React.Component<IAppProps, {}> {
   constructor(props: IAppProps) {
     super(props);
 
@@ -73,7 +73,7 @@ class App extends React.Component<IAppProps, any> {
 
   checkForUpdate(nextProps: IAppProps) {
     // we can't update without the current posts
-    if (!this.props.postActive) return;
+    if (!this.props.postActive) { return; }
 
     const {
       posts,
@@ -85,7 +85,7 @@ class App extends React.Component<IAppProps, any> {
     } = this.props;
 
     // never update while fetching
-    if (isFetching || nextProps.isFetching) return;
+    if (isFetching || nextProps.isFetching) { return; }
 
     // fetch more posts if there are only 5 left
     if (nextProps.postActive.index + 4 > posts.length) {
@@ -153,7 +153,7 @@ class App extends React.Component<IAppProps, any> {
               this.getPrevNextPost(dispatch, postActive, direction)}
           />
         </ContentWrapper>
-        <Settings ref="settings" />
+        <Settings />
       </Wrapper>
     );
   }
