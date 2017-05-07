@@ -25,12 +25,12 @@ import Button from '../shared/Button';
 
 /// <reference path="./interfaces.d.ts"/>
 
-class Player extends React.Component<IPlayerProps, any> {
+class Player extends React.Component<IPlayer & IPlayerProps, any> {
   refs: {
     player: any
   }
 
-  componentWillReceiveProps(nextProps: IPlayerProps) {
+  componentWillReceiveProps(nextProps: IPlayer & IPlayerProps) {
     // checks if a new video is being loaded
     if (nextProps.url !== this.props.url) {
       // reset the progress and time
@@ -171,4 +171,4 @@ const mapStateToProps = ({ player, settings }: { player: IPlayer, settings: ISet
   };
 };
 
-export default connect(mapStateToProps)(Player);
+export default connect<{}, {}, IPlayerProps>(mapStateToProps)(Player);
