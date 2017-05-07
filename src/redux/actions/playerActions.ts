@@ -7,7 +7,7 @@ export const SET_DURATION = 'SET_DURATION';
 export const TOGGLE_ENDED = 'TOGGLE_ENDED';
 export const SET_TIMER = 'SET_TIMER';
 
-export function togglePlayer(play) {
+export function togglePlayer(play: boolean) {
   return {
     type: TOGGLE_PLAYER,
     play
@@ -20,28 +20,28 @@ export function toggleControls() {
   };
 }
 
-export function updatePlayed(played) {
+export function updatePlayed(played: number) {
   return {
     type: UPDATE_PLAYED,
     played
   };
 }
 
-export function setVolume(volume) {
+export function setVolume(volume: number) {
   return {
     type: SET_VOLUME,
     volume
   };
 }
 
-export function seek(seek) {
+export function seek(seeking: boolean) {
   return {
     type: SEEKING,
     seek
   };
 }
 
-export function setDuration(duration) {
+export function setDuration(duration: number) {
   return {
     type: SET_DURATION,
     duration
@@ -54,7 +54,7 @@ export function toggleEnded() {
   };
 }
 
-export function setTimer(timer) {
+export function setTimer(timer: string) {
   return {
     type: SET_TIMER,
     timer
