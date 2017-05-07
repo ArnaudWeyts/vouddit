@@ -7,14 +7,14 @@ interface IPlayer {
   showControls: boolean
   duration: number
   ended: boolean
+  dispatch: IDispatch<any>
 }
 
-interface IPlayerProps extends IPlayer {
+interface IPlayerProps {
   url: string
   hideControls: boolean
   delay: number
-  useDefaultPlayer: boolean
+  useDefaultPlayer?: boolean
   isFirst: boolean
-  dispatch: IDispatch<any>
   getPrevNextPost: (direction: boolean) => void
 }
