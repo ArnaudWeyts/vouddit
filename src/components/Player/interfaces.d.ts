@@ -9,12 +9,15 @@ interface IPlayer {
   timer?: number
 }
 
-interface IPlayerProps {
+interface IPlayerProps extends IPlayer {
+  dispatch: IDispatch<any>
+}
+
+interface IPlayerPassedProps {
   url: string
   hideControls: boolean
   delay: number
   useDefaultPlayer?: boolean
   isFirst: boolean
   getPrevNextPost: (direction: boolean) => void
-  dispatch: IDispatch<any>
 }
