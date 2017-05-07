@@ -17,8 +17,6 @@ import Player from './Player/index';
 import RedditControls from './RedditControls';
 import Settings from './Settings';
 
-/// <reference path="./interfaces.d.ts"/>
-
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;

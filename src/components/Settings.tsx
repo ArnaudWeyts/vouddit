@@ -12,8 +12,6 @@ import {
 import SliderInput from './shared/Slider';
 import SelectInput from './shared/Select';
 
-/// <reference path="./interfaces.d.ts"/>
-
 const Wrapper = styled.div`
   position: fixed;
   overflow-x: hidden;
