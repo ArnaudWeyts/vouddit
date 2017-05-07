@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 import icons from './shared/icons';
 
-/// <reference path="./interfaces.d.ts"/>
-
 const Wrapper = styled.div`
   color: #FFF;
   display: flex;
