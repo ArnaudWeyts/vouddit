@@ -5,17 +5,17 @@ import {
   SELECT_SUBREDDIT
 } from '../actions/postsActions';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: IPosts = {
   posts: [],
-  nextPosts: null,
-  postActive: null,
+  nextPosts: [],
+  postActive: undefined,
   isFetching: false,
   subreddit: 'videos'
 };
 
 let index = 0;
 
-export default function postsReducer(state = INITIAL_STATE, action) {
+export default function postsReducer(state = INITIAL_STATE, action: IPostsAction) {
   switch (action.type) {
     // isFetching gives us the option to show a loading bar
     case REQUEST_POSTS:
@@ -51,13 +51,13 @@ export default function postsReducer(state = INITIAL_STATE, action) {
       };
     case NEXT_POST:
       // decide if the index is higher or lower and update
-      action.nextPost >= index ? index++ : index--;
-      if (action.nextPost < 0) {
+      action.nextPostId >= index ? index++ : index--;
+      if (action.nextPostId < 0) {
         return state;
       }
       return {
         ...state,
-        postActive: { index, ...state.posts[action.nextPost].data }
+        postActive: { index, ...state.posts[action.nextPostId].data }
       };
     case SELECT_SUBREDDIT:
       return {

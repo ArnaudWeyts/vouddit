@@ -19,7 +19,7 @@ interface IPosts {
   posts: Array<IPost>
   nextPosts: Array<IPost>
   isFetching: boolean
-  postActive: IPost
+  postActive?: IPost
 }
 
 interface IPost {
@@ -32,6 +32,7 @@ interface IPost {
   media: { type: string }
   data: {
     media: {
+      type: string
       oembed: {
         thumbnail_url: string
       }
