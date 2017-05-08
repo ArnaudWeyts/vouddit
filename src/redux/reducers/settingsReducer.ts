@@ -5,14 +5,14 @@ import {
   SET_SORT
 } from '../actions/settingsActions';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: ISettings = {
   showSettings: false,
   useDefaultPlayer: true,
   delay: 3000,
   sort: 'hot'
 };
 
-export default function settingsReducer(state = INITIAL_STATE, action) {
+export default function settingsReducer(state = INITIAL_STATE, action: ISettingsAction) {
   switch (action.type) {
     case TOGGLE_SETTINGS:
       return {

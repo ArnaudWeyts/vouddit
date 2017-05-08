@@ -27,22 +27,22 @@ export function toggleUseDefault() {
   };
 }
 
-export function setDelay(delay) {
+export function setDelay(delay: number) {
   return {
     type: SET_DELAY,
     delay
   };
 }
 
-export function setSort(sort) {
+export function setSort(sort: string) {
   return {
     type: SET_SORT,
     sort
   };
 }
 
-export function setSortAndFetch(sort) {
-  return (dispatch, getState) => {
+export function setSortAndFetch(sort: string) {
+  return (dispatch: IDispatch<any>, getState: () => any) => {
     const { subreddit } = getState().posts;
     dispatch(setSort(sort));
     dispatch(fetchPosts(subreddit, undefined, sort));
