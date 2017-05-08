@@ -15,8 +15,8 @@ const INITIAL_STATE: IPlayer = {
   played: 0,
   volume: 1,
   seeking: false,
-  duration: undefined,
   ended: false,
+  duration: undefined,
   timer: undefined
 };
 
