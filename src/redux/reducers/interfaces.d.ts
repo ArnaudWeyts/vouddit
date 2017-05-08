@@ -17,3 +17,10 @@ interface IPostsAction extends IAction {
   nextPostId: number
   subreddit: string
 }
+
+interface ISettingsAction extends IAction {
+  showSettings: boolean
+  useDefaultPlayer: boolean
+  delay: number
+  sort: string
+}
