@@ -60,7 +60,7 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
     // start the next post, reset the player
     dispatch(
       setTimer(
-        setTimeout(
+        window.setTimeout(
           () => {
             getPrevNextPost(true);
             dispatch(updatePlayed(0));
@@ -149,12 +149,12 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
         <PrevButton
           visible={!isFirst && showControls}
           onClick={() => getPrevNextPost(false)}
-          src={icons.chevron_left}
+          src={icons.chevronLeft}
         />
         <NextButton
           visible={showControls}
           onClick={() => getPrevNextPost(true)}
-          src={icons.chevron_right}
+          src={icons.chevronRight}
         />
       </Wrapper>
     );
