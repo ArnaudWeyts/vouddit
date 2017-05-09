@@ -6,14 +6,14 @@
  * 
  * @memberOf Player
  */
-export function secToFormat(secs) {
+export function secToFormat(secs: number) {
   if (secs === null) {
     return '0:00';
   }
-  const sec_num = parseInt(secs, 10);
-  const hours = Math.floor(sec_num / 3600) % 24;
-  const minutes = Math.floor(sec_num / 60) % 60;
-  const seconds = sec_num % 60;
+  const secNum = Math.floor(secs);
+  const hours = Math.floor(secNum / 3600) % 24;
+  const minutes = Math.floor(secNum / 60) % 60;
+  const seconds = secNum % 60;
   return (
     [hours, minutes, seconds]
       // filter out hours if it's 0
@@ -28,14 +28,16 @@ export function secToFormat(secs) {
 /**
  * Debounce a function
  */
-export function debounce(func, interval) {
-  var lastCall = -1;
-  return function() {
+export function debounce(func: (...args: Array<any>) => any, interval: number) {
+  let lastCall = -1;
+  return function (this: void) {
     clearTimeout(lastCall);
-    var args = arguments;
-    var self = this;
-    lastCall = setTimeout(function() {
-      func.apply(self, args);
-    }, interval);
+    const args = arguments;
+    const self = this;
+    lastCall = window.setTimeout(
+      () => {
+        func.apply(self, args);
+      },
+      interval);
   };
 }
