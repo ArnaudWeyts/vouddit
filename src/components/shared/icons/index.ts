@@ -1,14 +1,14 @@
-const reddit = require('./reddit.svg');
-const playArrow = require('./play_arrow.svg');
-const pause = require('./pause.svg');
-const chevronLeft = require('./chevron_left.svg');
-const chevronRight = require('./chevron_right.svg');
-const arrowDown = require('./arrow_down.svg');
-const thumbUp = require('./thumb_up.svg');
-const person = require('./person.svg');
-const settings = require('./settings.svg');
-const menu = require('./menu.svg');
-const search = require('./search.svg');
+const reddit = require('./reddit.svg').default;
+const playArrow = require('./play_arrow.svg').default;
+const pause = require('./pause.svg').default;
+const chevronLeft = require('./chevron_left.svg').default;
+const chevronRight = require('./chevron_right.svg').default;
+const arrowDown = require('./arrow_down.svg').default;
+const thumbUp = require('./thumb_up.svg').default;
+const person = require('./person.svg').default;
+const settings = require('./settings.svg').default;
+const menu = require('./menu.svg').default;
+const search = require('./search.svg').default;
 
 export default {
   reddit,
