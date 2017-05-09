@@ -57,6 +57,7 @@ class App extends React.Component<IAppProps, {}> {
   // keyboard shortcuts wheeeee
   handleKeyDown({ key }: { key: string }) {
     const { dispatch, postActive } = this.props;
+    if (!postActive) { return; }
     switch (key) {
       case 'ArrowRight':
         return dispatch(setPrevNextPost(postActive, true));
@@ -71,7 +72,7 @@ class App extends React.Component<IAppProps, {}> {
 
   checkForUpdate(nextProps: IAppProps) {
     // we can't update without the current posts
-    if (!this.props.postActive) { return; }
+    if (!this.props.postActive || !nextProps.postActive) { return; }
 
     const {
       posts,
@@ -139,16 +140,20 @@ class App extends React.Component<IAppProps, {}> {
               postActive ? postActive.media.type === 'vimeo.com' : false
             }
             isFirst={postActive ? postActive.index === 0 : false}
-            getPrevNextPost={(direction: boolean) =>
-              this.getPrevNextPost(dispatch, postActive, direction)}
+            getPrevNextPost={direction => {
+              if (!postActive) { return; }
+              this.getPrevNextPost(dispatch, postActive, direction);
+            }}
             delay={delay}
           />
           <RedditControls
             togglePlayer={() => this.togglePlayerDisp(dispatch)}
             currentVid={postActive}
             nextVid={postActive ? posts[postActive.index + 1] : undefined}
-            getPrevNextPost={direction =>
-              this.getPrevNextPost(dispatch, postActive, direction)}
+            getPrevNextPost={direction => {
+              if (!postActive) { return; }
+              this.getPrevNextPost(dispatch, postActive, direction);
+            }}
           />
         </ContentWrapper>
         <Settings />
@@ -168,4 +173,4 @@ const mapStateToProps = ({ posts, settings }: { posts: IPosts, settings: ISettin
   sort: settings.sort
 });
 
-export default connect(mapStateToProps)(App);
+export default connect<{}, {}, {}>(mapStateToProps)(App);
