@@ -54,7 +54,7 @@ export function toggleEnded() {
   };
 }
 
-export function setTimer(timer: string) {
+export function setTimer(timer: number) {
   return {
     type: SET_TIMER,
     timer

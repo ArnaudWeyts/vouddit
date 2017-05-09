@@ -15,11 +15,13 @@ const store = createStore(
 );
 
 store.subscribe(
-  debounce(() => {
-    saveState({
-      settings: store.getState().settings
-    });
-  }, 1000)
+  debounce(
+    () => {
+      saveState({
+        settings: store.getState().settings
+      });
+    },
+    1000)
 );
 
 export default store;
