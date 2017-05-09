@@ -13,7 +13,7 @@ const Select = styled.select`
   border-radius: 0;
   border-bottom: 1px solid #2196F3;
   width: 150px;
-  background: ${props => `url('${icons.arrow_down}') 96% / 15% no-repeat transparent`};
+  background: ${props => `url('${icons.arrowDown}') 96% / 15% no-repeat transparent`};
 
   &:focus {
     outline: none;

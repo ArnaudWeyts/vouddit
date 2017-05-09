@@ -104,12 +104,12 @@ const RedditControls: React.StatelessComponent<IControlsProps> = props => {
           {currentVid && currentVid.author}
         </Author>
         <Ups>
-          <IconSmall src={icons.thumb_up} alt="upvoted icon" />
+          <IconSmall src={icons.thumbUp} alt="upvoted icon" />
           {currentVid && currentVid.ups}
         </Ups>
       </Current>
       <Next>
-        <Icon src={icons.chevron_right} alt="chevron right icon" />
+        <Icon src={icons.chevronRight} alt="chevron right icon" />
         <NextVideo
           nextVidImg={props.nextVid ? props.nextVid.data.media.oembed.thumbnail_url : ''}
           onClick={() => getPrevNextPost(true)}
