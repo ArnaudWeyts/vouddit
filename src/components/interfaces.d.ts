@@ -1,15 +1,3 @@
-interface IAppProps {
-  subreddit: string
-  posts: Array<IPost>
-  nextPosts: Array<IPost>
-  isFetching: boolean
-  postActive: IPost
-  showSettings: boolean
-  delay: number
-  sort: string
-  dispatch: IDispatch<any>
-}
-
 interface IDispatch<T> {
   (item: T): any
 }
@@ -17,8 +5,8 @@ interface IDispatch<T> {
 interface IPosts {
   subreddit: string
   posts: Array<IPost>
-  nextPosts: Array<IPost>
   isFetching: boolean
+  nextPosts?: string
   postActive?: IPost
 }
 
@@ -47,6 +35,10 @@ interface ISettings {
   useDefaultPlayer: boolean
 }
 
+interface IAppProps extends IPosts, ISettings {
+  dispatch: IDispatch<any>
+}
+
 interface IHeaderProps {
   currentSub: string
   showSettings: boolean
@@ -55,7 +47,7 @@ interface IHeaderProps {
 }
 
 interface IControlsProps {
-  currentVid: IPost
+  currentVid?: IPost
   togglePlayer: () => void
   getPrevNextPost: (next: boolean) => void
   nextVid?: IPost
