@@ -9,7 +9,7 @@ import {
   SET_TIMER
 } from '../actions/playerActions';
 
-const INITIAL_STATE: IPlayer = {
+const INITIAL_STATE = {
   showControls: false,
   playing: false,
   played: 0,
@@ -20,7 +20,7 @@ const INITIAL_STATE: IPlayer = {
   timer: undefined
 };
 
-export default function playerReducer(state = INITIAL_STATE, action: IPlayerAction) {
+export default function playerReducer(state: IPlayer = INITIAL_STATE, action: IPlayerAction) {
   switch (action.type) {
     case TOGGLE_PLAYER:
       return {

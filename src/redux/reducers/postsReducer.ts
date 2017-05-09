@@ -5,17 +5,17 @@ import {
   SELECT_SUBREDDIT
 } from '../actions/postsActions';
 
-const INITIAL_STATE: IPosts = {
+const INITIAL_STATE = {
   posts: [],
-  nextPosts: [],
-  postActive: undefined,
   isFetching: false,
-  subreddit: 'videos'
+  subreddit: 'videos',
+  postActive: undefined,
+  nextPosts: undefined,
 };
 
 let index = 0;
 
-export default function postsReducer(state = INITIAL_STATE, action: IPostsAction) {
+export default function postsReducer(state: IPosts = INITIAL_STATE, action: IPostsAction) {
   switch (action.type) {
     // isFetching gives us the option to show a loading bar
     case REQUEST_POSTS:
@@ -26,7 +26,7 @@ export default function postsReducer(state = INITIAL_STATE, action: IPostsAction
     case RECEIVE_POSTS:
       const posts = action.posts.children.filter(post => {
         // filter out all the posts we don't want
-        if (!post.data.media) return false;
+        if (!post.data.media) { return false; }
         const { type } = post.data.media;
         return (
           type === 'youtube.com' ||
@@ -36,7 +36,7 @@ export default function postsReducer(state = INITIAL_STATE, action: IPostsAction
       });
 
       // reset index when it's a complete subreddit change
-      if (!action.update) index = 0;
+      if (!action.update) { index = 0; }
 
       return {
         ...state,
