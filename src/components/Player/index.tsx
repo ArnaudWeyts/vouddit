@@ -106,16 +106,6 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
       ended
     } = this.props;
 
-    /*if(!useDefaultPlayer) {
-      const { 
-        played, seeking,
-        hideControls, scrub
-      } = this.props;
-    }*/
-
-    // functions
-    // const { toggleControls } = this;
-
     return (
       <Wrapper
       /*

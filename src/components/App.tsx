@@ -13,7 +13,7 @@ import { toggleSettings } from '../redux/actions/settingsActions';
 import { debounce } from '../lib/utils';
 
 import Header from './Header';
-import Player from './Player/index';
+import Player from './Player';
 import RedditControls from './RedditControls';
 import Settings from './Settings';
 
