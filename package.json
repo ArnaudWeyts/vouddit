@@ -1,7 +1,7 @@
 {
   "name": "vouddit",
+  "homepage": "https://vouddit.com",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@types/jest": "^19.2.2",
     "@types/node": "^7.0.15",
