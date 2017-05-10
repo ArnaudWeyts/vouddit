@@ -1,5 +1,6 @@
 import * as React from 'react';
-import ReactPlayer from 'react-player';
+// weird requirejs needed to make react player work
+const ReactPlayer = require('react-player');
 import { connect } from 'react-redux';
 
 import {
@@ -24,9 +25,7 @@ import icons from '../shared/icons';
 import Button from '../shared/Button';
 
 class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
-  refs: {
-    player: any
-  };
+  player: any;
 
   componentWillReceiveProps(nextProps: IPlayerProps & IPlayerPassedProps) {
     // checks if a new video is being loaded
@@ -49,7 +48,7 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
     const seekTo = parseFloat(
       String(e.nativeEvent.offsetX / e.target.parentNode.offsetWidth)
     );
-    this.refs.player.seekTo(seekTo);
+    this.player.seekTo(seekTo);
     this.props.dispatch(updatePlayed(seekTo));
   }
 
@@ -114,8 +113,8 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
       */
       >
         <ReactPlayer
-          ref={player => {
-            this.refs.player = player;
+          ref={(player: any) => {
+            this.player = player;
           }}
           url={url}
           controls={useDefaultPlayer}
@@ -128,7 +127,7 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
           // the state alot, but it does give us a smooth bar
           // stop update played action spam for now
           // onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
-          onDuration={duration => dispatch(setDuration(duration))}
+          onDuration={(duration: number) => dispatch(setDuration(duration))}
           onEnded={() => this.handleEnded()}
           width="100%"
           height="100%"
