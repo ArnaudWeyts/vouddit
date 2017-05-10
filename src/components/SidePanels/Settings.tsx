@@ -7,46 +7,15 @@ import {
   setDelay,
   setSortAndFetch,
   SORT_OPTIONS
-} from '../redux/actions/settingsActions';
+} from '../../redux/actions/settingsActions';
 
-import SliderInput from './shared/Slider';
-import SelectInput from './shared/Select';
+import SliderInput from '../shared/Slider';
+import SelectInput from '../shared/Select';
 
-const Wrapper = styled.div`
-  position: fixed;
-  overflow-x: hidden;
-  height: 100%;
-  top: 0;
-  right: 0;
-  background-color: #151516;
-  border-radius: 2px;
-  border: none;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  width: ${(props: { showSettings: boolean }) => (props.showSettings ? '300px' : 0)};
-  transition: 0.3s;
-`;
-
-const InnerWrapper = styled.div`
-  padding: 20px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Title = styled.h2`
-  color: #FFF;
-  margin: 0;
-  display: inline-block;
-  flex-grow: 1;
-`;
-
-const Close = styled.span`
-  cursor: pointer;
-  float: right;
-  color: #FFF;
-`;
+import {
+  Wrapper, InnerWrapper,
+  Title, Top, Close
+} from './PanelStyles';
 
 const Label = styled.label`
   color: #FFF;
@@ -64,8 +33,8 @@ function handleSelectChange(e: Event, dispatch: IDispatch<any>) {
 
 const Settings: React.StatelessComponent<ISettingsProps> = props => {
   return (
-    <Wrapper showSettings={props.showSettings}>
-      <InnerWrapper>
+    <Wrapper show={props.showSettings} right={true}>
+      <InnerWrapper show={props.showSettings} right={true}>
         <Top>
           <Title>Settings</Title>
           <Close onClick={() => props.dispatch(toggleSettings())}>
