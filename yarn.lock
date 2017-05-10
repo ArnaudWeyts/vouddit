@@ -3538,9 +3538,9 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-react-player@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.17.0.tgz#56499c7590aaa21b6035fe997c112c2cc9ea88dd"
+react-player@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.18.0.tgz#20b3ffcfaa98c8f2dbde16f24b6359f367ddf4e0"
   dependencies:
     fetch-jsonp "^1.0.2"
     load-script "^1.0.0"
