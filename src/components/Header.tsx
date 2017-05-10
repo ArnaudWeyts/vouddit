@@ -40,8 +40,9 @@ const SubInput = styled.input`
   }
 `;
 
-const Icon = styled.img`
+const IconMenu = styled.img`
   cursor: pointer; 
+  ${(props: { showMenu: boolean }) => props.showMenu ? 'width: 0;' : ''}
 `;
 
 const IconSettings = styled.img`
@@ -60,7 +61,12 @@ const Submit = styled.input`
 const Header: React.StatelessComponent<IHeaderProps> = props => {
   return (
     <Wrapper>
-      <Icon src={icons.menu} alt="menu icon" />
+      <IconMenu
+        src={icons.menu}
+        alt="menu icon"
+        showMenu={props.showMenu}
+        onClick={props.toggleMenu}
+      />
       <Form
         autoComplete="off"
         onSubmit={e => {

@@ -9,12 +9,14 @@ import {
 } from '../redux/actions/postsActions';
 import { togglePlayer } from '../redux/actions/playerActions';
 import { toggleSettings } from '../redux/actions/settingsActions';
+import { toggleMenu } from '../redux/actions/menuActions';
 
 import { debounce } from '../lib/utils';
 
 import Header from './Header';
 import Player from './Player';
 import RedditControls from './RedditControls';
+import Menu from './Menu';
 import Settings from './Settings';
 
 const Wrapper = styled.div`
@@ -24,10 +26,14 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-interface ContentWrapperProps { showSettings: boolean; }
+interface ContentWrapperProps {
+  showSettings: boolean;
+  showMenu: boolean;
+}
 const ContentWrapper = styled.div`
+  margin-left: ${(props: ContentWrapperProps) => (props.showMenu ? '300px' : 0)};
   margin-right: ${(props: ContentWrapperProps) => (props.showSettings ? '300px' : 0)};
-  transition: margin-right 0.3s ease-in-out;
+  transition: margin 0.3s ease-in-out;
 `;
 
 class App extends React.Component<IAppProps, {}> {
@@ -114,6 +120,10 @@ class App extends React.Component<IAppProps, {}> {
     dispatch(toggleSettings());
   }
 
+  toggleMenuDisp(dispatch: IDispatch<any>) {
+    dispatch(toggleMenu());
+  }
+
   render() {
     const {
       posts,
@@ -121,17 +131,23 @@ class App extends React.Component<IAppProps, {}> {
       dispatch,
       subreddit,
       showSettings,
+      showMenu,
       delay
     } = this.props;
 
     return (
       <Wrapper>
-        <ContentWrapper showSettings={showSettings}>
+        <ContentWrapper
+          showSettings={showSettings}
+          showMenu={showMenu}
+        >
           <Header
             currentSub={subreddit}
             changeSub={(sub: string) => this.changeSub(dispatch, sub)}
             toggleSettings={() => this.toggleSettingsDisp(dispatch)}
+            toggleMenu={() => this.toggleMenuDisp(dispatch)}
             showSettings={showSettings}
+            showMenu={showMenu}
           />
           <Player
             url={postActive ? postActive.url : ''}
@@ -156,19 +172,24 @@ class App extends React.Component<IAppProps, {}> {
             }}
           />
         </ContentWrapper>
+        <Menu
+          showMenu={showMenu}
+          toggleMenu={() => this.toggleMenuDisp(dispatch)}
+        />
         <Settings />
       </Wrapper>
     );
   }
 }
 
-const mapStateToProps = ({ posts, settings }: { posts: IPosts, settings: ISettings }) => ({
+const mapStateToProps = ({ posts, settings, menu }: { posts: IPosts, settings: ISettings, menu: IMenu }) => ({
   subreddit: posts.subreddit,
   posts: posts.posts,
   nextPosts: posts.nextPosts,
   isFetching: posts.isFetching,
   postActive: posts.postActive,
   showSettings: settings.showSettings,
+  showMenu: menu.showMenu,
   delay: settings.delay,
   sort: settings.sort
 });
