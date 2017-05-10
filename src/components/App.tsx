@@ -16,8 +16,8 @@ import { debounce } from '../lib/utils';
 import Header from './Header';
 import Player from './Player';
 import RedditControls from './RedditControls';
-import Menu from './Menu';
-import Settings from './Settings';
+import Menu from './SidePanels/Menu';
+import Settings from './SidePanels/Settings';
 
 const Wrapper = styled.div`
   width: 100vw;
