@@ -35,15 +35,17 @@ interface ISettings {
   useDefaultPlayer: boolean
 }
 
-interface IAppProps extends IPosts, ISettings {
+interface IAppProps extends IPosts, ISettings, IMenu {
   dispatch: IDispatch<any>
 }
 
 interface IHeaderProps {
   currentSub: string
   showSettings: boolean
+  showMenu: boolean
   changeSub: (value: string) => void
   toggleSettings: () => void
+  toggleMenu: () => void
 }
 
 interface IControlsProps {
@@ -55,4 +57,12 @@ interface IControlsProps {
 
 interface ISettingsProps extends ISettings {
   dispatch: IDispatch<any>
+}
+
+interface IMenu {
+  showMenu: boolean
+}
+
+interface IMenuProps extends IMenu {
+  toggleMenu: () => void
 }

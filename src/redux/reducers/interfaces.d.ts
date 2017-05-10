@@ -24,3 +24,7 @@ interface ISettingsAction extends IAction {
   delay: number
   sort: string
 }
+
+interface IMenuAction extends IAction {
+  showMenu: boolean
+}
