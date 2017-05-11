@@ -22,3 +22,8 @@ interface ISliderProps {
   max: number
   handleChange: (e: any, dispatch?: IDispatch<any>) => void
 }
+
+interface ISearchProps {
+  suggestions: Array<string>
+  placeholder: string
+}
