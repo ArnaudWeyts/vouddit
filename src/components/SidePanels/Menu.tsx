@@ -1,8 +1,11 @@
 import * as React from 'react';
 
+import Search from '../shared/Search';
+
 import {
   Wrapper, InnerWrapper,
-  Close, Top, Title
+  Close, Top, Title,
+  PanelItem
 } from './PanelStyles';
 
 const Menu: React.StatelessComponent<IMenuProps> = props => {
@@ -15,6 +18,12 @@ const Menu: React.StatelessComponent<IMenuProps> = props => {
             ╳
           </Close>
         </Top>
+        <PanelItem>
+          <Search
+            suggestions={['youtubehaiku', 'videos', 'funny']}
+            placeholder="Search subs..."
+          />
+        </PanelItem>
       </InnerWrapper>
     </Wrapper>
   );
