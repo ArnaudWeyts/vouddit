@@ -46,6 +46,10 @@ export const Title = styled.h2`
   flex-grow: 1;
 `;
 
+export const PanelItem = styled.div`
+  margin-top: 15px;
+`;
+
 export const Close = styled.span`
   cursor: pointer;
   float: right;
