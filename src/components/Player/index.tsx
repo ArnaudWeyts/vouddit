@@ -36,7 +36,7 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
     }
   }
 
-  toggleControls(e: Event) {
+  toggleControlsDisp(e: any) {
     if (e.type === 'mouseenter') {
       this.props.dispatch(toggleControls());
     } else {
@@ -107,10 +107,8 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
 
     return (
       <Wrapper
-      /*
-        onMouseEnter={toggleControls.bind(this)}
-        onMouseLeave={toggleControls.bind(this)}
-      */
+        onMouseEnter={e => this.toggleControlsDisp(e)}
+        onMouseLeave={e => this.toggleControlsDisp(e)}
       >
         <ReactPlayer
           ref={(player: any) => {
