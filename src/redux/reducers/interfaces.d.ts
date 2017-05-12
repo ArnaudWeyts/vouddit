@@ -27,4 +27,5 @@ interface ISettingsAction extends IAction {
 
 interface IMenuAction extends IAction {
   showMenu: boolean
+  subs: Array<any>
 }
