@@ -23,8 +23,14 @@ class Search extends React.Component<ISearchProps, { value: string, suggestions:
 
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: props.suggestions
     };
+  }
+
+  componentWillReceiveProps(props: ISearchProps) {
+    this.setState({
+      suggestions: props.suggestions
+    });
   }
 
   onChange = (event: any, { newValue }: { newValue: string }) => {
@@ -34,6 +40,7 @@ class Search extends React.Component<ISearchProps, { value: string, suggestions:
   }
 
   onSuggestionsFetchRequested = ({ value }: { value: string }) => {
+    this.props.onChange(value);
     this.setState({
       suggestions: this.props.suggestions
     });

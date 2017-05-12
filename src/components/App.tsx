@@ -9,7 +9,7 @@ import {
 } from '../redux/actions/postsActions';
 import { togglePlayer } from '../redux/actions/playerActions';
 import { toggleSettings } from '../redux/actions/settingsActions';
-import { toggleMenu } from '../redux/actions/menuActions';
+import { toggleMenu, fetchSubs } from '../redux/actions/menuActions';
 
 import { debounce } from '../lib/utils';
 
@@ -124,6 +124,10 @@ class App extends React.Component<IAppProps, {}> {
     dispatch(toggleMenu());
   }
 
+  fetchSubsDisp(dispatch: IDispatch<any>, query: string) {
+    dispatch(fetchSubs(query));
+  }
+
   render() {
     const {
       posts,
@@ -132,7 +136,8 @@ class App extends React.Component<IAppProps, {}> {
       subreddit,
       showSettings,
       showMenu,
-      delay
+      delay,
+      subs
     } = this.props;
 
     return (
@@ -174,7 +179,9 @@ class App extends React.Component<IAppProps, {}> {
         </ContentWrapper>
         <Menu
           showMenu={showMenu}
+          subs={subs}
           toggleMenu={() => this.toggleMenuDisp(dispatch)}
+          fetchSubs={(query: string) => this.fetchSubsDisp(dispatch, query)}
         />
         <Settings />
       </Wrapper>
@@ -191,7 +198,8 @@ const mapStateToProps = ({ posts, settings, menu }: { posts: IPosts, settings: I
   showSettings: settings.showSettings,
   showMenu: menu.showMenu,
   delay: settings.delay,
-  sort: settings.sort
+  sort: settings.sort,
+  subs: menu.subs
 });
 
 export default connect<{}, {}, {}>(mapStateToProps)(App);
