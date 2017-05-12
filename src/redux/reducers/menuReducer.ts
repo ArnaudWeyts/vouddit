@@ -1,9 +1,12 @@
 import {
-  TOGGLE_MENU
+  TOGGLE_MENU,
+  REQUEST_SUBS,
+  RECEIVE_SUBS
 } from '../actions/menuActions';
 
 const INITIAL_STATE = {
-  showMenu: false
+  showMenu: false,
+  subs: []
 };
 
 export default function menuReducer(state: IMenu = INITIAL_STATE, action: IMenuAction) {
@@ -12,6 +15,15 @@ export default function menuReducer(state: IMenu = INITIAL_STATE, action: IMenuA
       return {
         ...state,
         showMenu: !state.showMenu
+      };
+    case REQUEST_SUBS:
+      return {
+        ...state
+      };
+    case RECEIVE_SUBS:
+      return {
+        ...state,
+        subs: action.subs
       };
     default:
       return state;
