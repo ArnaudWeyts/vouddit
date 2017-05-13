@@ -61,10 +61,12 @@ interface ISettingsProps extends ISettings {
 
 interface IMenu {
   showMenu: boolean
-  subs: Array<any>
+  searchSubs: Array<any>
+  playlists: Array<{ name: string, subs: Array<string> }>
 }
 
 interface IMenuProps extends IMenu {
   toggleMenu: () => void
   fetchSubs: (sub: string) => void
+  selectSub: (sub: string) => void
 }

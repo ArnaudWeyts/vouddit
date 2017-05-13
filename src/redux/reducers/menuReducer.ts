@@ -1,12 +1,15 @@
 import {
   TOGGLE_MENU,
   REQUEST_SUBS,
-  RECEIVE_SUBS
+  RECEIVE_SUBS,
+  CREATE_PLAYLIST,
+  //SELECT_SUB
 } from '../actions/menuActions';
 
 const INITIAL_STATE = {
   showMenu: false,
-  subs: []
+  searchSubs: [],
+  playlists: []
 };
 
 export default function menuReducer(state: IMenu = INITIAL_STATE, action: IMenuAction) {
@@ -23,8 +26,18 @@ export default function menuReducer(state: IMenu = INITIAL_STATE, action: IMenuA
     case RECEIVE_SUBS:
       return {
         ...state,
-        subs: action.subs
+        searchSubs: action.searchSubs
       };
+    case CREATE_PLAYLIST:
+      return {
+        ...state,
+        playlists: [...state.playlists, action.playlist]
+      };
+    /*case SELECT_SUB:
+      return {
+        ...state,
+        subs: [...state.playlists, action.sub]
+      };*/
     default:
       return state;
   }
