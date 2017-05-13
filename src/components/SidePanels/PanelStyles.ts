@@ -48,10 +48,37 @@ export const Title = styled.h2`
 
 export const PanelItem = styled.div`
   margin-top: 15px;
+  color: #FFF;
 `;
 
 export const Close = styled.span`
   cursor: pointer;
   float: right;
   color: #FFF;
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  color: #fff;
+  background-color: #2196F3;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #2196F3;
+  border-radius: 2px;
+  font-size: 16px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+  &:focus {
+    outline: none;
+    border: 1px solid #fff;
+  }
+
+  span {
+    vertical-align: middle;
+  }
+`;
+
+export const Icon = styled.img`
+  cursor: pointer;
+  float: left;
 `;
