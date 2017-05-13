@@ -2,8 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import icons from './icons';
 
-/// <reference path="./interfaces.d.ts"/>
-
 const Select = styled.select`
   -webkit-appearance: none;
   padding: 6px;
