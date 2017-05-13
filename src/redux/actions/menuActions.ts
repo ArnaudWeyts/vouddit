@@ -3,6 +3,8 @@ import 'whatwg-fetch';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
+export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
+export const SELECT_SUB = 'SELECT_SUB';
 
 export function toggleMenu() {
   return {
@@ -19,7 +21,21 @@ function requestSubs() {
 function recieveSubs(subs: Array<any>) {
   return {
     type: RECEIVE_SUBS,
-    subs
+    searchSubs: subs
+  };
+}
+
+function createPlaylist(name: string, subs: Array<string>) {
+  return {
+    type: CREATE_PLAYLIST,
+    playlist: { name, subs }
+  };
+}
+
+export function selectSub(sub: string) {
+  return {
+    type: SELECT_SUB,
+    sub
   };
 }
 
