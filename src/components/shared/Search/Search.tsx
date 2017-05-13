@@ -66,11 +66,14 @@ class Search extends React.Component<ISearchProps, { value: string, suggestions:
         <Autosuggest
           inputProps={inputProps}
           suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={(suggestion: string) => suggestion}
           renderSuggestion={renderSuggestion}
           theme={theme}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={(e: any, { suggestionValue }: { suggestionValue: string }) => {
+            this.props.onSelected(suggestionValue);
+          }}
         />
       </div>
     );

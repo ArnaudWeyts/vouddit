@@ -27,4 +27,5 @@ interface ISearchProps {
   suggestions: Array<string>
   placeholder: string
   onChange: (param: any) => void
+  onSelected: (param: any) => void
 }

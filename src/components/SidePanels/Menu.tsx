@@ -20,9 +20,10 @@ const Menu: React.StatelessComponent<IMenuProps> = props => {
         </Top>
         <PanelItem>
           <Search
-            suggestions={props.subs}
+            suggestions={props.searchSubs}
             placeholder="Search subs..."
             onChange={props.fetchSubs}
+            onSelected={props.selectSub}
           />
         </PanelItem>
       </InnerWrapper>
