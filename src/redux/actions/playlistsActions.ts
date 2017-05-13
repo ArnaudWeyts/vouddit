@@ -1,14 +1,15 @@
 import 'whatwg-fetch';
 
-export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
-export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const SELECT_SUB = 'SELECT_SUB';
 
-export function toggleMenu() {
+export const TOGGLE_PLAYLISTS = 'TOGGLE_PLAYLISTS';
+export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
+
+export function togglePlaylists() {
   return {
-    type: TOGGLE_MENU
+    type: TOGGLE_PLAYLISTS
   };
 }
 
@@ -25,24 +26,10 @@ function recieveSubs(subs: Array<any>) {
   };
 }
 
-function createPlaylist(name: string, subs: Array<string>) {
-  return {
-    type: CREATE_PLAYLIST,
-    playlist: { name, subs }
-  };
-}
-
-export function selectSub(sub: string) {
-  return {
-    type: SELECT_SUB,
-    sub
-  };
-}
-
 export function fetchSubs(query: string) {
   return (dispatch: IDispatch<any>) => {
     const ROOT_URL = 'https://www.reddit.com';
-    const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=100`;
+    const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=30`;
 
     dispatch(requestSubs());
     return fetch(url)
@@ -57,5 +44,19 @@ export function fetchSubs(query: string) {
       .catch(ex => {
         console.warn(`Couldn't fetch from url: ${ex}`);
       });
+  };
+}
+
+export function selectSub(sub: string) {
+  return {
+    type: SELECT_SUB,
+    sub
+  };
+}
+
+export function createPlaylist(name: string, subs: Array<string>) {
+  return {
+    type: CREATE_PLAYLIST,
+    playlist: { name, subs }
   };
 }

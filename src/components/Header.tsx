@@ -42,7 +42,7 @@ const SubInput = styled.input`
 
 const IconMenu = styled.img`
   cursor: pointer; 
-  ${(props: { showMenu: boolean }) => props.showMenu ? 'width: 0;' : ''}
+  ${(props: { showPlaylists: boolean }) => props.showPlaylists ? 'width: 0;' : ''}
 `;
 
 const IconSettings = styled.img`
@@ -64,8 +64,8 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
       <IconMenu
         src={icons.menu}
         alt="menu icon"
-        showMenu={props.showMenu}
-        onClick={props.toggleMenu}
+        showPlaylists={props.showPlaylists}
+        onClick={props.togglePlaylists}
       />
       <Form
         autoComplete="off"

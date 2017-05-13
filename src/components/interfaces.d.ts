@@ -35,17 +35,17 @@ interface ISettings {
   useDefaultPlayer: boolean
 }
 
-interface IAppProps extends IPosts, ISettings, IMenu {
+interface IAppProps extends IPosts, ISettings, IPlaylists {
   dispatch: IDispatch<any>
 }
 
 interface IHeaderProps {
   currentSub: string
   showSettings: boolean
-  showMenu: boolean
+  showPlaylists: boolean
   changeSub: (value: string) => void
   toggleSettings: () => void
-  toggleMenu: () => void
+  togglePlaylists: () => void
 }
 
 interface IControlsProps {
@@ -59,14 +59,18 @@ interface ISettingsProps extends ISettings {
   dispatch: IDispatch<any>
 }
 
-interface IMenu {
-  showMenu: boolean
+interface IPlaylists {
+  showPlaylists: boolean
   searchSubs: Array<any>
   playlists: Array<{ name: string, subs: Array<string> }>
 }
 
-interface IMenuProps extends IMenu {
-  toggleMenu: () => void
-  fetchSubs: (sub: string) => void
+interface IPlaylistsProps extends IPlaylists {
+  dispatch: IDispatch<any>
+}
+
+interface IAddPlaylistsProps {
+  searchSubs: Array<string>
+  fetchSubs: (query: string) => void
   selectSub: (sub: string) => void
 }
