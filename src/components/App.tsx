@@ -9,14 +9,14 @@ import {
 } from '../redux/actions/postsActions';
 import { togglePlayer } from '../redux/actions/playerActions';
 import { toggleSettings } from '../redux/actions/settingsActions';
-import { toggleMenu, fetchSubs } from '../redux/actions/menuActions';
+import { togglePlaylists } from '../redux/actions/playlistsActions';
 
 import { debounce } from '../lib/utils';
 
 import Header from './Header';
 import Player from './Player';
 import RedditControls from './RedditControls';
-import Menu from './SidePanels/Menu';
+import Playlists from './SidePanels/Playlists';
 import Settings from './SidePanels/Settings';
 
 const Wrapper = styled.div`
@@ -28,10 +28,10 @@ const Wrapper = styled.div`
 
 interface ContentWrapperProps {
   showSettings: boolean;
-  showMenu: boolean;
+  showPlaylists: boolean;
 }
 const ContentWrapper = styled.div`
-  margin-left: ${(props: ContentWrapperProps) => (props.showMenu ? '300px' : 0)};
+  margin-left: ${(props: ContentWrapperProps) => (props.showPlaylists ? '300px' : 0)};
   margin-right: ${(props: ContentWrapperProps) => (props.showSettings ? '300px' : 0)};
   transition: margin 0.3s ease-in-out;
 `;
@@ -120,12 +120,8 @@ class App extends React.Component<IAppProps, {}> {
     dispatch(toggleSettings());
   }
 
-  toggleMenuDisp(dispatch: IDispatch<any>) {
-    dispatch(toggleMenu());
-  }
-
-  fetchSubsDisp(dispatch: IDispatch<any>, query: string) {
-    dispatch(fetchSubs(query));
+  togglePlaylistsDisp(dispatch: IDispatch<any>) {
+    dispatch(togglePlaylists());
   }
 
   render() {
@@ -135,24 +131,23 @@ class App extends React.Component<IAppProps, {}> {
       dispatch,
       subreddit,
       showSettings,
-      showMenu,
-      delay,
-      subs
+      showPlaylists,
+      delay
     } = this.props;
 
     return (
       <Wrapper>
         <ContentWrapper
           showSettings={showSettings}
-          showMenu={showMenu}
+          showPlaylists={showPlaylists}
         >
           <Header
             currentSub={subreddit}
             changeSub={(sub: string) => this.changeSub(dispatch, sub)}
             toggleSettings={() => this.toggleSettingsDisp(dispatch)}
-            toggleMenu={() => this.toggleMenuDisp(dispatch)}
+            togglePlaylists={() => this.togglePlaylistsDisp(dispatch)}
             showSettings={showSettings}
-            showMenu={showMenu}
+            showPlaylists={showPlaylists}
           />
           <Player
             url={postActive ? postActive.url : ''}
@@ -177,29 +172,25 @@ class App extends React.Component<IAppProps, {}> {
             }}
           />
         </ContentWrapper>
-        <Menu
-          showMenu={showMenu}
-          subs={subs}
-          toggleMenu={() => this.toggleMenuDisp(dispatch)}
-          fetchSubs={(query: string) => this.fetchSubsDisp(dispatch, query)}
-        />
+        <Playlists />
         <Settings />
       </Wrapper>
     );
   }
 }
 
-const mapStateToProps = ({ posts, settings, menu }: { posts: IPosts, settings: ISettings, menu: IMenu }) => ({
+const mapStateToProps = ({ posts, settings, playlists }:
+  { posts: IPosts, settings: ISettings, playlists: IPlaylists }
+) => ({
   subreddit: posts.subreddit,
   posts: posts.posts,
   nextPosts: posts.nextPosts,
   isFetching: posts.isFetching,
   postActive: posts.postActive,
   showSettings: settings.showSettings,
-  showMenu: menu.showMenu,
+  showPlaylists: playlists.showPlaylists,
   delay: settings.delay,
   sort: settings.sort,
-  subs: menu.subs
 });
 
 export default connect<{}, {}, {}>(mapStateToProps)(App);

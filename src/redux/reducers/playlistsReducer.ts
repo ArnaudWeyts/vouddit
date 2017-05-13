@@ -1,23 +1,23 @@
 import {
-  TOGGLE_MENU,
+  TOGGLE_PLAYLISTS,
   REQUEST_SUBS,
   RECEIVE_SUBS,
   CREATE_PLAYLIST,
-  //SELECT_SUB
-} from '../actions/menuActions';
+  SELECT_SUB
+} from '../actions/playlistsActions';
 
 const INITIAL_STATE = {
-  showMenu: false,
+  showPlaylists: false,
   searchSubs: [],
-  playlists: []
+  playlists: [],
 };
 
-export default function menuReducer(state: IMenu = INITIAL_STATE, action: IMenuAction) {
+export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
   switch (action.type) {
-    case TOGGLE_MENU:
+    case TOGGLE_PLAYLISTS:
       return {
         ...state,
-        showMenu: !state.showMenu
+        showPlaylists: !state.showPlaylists
       };
     case REQUEST_SUBS:
       return {
@@ -33,11 +33,11 @@ export default function menuReducer(state: IMenu = INITIAL_STATE, action: IMenuA
         ...state,
         playlists: [...state.playlists, action.playlist]
       };
-    /*case SELECT_SUB:
+    case SELECT_SUB:
       return {
         ...state,
         subs: [...state.playlists, action.sub]
-      };*/
+      };
     default:
       return state;
   }

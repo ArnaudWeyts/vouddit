@@ -25,7 +25,9 @@ interface ISettingsAction extends IAction {
   sort: string
 }
 
-interface IMenuAction extends IAction {
-  showMenu: boolean
-  subs: Array<any>
+interface IPlaylistsAction extends IAction {
+  showPlaylists: boolean
+  searchSubs: Array<any>
+  playlist: Array<{ name: string, subs: Array<string> }>
+  sub: string
 }
