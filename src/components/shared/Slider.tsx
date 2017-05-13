@@ -1,8 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-/// <reference path="./interfaces.d.ts"/>
-
 const Slider = styled.div`
   display: inline-block;
   position: relative;
