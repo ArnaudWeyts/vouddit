@@ -9,6 +9,7 @@ const person = require('./person.svg');
 const settings = require('./settings.svg');
 const menu = require('./menu.svg');
 const search = require('./search.svg');
+const playlistAdd = require('./playlist_add.svg');
 
 export default {
   reddit,
@@ -21,5 +22,6 @@ export default {
   person,
   settings,
   menu,
-  search
+  search,
+  playlistAdd
 };
