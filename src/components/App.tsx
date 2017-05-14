@@ -44,8 +44,8 @@ class App extends React.Component<IAppProps, {}> {
   }
 
   componentWillMount() {
-    const { dispatch, subreddit, sort } = this.props;
-    dispatch(fetchPosts(subreddit, undefined, sort));
+    const { fetchPostsDisp, subreddit, sort } = this.props;
+    fetchPostsDisp(subreddit, undefined, sort);
   }
 
   componentDidMount() {
@@ -62,15 +62,15 @@ class App extends React.Component<IAppProps, {}> {
 
   // keyboard shortcuts wheeeee
   handleKeyDown({ key }: { key: string }) {
-    const { dispatch, postActive } = this.props;
+    const { postActive, setPrevNextPostDisp, togglePlayerDisp } = this.props;
     if (!postActive) { return; }
     switch (key) {
       case 'ArrowRight':
-        return dispatch(setPrevNextPost(postActive, true));
+        return setPrevNextPostDisp(postActive, true);
       case 'ArrowLeft':
-        return dispatch(setPrevNextPost(postActive, false));
+        return setPrevNextPostDisp(postActive, false);
       case ' ':
-        return dispatch(togglePlayer());
+        return togglePlayerDisp();
       default:
         return;
     }
@@ -85,8 +85,8 @@ class App extends React.Component<IAppProps, {}> {
       nextPosts,
       subreddit,
       isFetching,
-      dispatch,
-      sort
+      sort,
+      fetchPostsDisp
     } = this.props;
 
     // never update while fetching
@@ -94,45 +94,29 @@ class App extends React.Component<IAppProps, {}> {
 
     // fetch more posts if there are only 5 left
     if (nextProps.postActive.index + 4 > posts.length) {
-      dispatch(fetchPosts(subreddit, nextPosts, sort));
+      fetchPostsDisp(subreddit, nextPosts, sort);
     }
   }
 
   // dispatch event when the subreddit is changed
-  changeSub(dispatch: IDispatch<any>, sub: string) {
-    const { sort } = this.props;
-    dispatch(selectSubreddit(sub));
-    dispatch(fetchPosts(sub, undefined, sort));
-  }
-
-  // dispatch event for next/prev post
-  getPrevNextPost(dispatch: IDispatch<any>, post: IPost, direction: boolean) {
-    dispatch(setPrevNextPost(post, direction));
-  }
-
-  // dispatch for togglePlayer
-  togglePlayerDisp(dispatch: IDispatch<any>) {
-    dispatch(togglePlayer());
-  }
-
-  // dispatch for settings
-  toggleSettingsDisp(dispatch: IDispatch<any>) {
-    dispatch(toggleSettings());
-  }
-
-  togglePlaylistsDisp(dispatch: IDispatch<any>) {
-    dispatch(togglePlaylists());
+  changeSub(sub: string) {
+    const { sort, selectSubredditDisp, fetchPostsDisp } = this.props;
+    selectSubredditDisp(sub);
+    fetchPostsDisp(sub, undefined, sort);
   }
 
   render() {
     const {
       posts,
       postActive,
-      dispatch,
       subreddit,
       showSettings,
       showPlaylists,
-      delay
+      delay,
+      setPrevNextPostDisp,
+      togglePlayerDisp,
+      toggleSettingsDisp,
+      togglePlaylistsDisp
     } = this.props;
 
     return (
@@ -143,9 +127,9 @@ class App extends React.Component<IAppProps, {}> {
         >
           <Header
             currentSub={subreddit}
-            changeSub={(sub: string) => this.changeSub(dispatch, sub)}
-            toggleSettings={() => this.toggleSettingsDisp(dispatch)}
-            togglePlaylists={() => this.togglePlaylistsDisp(dispatch)}
+            changeSub={(sub: string) => this.changeSub(sub)}
+            toggleSettings={() => toggleSettingsDisp()}
+            togglePlaylists={() => togglePlaylistsDisp()}
             showSettings={showSettings}
             showPlaylists={showPlaylists}
           />
@@ -158,17 +142,17 @@ class App extends React.Component<IAppProps, {}> {
             isFirst={postActive ? postActive.index === 0 : false}
             getPrevNextPost={direction => {
               if (!postActive) { return; }
-              this.getPrevNextPost(dispatch, postActive, direction);
+              setPrevNextPostDisp(postActive, direction);
             }}
             delay={delay}
           />
           <RedditControls
-            togglePlayer={() => this.togglePlayerDisp(dispatch)}
+            togglePlayer={() => togglePlayerDisp()}
             currentVid={postActive}
             nextVid={postActive ? posts[postActive.index + 1] : undefined}
             getPrevNextPost={direction => {
               if (!postActive) { return; }
-              this.getPrevNextPost(dispatch, postActive, direction);
+              setPrevNextPostDisp(postActive, direction);
             }}
           />
         </ContentWrapper>
@@ -193,4 +177,19 @@ const mapStateToProps = ({ posts, settings, playlists }:
   sort: settings.sort,
 });
 
-export default connect<{}, {}, {}>(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch: IDispatch<any>) => {
+  return {
+    fetchPostsDisp: (subreddit: string, after?: string, sort?: string) => {
+      dispatch(fetchPosts(subreddit, after, sort));
+    },
+    setPrevNextPostDisp: (post: IPost, direction: boolean) => {
+      dispatch(setPrevNextPost(post, direction));
+    },
+    selectSubredditDisp: (sub: string) => dispatch(selectSubreddit(sub)),
+    togglePlayerDisp: () => dispatch(togglePlayer()),
+    toggleSettingsDisp: () => dispatch(toggleSettings()),
+    togglePlaylistsDisp: () => dispatch(togglePlaylists())
+  };
+};
+
+export default connect<{}, {}, {}>(mapStateToProps, mapDispatchToProps)(App);
