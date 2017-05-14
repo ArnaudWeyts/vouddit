@@ -8,10 +8,11 @@ import {
 } from '../actions/playlistsActions';
 
 const INITIAL_STATE = {
-  showPlaylists: false,
-  showAddPlaylist: false,
+  showPlaylists: true,
+  showAddPlaylist: true,
   searchSubs: [],
   playlists: [],
+  currentPlaylist: { name: undefined, subs: []}
 };
 
 export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
@@ -41,9 +42,13 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
         playlists: [...state.playlists, action.playlist]
       };
     case SELECT_SUB:
+      const newPlaylist = {
+        name: state.currentPlaylist.name,
+        subs: [...state.currentPlaylist.subs, action.sub]
+      };
       return {
         ...state,
-        subs: [...state.playlists, action.sub]
+        currentPlaylist: newPlaylist
       };
     default:
       return state;
