@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { togglePlaylists, toggleAddPlaylist } from '../../redux/actions/playlistsActions';
+import {
+  togglePlaylists,
+  toggleAddPlaylist,
+  fetchSubs,
+  selectSub
+} from '../../redux/actions/playlistsActions';
+
+import AddPlaylist from './AddPlaylist';
 
 import {
   Wrapper, InnerWrapper,
@@ -24,7 +31,13 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
       );
     } else {
       return (
-        <div>Playlist dialog</div>
+        <AddPlaylist
+          searchSubs={props.searchSubs}
+          fetchSubs={(query: string) => props.fetchSubsDisp(query)}
+          toggleAddPlaylist={props.toggleAddPlaylistDisp}
+          selectSub={(sub: string) => props.selectSubDisp(sub)}
+          selectedSubs={props.currentPlaylist.subs}
+        />
       );
     }
   };
@@ -49,7 +62,9 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
 const mapDispatchToProps = (dispatch: IDispatch<any>) => {
   return {
     togglePlaylistsDisp: () => dispatch(togglePlaylists()),
-    toggleAddPlaylistDisp: () => dispatch(toggleAddPlaylist())
+    toggleAddPlaylistDisp: () => dispatch(toggleAddPlaylist()),
+    fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
+    selectSubDisp: (sub: string) => dispatch(selectSub(sub))
   };
 };
 
@@ -57,7 +72,8 @@ const mapStateToProps = ({ playlists }: { playlists: IPlaylists }) => ({
   showPlaylists: playlists.showPlaylists,
   showAddPlaylist: playlists.showAddPlaylist,
   searchSubs: playlists.searchSubs,
-  playlists: playlists.playlists
+  playlists: playlists.playlists,
+  currentPlaylist: playlists.currentPlaylist
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlists);

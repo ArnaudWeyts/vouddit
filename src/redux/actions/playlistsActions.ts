@@ -35,7 +35,7 @@ function recieveSubs(subs: Array<any>) {
 export function fetchSubs(query: string) {
   return (dispatch: IDispatch<any>) => {
     const ROOT_URL = 'https://www.reddit.com';
-    const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=30`;
+    const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=10`;
 
     dispatch(requestSubs());
     return fetch(url)

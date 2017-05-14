@@ -70,16 +70,21 @@ interface IPlaylists {
   showAddPlaylist: boolean
   searchSubs: Array<any>
   playlists: Array<{ name: string, subs: Array<string> }>
+  currentPlaylist: { name?: string, subs: Array<string> }
 }
 
 interface IPlaylistsProps extends IPlaylists {
   dispatch: IDispatch<any>
   togglePlaylistsDisp: () => void
   toggleAddPlaylistDisp: () => void
+  fetchSubsDisp: (query: string) => void
+  selectSubDisp: (sub: string) => void
 }
 
 interface IAddPlaylistsProps {
   searchSubs: Array<string>
+  selectedSubs: Array<string>
   fetchSubs: (query: string) => void
   selectSub: (sub: string) => void
+  toggleAddPlaylist: () => void
 }
