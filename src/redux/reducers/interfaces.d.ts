@@ -27,6 +27,7 @@ interface ISettingsAction extends IAction {
 
 interface IPlaylistsAction extends IAction {
   showPlaylists: boolean
+  showAddPlaylist: boolean
   searchSubs: Array<any>
   playlist: Array<{ name: string, subs: Array<string> }>
   sub: string
