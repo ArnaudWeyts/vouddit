@@ -37,6 +37,12 @@ interface ISettings {
 
 interface IAppProps extends IPosts, ISettings, IPlaylists {
   dispatch: IDispatch<any>
+  fetchPostsDisp: (subreddit: string, after?: string, sort?: string) => void
+  setPrevNextPostDisp: (post: IPost, direction: boolean) => void
+  selectSubredditDisp: (sub: string) => void
+  togglePlayerDisp: () => void
+  toggleSettingsDisp: () => void
+  togglePlaylistsDisp: () => void
 }
 
 interface IHeaderProps {
