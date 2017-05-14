@@ -1,15 +1,21 @@
 import 'whatwg-fetch';
 
+export const TOGGLE_PLAYLISTS = 'TOGGLE_PLAYLISTS';
+export const TOGGLE_ADD_PLAYLIST = 'TOGGLE_ADD_PLAYLIST';
+export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
 export const SELECT_SUB = 'SELECT_SUB';
 
-export const TOGGLE_PLAYLISTS = 'TOGGLE_PLAYLISTS';
-export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
-
 export function togglePlaylists() {
   return {
     type: TOGGLE_PLAYLISTS
+  };
+}
+
+export function toggleAddPlaylist() {
+  return {
+    type: TOGGLE_ADD_PLAYLIST
   };
 }
 

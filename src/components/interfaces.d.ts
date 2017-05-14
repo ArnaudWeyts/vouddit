@@ -67,12 +67,15 @@ interface ISettingsProps extends ISettings {
 
 interface IPlaylists {
   showPlaylists: boolean
+  showAddPlaylist: boolean
   searchSubs: Array<any>
   playlists: Array<{ name: string, subs: Array<string> }>
 }
 
 interface IPlaylistsProps extends IPlaylists {
   dispatch: IDispatch<any>
+  togglePlaylistsDisp: () => void
+  toggleAddPlaylistDisp: () => void
 }
 
 interface IAddPlaylistsProps {
