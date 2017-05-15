@@ -47,6 +47,7 @@ class Search extends React.Component<ISearchProps, { value: string, suggestions:
   }
 
   onSuggestionsClearRequested = () => {
+    this.props.onClear();
     this.setState({
       suggestions: []
     });

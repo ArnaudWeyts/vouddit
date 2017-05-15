@@ -26,6 +26,7 @@ interface ISliderProps {
 interface ISearchProps {
   suggestions: Array<string>
   placeholder: string
-  onChange: (param: any) => void
+  onChange: (...params: any[]) => void
   onSelected: (...params: any[]) => void
+  onClear: (...params: any[]) => void
 }

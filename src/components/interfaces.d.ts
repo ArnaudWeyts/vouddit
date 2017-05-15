@@ -80,6 +80,8 @@ interface IPlaylistsProps extends IPlaylists {
   fetchSubsDisp: (query: string) => void
   selectSubDisp: (sub: string) => void
   createPlaylistDisp: () => void
+  clearCurrentPLDisp: () => void
+  clearSearchSubsDisp: () => void
 }
 
 interface IAddPlaylistsProps {
@@ -89,4 +91,6 @@ interface IAddPlaylistsProps {
   selectSub: (sub: string) => void
   toggleAddPlaylist: () => void
   createPlaylist: () => void
+  clearCurrentPL: () => void
+  clearSearchSubs: () => void
 }
