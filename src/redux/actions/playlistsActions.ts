@@ -60,9 +60,8 @@ export function selectSub(sub: string) {
   };
 }
 
-export function createPlaylist(name: string, subs: Array<string>) {
+export function createPLFromCurrent() {
   return {
-    type: CREATE_PLAYLIST,
-    playlist: { name, subs }
+    type: CREATE_PLAYLIST
   };
 }

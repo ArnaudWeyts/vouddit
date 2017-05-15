@@ -36,6 +36,11 @@ const ListItem = styled.li`
 
 const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
   const renderList = () => {
+    if (props.selectedSubs.length === 0) {
+      return (
+        <div>No subs selected</div>
+      );
+    }
     return (
       <List>
         {props.selectedSubs.map((sub: string) => {
@@ -58,8 +63,9 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           <CardTitle>Selected subs</CardTitle>
           {renderList()}
           <Button
-            onClick={() => props.toggleAddPlaylist()}
+            onClick={() => props.createPlaylist()}
             style={{ width: '57%', marginRight: '3%', marginTop: '25px' }}
+            disabled={props.selectedSubs.length === 0 ? true : false}
           >
             <span>Create</span>
           </Button>

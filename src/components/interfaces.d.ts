@@ -79,6 +79,7 @@ interface IPlaylistsProps extends IPlaylists {
   toggleAddPlaylistDisp: () => void
   fetchSubsDisp: (query: string) => void
   selectSubDisp: (sub: string) => void
+  createPlaylistDisp: () => void
 }
 
 interface IAddPlaylistsProps {
@@ -87,4 +88,5 @@ interface IAddPlaylistsProps {
   fetchSubs: (query: string) => void
   selectSub: (sub: string) => void
   toggleAddPlaylist: () => void
+  createPlaylist: () => void
 }

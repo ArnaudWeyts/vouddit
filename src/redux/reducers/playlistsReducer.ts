@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   showAddPlaylist: true,
   searchSubs: [],
   playlists: [],
-  currentPlaylist: { name: undefined, subs: []}
+  currentPlaylist: { name: undefined, subs: [] }
 };
 
 export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
@@ -39,7 +39,7 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
     case CREATE_PLAYLIST:
       return {
         ...state,
-        playlists: [...state.playlists, action.playlist]
+        playlists: [...state.playlists, state.currentPlaylist]
       };
     case SELECT_SUB:
       const newPlaylist = {
