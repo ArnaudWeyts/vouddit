@@ -22,6 +22,12 @@ const CardTitle = styled.h3`
   margin-top: 0;
 `;
 
+const CardItem = styled.div`
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+`;
+
 const List = styled.ul`
   list-style: none;
   padding-left: 0;
@@ -31,6 +37,24 @@ const List = styled.ul`
 const ListItem = styled.li`
   &:not(:first-child) {
     margin-top: 10px;
+  }
+`;
+
+const Input = styled.input`
+  width: 175px;
+  height: 30px;
+  padding: 1px 0px;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid #FFF;
+  font-size: 20px;
+  color: #2196F3;
+  appearance: none;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid #2196F3;
   }
 `;
 
@@ -44,7 +68,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
     return (
       <List>
         {props.selectedSubs.map((sub: string) => {
-          return <ListItem key={sub}>{sub}</ListItem>;
+          return <ListItem key={sub} style={{ color: '#2196F3' }}>{sub}</ListItem>;
         })}
       </List>
     );
@@ -52,16 +76,22 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
 
   return (
     <div>
-      <Search
-        suggestions={props.searchSubs}
-        placeholder="Search for a sub..."
-        onChange={props.fetchSubs}
-        onSelected={props.selectSub}
-      />
       <PlaylistWrapper>
         <Card>
           <CardTitle>Selected subs</CardTitle>
-          {renderList()}
+          <CardItem>
+            <Search
+              suggestions={props.searchSubs}
+              placeholder="Search for a sub..."
+              onChange={props.fetchSubs}
+              onSelected={props.selectSub}
+            />
+          </CardItem>
+          <CardItem>{renderList()}</CardItem>
+          <CardItem>
+            <CardTitle>Name</CardTitle>
+            <Input placeholder="playlist1" />
+          </CardItem>
           <Button
             onClick={() => props.createPlaylist()}
             style={{ width: '57%', marginRight: '3%', marginTop: '25px' }}
