@@ -20,6 +20,11 @@ const Card = styled.div`
 
 const CardTitle = styled.h3`
   margin-top: 0;
+  margin-bottom: 10px;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
 `;
 
 const CardItem = styled.div`
@@ -85,11 +90,12 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
               placeholder="Search for a sub..."
               onChange={props.fetchSubs}
               onSelected={props.selectSub}
+              onClear={props.clearSearchSubs}
             />
           </CardItem>
           <CardItem>{renderList()}</CardItem>
+          <CardTitle>Name</CardTitle>
           <CardItem>
-            <CardTitle>Name</CardTitle>
             <Input placeholder="playlist1" />
           </CardItem>
           <Button
@@ -100,7 +106,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
             <span>Create</span>
           </Button>
           <Button
-            onClick={() => props.toggleAddPlaylist()}
+            onClick={() => props.clearCurrentPL() && props.toggleAddPlaylist()}
             style={{ width: '37%', marginLeft: '3%', marginTop: '25px' }}
           >
             <span>Cancel</span>

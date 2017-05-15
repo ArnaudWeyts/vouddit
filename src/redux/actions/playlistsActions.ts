@@ -6,6 +6,7 @@ export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
 export const SELECT_SUB = 'SELECT_SUB';
+export const CLEAR_CURRENT_PL = 'CLEAR_CURRENT_PL';
 
 export function togglePlaylists() {
   return {
@@ -25,7 +26,7 @@ function requestSubs() {
   };
 }
 
-function recieveSubs(subs: Array<any>) {
+export function receiveSubs(subs: Array<any>) {
   return {
     type: RECEIVE_SUBS,
     searchSubs: subs
@@ -45,7 +46,7 @@ export function fetchSubs(query: string) {
           .map(({ data }: { data: { display_name: string } }) => {
             return data.display_name;
           });
-        dispatch(recieveSubs(subs));
+        dispatch(receiveSubs(subs));
       })
       .catch(ex => {
         console.warn(`Couldn't fetch from url: ${ex}`);
@@ -63,5 +64,12 @@ export function selectSub(sub: string) {
 export function createPLFromCurrent() {
   return {
     type: CREATE_PLAYLIST
+  };
+}
+
+export function clearCurrentPL() {
+  return {
+    type: CLEAR_CURRENT_PL,
+    playlist: { name: undefined, subs: [] }
   };
 }
