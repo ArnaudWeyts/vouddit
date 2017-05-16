@@ -32,4 +32,5 @@ interface IPlaylistsAction extends IAction {
   playlist: IPlaylist
   sub: string
   playlistId: number
+  name: string
 }

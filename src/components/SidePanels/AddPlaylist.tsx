@@ -96,7 +96,13 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           <CardItem>{renderList()}</CardItem>
           <CardTitle>Name</CardTitle>
           <CardItem>
-            <Input placeholder={props.playlist.name} />
+            <Input
+              placeholder={props.playlist.name}
+              onChange={({ target }) => {
+                const value = (target as HTMLInputElement).value;
+                props.updateName(value);
+              }}
+            />
           </CardItem>
           <Button
             onClick={() => props.createPlaylist()}
