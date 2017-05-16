@@ -69,8 +69,13 @@ interface IPlaylists {
   showPlaylists: boolean
   showAddPlaylist: boolean
   searchSubs: Array<any>
-  playlists: Array<{ name: string, subs: Array<string> }>
-  currentPlaylist: { name?: string, subs: Array<string> }
+  playlists: Array<IPlaylist>
+  currentPlaylist: IPlaylist
+}
+
+interface IPlaylist {
+  name?: string
+  subs: Array<string>
 }
 
 interface IPlaylistsProps extends IPlaylists {
@@ -86,11 +91,10 @@ interface IPlaylistsProps extends IPlaylists {
 
 interface IAddPlaylistsProps {
   searchSubs: Array<string>
-  selectedSubs: Array<string>
+  playlist: IPlaylist
   fetchSubs: (query: string) => void
   selectSub: (sub: string) => void
   toggleAddPlaylist: () => void
   createPlaylist: () => void
-  clearCurrentPL: () => void
   clearSearchSubs: () => void
 }
