@@ -28,7 +28,7 @@ export function secToFormat(secs: number) {
 /**
  * Debounce a function
  */
-export function debounce(func: (...args: Array<any>) => any, interval: number) {
+export function debounce(func: any, interval: number) {
   let lastCall = -1;
   return function (this: void) {
     clearTimeout(lastCall);
