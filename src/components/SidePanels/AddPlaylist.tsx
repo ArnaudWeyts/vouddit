@@ -65,14 +65,14 @@ const Input = styled.input`
 
 const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
   const renderList = () => {
-    if (props.selectedSubs.length === 0) {
+    if (props.playlist.subs.length === 0) {
       return (
         <div>No subs selected</div>
       );
     }
     return (
       <List>
-        {props.selectedSubs.map((sub: string) => {
+        {props.playlist.subs.map((sub: string) => {
           return <ListItem key={sub} style={{ color: '#2196F3' }}>{sub}</ListItem>;
         })}
       </List>
@@ -96,17 +96,17 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           <CardItem>{renderList()}</CardItem>
           <CardTitle>Name</CardTitle>
           <CardItem>
-            <Input placeholder="playlist1" />
+            <Input placeholder={props.playlist.name} />
           </CardItem>
           <Button
             onClick={() => props.createPlaylist()}
             style={{ width: '57%', marginRight: '3%', marginTop: '25px' }}
-            disabled={props.selectedSubs.length === 0 ? true : false}
+            disabled={props.playlist.subs.length === 0 ? true : false}
           >
             <span>Create</span>
           </Button>
           <Button
-            onClick={() => props.clearCurrentPL() && props.toggleAddPlaylist()}
+            onClick={() => props.toggleAddPlaylist()}
             style={{ width: '37%', marginLeft: '3%', marginTop: '25px' }}
           >
             <span>Cancel</span>
