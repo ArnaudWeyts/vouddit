@@ -6,6 +6,7 @@ import {
   toggleAddPlaylist,
   fetchSubs,
   selectSub,
+  updateName,
   receiveSubs,
   createPlaylist
 } from '../../redux/actions/playlistsActions';
@@ -39,6 +40,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           playlist={props.currentPlaylist}
           fetchSubs={(query: string) => props.fetchSubsDisp(query)}
           selectSub={(sub: string) => props.selectSubDisp(sub)}
+          updateName={(name: string) => props.updateNameDisp(name)}
           createPlaylist={() => props.createPlaylistDisp()}
           clearSearchSubs={() => props.clearSearchSubsDisp()}
         />
@@ -69,6 +71,7 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     toggleAddPlaylistDisp: () => dispatch(toggleAddPlaylist()),
     fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
     selectSubDisp: (sub: string) => dispatch(selectSub(sub)),
+    updateNameDisp: (name: string) => dispatch(updateName(name)),
     createPlaylistDisp: () => dispatch(createPlaylist()),
     clearSearchSubsDisp: () => dispatch(receiveSubs([]))
   };

@@ -7,6 +7,7 @@ export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
 export const SELECT_SUB = 'SELECT_SUB';
+export const UPDATE_NAME = 'UPDATE_NAME';
 export const CLEAR_CURRENT_PL = 'CLEAR_CURRENT_PL';
 
 export function togglePlaylists() {
@@ -87,6 +88,13 @@ export function createPlaylist() {
   return (dispatch: IDispatch<any>) => {
     dispatch(createPLFromCurrent());
     dispatch(toggleAddPlaylist());
+  };
+}
+
+export function updateName(name: string) {
+  return {
+    type: UPDATE_NAME,
+    name
   };
 }
 

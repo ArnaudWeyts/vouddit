@@ -6,6 +6,7 @@ import {
   RECEIVE_SUBS,
   CREATE_PLAYLIST,
   SELECT_SUB,
+  UPDATE_NAME,
   CLEAR_CURRENT_PL
 } from '../actions/playlistsActions';
 
@@ -61,6 +62,11 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
       return {
         ...state,
         currentPlaylist: newPlaylist
+      };
+    case UPDATE_NAME:
+      return {
+        ...state,
+        currentPlaylist: { name: action.name, subs: state.currentPlaylist.subs }
       };
     default:
       return state;
