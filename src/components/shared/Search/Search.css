@@ -27,7 +27,7 @@
 }
 
 .autosuggest_suggestion--highlighted {
-  background: grey;
+  background: #151516;
   cursor: pointer;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
