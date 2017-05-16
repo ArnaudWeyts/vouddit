@@ -7,8 +7,7 @@ import {
   fetchSubs,
   selectSub,
   receiveSubs,
-  createPLFromCurrent,
-  clearCurrentPL
+  createPlaylist
 } from '../../redux/actions/playlistsActions';
 
 import AddPlaylist from './AddPlaylist';
@@ -36,12 +35,11 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
       return (
         <AddPlaylist
           searchSubs={props.searchSubs}
-          fetchSubs={(query: string) => props.fetchSubsDisp(query)}
           toggleAddPlaylist={props.toggleAddPlaylistDisp}
+          playlist={props.currentPlaylist}
+          fetchSubs={(query: string) => props.fetchSubsDisp(query)}
           selectSub={(sub: string) => props.selectSubDisp(sub)}
-          selectedSubs={props.currentPlaylist.subs}
           createPlaylist={() => props.createPlaylistDisp()}
-          clearCurrentPL={() => props.clearCurrentPLDisp()}
           clearSearchSubs={() => props.clearSearchSubsDisp()}
         />
       );
@@ -71,8 +69,7 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     toggleAddPlaylistDisp: () => dispatch(toggleAddPlaylist()),
     fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
     selectSubDisp: (sub: string) => dispatch(selectSub(sub)),
-    createPlaylistDisp: () => dispatch(createPLFromCurrent()),
-    clearCurrentPLDisp: () => dispatch(clearCurrentPL()),
+    createPlaylistDisp: () => dispatch(createPlaylist()),
     clearSearchSubsDisp: () => dispatch(receiveSubs([]))
   };
 };
