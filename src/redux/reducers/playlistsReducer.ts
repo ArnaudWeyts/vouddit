@@ -1,6 +1,7 @@
 import {
   TOGGLE_PLAYLISTS,
   TOGGLE_ADD_PLAYLIST,
+  INITIALIZE_PLAYLIST,
   REQUEST_SUBS,
   RECEIVE_SUBS,
   CREATE_PLAYLIST,
@@ -9,8 +10,8 @@ import {
 } from '../actions/playlistsActions';
 
 const INITIAL_STATE = {
-  showPlaylists: true,
-  showAddPlaylist: true,
+  showPlaylists: false,
+  showAddPlaylist: false,
   searchSubs: [],
   playlists: [],
   currentPlaylist: { name: undefined, subs: [] }
@@ -26,7 +27,12 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
     case TOGGLE_ADD_PLAYLIST:
       return {
         ...state,
-        showAddPlaylist: !state.showAddPlaylist
+        showAddPlaylist: !state.showAddPlaylist,
+      };
+    case INITIALIZE_PLAYLIST:
+      return {
+        ...state,
+        currentPlaylist: action.playlist
       };
     case REQUEST_SUBS:
       return {

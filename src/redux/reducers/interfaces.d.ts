@@ -29,7 +29,7 @@ interface IPlaylistsAction extends IAction {
   showPlaylists: boolean
   showAddPlaylist: boolean
   searchSubs: Array<any>
-  playlist: Array<{ name: string, subs: Array<string> }>
+  playlist: IPlaylist
   sub: string
   playlistId: number
 }
