@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 
 export const TOGGLE_PLAYLISTS = 'TOGGLE_PLAYLISTS';
 export const TOGGLE_ADD_PLAYLIST = 'TOGGLE_ADD_PLAYLIST';
+export const INITIALIZE_PLAYLIST = 'INITIALIZE_PLAYLIST';
 export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
@@ -14,9 +15,30 @@ export function togglePlaylists() {
   };
 }
 
-export function toggleAddPlaylist() {
+function toggleAddPlaylistsAction() {
   return {
     type: TOGGLE_ADD_PLAYLIST
+  };
+}
+
+export function toggleAddPlaylist() {
+  return (dispatch: IDispatch<any>, getState: () => any) => {
+    // initialize the playlist if the addPlaylists is opened
+    if (!getState().playlists.showAddPlaylist) {
+      const name = `playlist ${getState().playlists.playlists.length + 1}`;
+      dispatch(initializePlaylist({ name, subs: [] }));
+    } else {
+      // clear current playlist
+      dispatch(clearCurrentPL());
+    }
+    dispatch(toggleAddPlaylistsAction());
+  };
+}
+
+export function initializePlaylist(playlist: { name: string, subs: Array<string> }) {
+  return {
+    type: INITIALIZE_PLAYLIST,
+    playlist
   };
 }
 
@@ -61,13 +83,20 @@ export function selectSub(sub: string) {
   };
 }
 
-export function createPLFromCurrent() {
+export function createPlaylist() {
+  return (dispatch: IDispatch<any>) => {
+    dispatch(createPLFromCurrent());
+    dispatch(toggleAddPlaylist());
+  };
+}
+
+function createPLFromCurrent() {
   return {
     type: CREATE_PLAYLIST
   };
 }
 
-export function clearCurrentPL() {
+function clearCurrentPL() {
   return {
     type: CLEAR_CURRENT_PL,
     playlist: { name: undefined, subs: [] }
