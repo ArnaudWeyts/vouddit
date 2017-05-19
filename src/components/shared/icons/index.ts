@@ -10,6 +10,7 @@ const settings = require('./settings.svg');
 const menu = require('./menu.svg');
 const search = require('./search.svg');
 const playlistAdd = require('./playlist_add.svg');
+const deleteBin = require('./delete.svg');
 
 export default {
   reddit,
@@ -23,5 +24,6 @@ export default {
   settings,
   menu,
   search,
-  playlistAdd
+  playlistAdd,
+  deleteBin
 };
