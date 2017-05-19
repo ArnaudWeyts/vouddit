@@ -5,7 +5,7 @@ import {
   togglePlaylists,
   toggleAddPlaylist,
   fetchSubs,
-  selectSub,
+  updateSub,
   updateName,
   receiveSubs,
   createPlaylist
@@ -39,13 +39,21 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           toggleAddPlaylist={props.toggleAddPlaylistDisp}
           playlist={props.currentPlaylist}
           fetchSubs={(query: string) => props.fetchSubsDisp(query)}
-          selectSub={(sub: string) => props.selectSubDisp(sub)}
+          updateSub={(sub: string, remove?: boolean) => props.updateSubDisp(sub, remove)}
           updateName={(name: string) => props.updateNameDisp(name)}
           createPlaylist={() => props.createPlaylistDisp()}
           clearSearchSubs={() => props.clearSearchSubsDisp()}
         />
       );
     }
+  };
+
+  const renderPlaylists = () => {
+    return (
+      props.playlists.map(playlist => {
+        return <div>{playlist.name}</div>;
+      })
+    );
   };
 
   return (
@@ -60,6 +68,9 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
         <PanelItem>
           {renderAddPlaylist()}
         </PanelItem>
+        <PanelItem>
+          {renderPlaylists()}
+        </PanelItem>
       </InnerWrapper>
     </Wrapper>
   );
@@ -70,7 +81,7 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     togglePlaylistsDisp: () => dispatch(togglePlaylists()),
     toggleAddPlaylistDisp: () => dispatch(toggleAddPlaylist()),
     fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
-    selectSubDisp: (sub: string) => dispatch(selectSub(sub)),
+    updateSubDisp: (sub: string, remove?: boolean) => dispatch(updateSub(sub, remove)),
     updateNameDisp: (name: string) => dispatch(updateName(name)),
     createPlaylistDisp: () => dispatch(createPlaylist()),
     clearSearchSubsDisp: () => dispatch(receiveSubs([]))
