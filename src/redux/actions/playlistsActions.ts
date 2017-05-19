@@ -7,6 +7,7 @@ export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REQUEST_SUBS = 'REQUEST_SUBS';
 export const RECEIVE_SUBS = 'RECEIVE_SUBS';
 export const SELECT_SUB = 'SELECT_SUB';
+export const REMOVE_SUB = 'REMOVE_SUB';
 export const UPDATE_NAME = 'UPDATE_NAME';
 export const CLEAR_CURRENT_PL = 'CLEAR_CURRENT_PL';
 
@@ -77,10 +78,42 @@ export function fetchSubs(query: string) {
   };
 }
 
-export function selectSub(sub: string) {
+export function selectSub(playlist: IPlaylist) {
   return {
     type: SELECT_SUB,
-    sub
+    playlist
+  };
+}
+
+export function removeSub(playlist: IPlaylist) {
+  return {
+    type: REMOVE_SUB,
+    playlist
+  };
+}
+
+export function updateSub(sub: string, remove?: boolean) {
+  return (dispatch: IDispatch<any>, getState: () => any) => {
+    // just do a regular select
+    if (!remove) {
+      // create a new playlist with the added sub
+      const newPlaylist = {
+        name: getState().playlists.currentPlaylist.name,
+        subs: [...getState().playlists.currentPlaylist.subs, sub]
+      };
+      return dispatch(selectSub(newPlaylist));
+    } else {
+      // get old subs
+      const oldSubs = getState().playlists.currentPlaylist.subs;
+      // remove the select sub from the array
+      const newSubs = oldSubs.filter((subv: string) => subv !== sub);
+      // create new playlist with removed sub
+      const newPlaylist = {
+        name: getState().playlists.currentPlaylist.name,
+        subs: newSubs
+      };
+      return dispatch(removeSub(newPlaylist));
+    }
   };
 }
 

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import Search from '../shared/Search';
 
 import {
-  Button
+  Button, Icon
 } from './PanelStyles';
+
+import icons from '../shared/icons';
 
 const PlaylistWrapper = styled.div`
   margin-top: 10px;
@@ -29,7 +31,7 @@ const CardTitle = styled.h3`
 
 const CardItem = styled.div`
   &:not(:first-child) {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 `;
 
@@ -73,7 +75,16 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
     return (
       <List>
         {props.playlist.subs.map((sub: string) => {
-          return <ListItem key={sub} style={{ color: '#2196F3' }}>{sub}</ListItem>;
+          return (
+            <ListItem key={sub} style={{ color: '#2196F3' }}>
+              {sub}
+              <Icon
+                src={icons.deleteBin}
+                style={{ float: 'right' }}
+                onClick={() => props.updateSub(sub, true)}
+              />
+            </ListItem>
+          );
         })}
       </List>
     );
@@ -83,19 +94,19 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
     <div>
       <PlaylistWrapper>
         <Card>
-          <CardTitle>Selected subs</CardTitle>
           <CardItem>
+            <CardTitle>Selected subs</CardTitle>
             <Search
               suggestions={props.searchSubs}
               placeholder="Search for a sub..."
               onChange={props.fetchSubs}
-              onSelected={props.selectSub}
+              onSelected={props.updateSub}
               onClear={props.clearSearchSubs}
             />
           </CardItem>
           <CardItem>{renderList()}</CardItem>
-          <CardTitle>Name</CardTitle>
           <CardItem>
+            <CardTitle>Name</CardTitle>
             <Input
               placeholder={props.playlist.name}
               onChange={({ target }) => {
@@ -119,7 +130,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           </Button>
         </Card>
       </PlaylistWrapper>
-    </div >
+    </div>
   );
 };
 

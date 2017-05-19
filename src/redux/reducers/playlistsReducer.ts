@@ -6,6 +6,7 @@ import {
   RECEIVE_SUBS,
   CREATE_PLAYLIST,
   SELECT_SUB,
+  REMOVE_SUB,
   UPDATE_NAME,
   CLEAR_CURRENT_PL
 } from '../actions/playlistsActions';
@@ -55,13 +56,14 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
         currentPlaylist: action.playlist
       };
     case SELECT_SUB:
-      const newPlaylist = {
-        name: state.currentPlaylist.name,
-        subs: [...state.currentPlaylist.subs, action.sub]
-      };
       return {
         ...state,
-        currentPlaylist: newPlaylist
+        currentPlaylist: action.playlist
+      };
+    case REMOVE_SUB:
+      return {
+        ...state,
+        currentPlaylist: action.playlist
       };
     case UPDATE_NAME:
       return {
