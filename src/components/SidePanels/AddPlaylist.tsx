@@ -4,65 +4,18 @@ import styled from 'styled-components';
 import Search from '../shared/Search';
 
 import {
-  Button, Icon
+  Button, IconR
 } from './PanelStyles';
+
+import {
+  List, ListItem, Card,
+  Input, CardItem
+} from '../shared/MainStyles';
 
 import icons from '../shared/icons';
 
 const PlaylistWrapper = styled.div`
   margin-top: 10px;
-`;
-
-const Card = styled.div`
-  border-radius: 2px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  padding: 20px;
-  background: #212121;
-`;
-
-const CardTitle = styled.h3`
-  margin-top: 0;
-  margin-bottom: 10px;
-
-  &:not(:first-child) {
-    margin-top: 20px;
-  }
-`;
-
-const CardItem = styled.div`
-  &:not(:first-child) {
-    margin-top: 20px;
-  }
-`;
-
-const List = styled.ul`
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-`;
-
-const ListItem = styled.li`
-  &:not(:first-child) {
-    margin-top: 10px;
-  }
-`;
-
-const Input = styled.input`
-  width: 175px;
-  height: 30px;
-  padding: 1px 0px;
-  background-color: transparent;
-  border: 0;
-  border-bottom: 1px solid #FFF;
-  font-size: 20px;
-  color: #2196F3;
-  appearance: none;
-  transition: all 0.2s ease-in-out;
-
-  &:focus {
-    outline: none;
-    border-bottom: 1px solid #2196F3;
-  }
 `;
 
 const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
@@ -78,9 +31,8 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           return (
             <ListItem key={sub} style={{ color: '#2196F3' }}>
               {sub}
-              <Icon
+              <IconR
                 src={icons.deleteBin}
-                style={{ float: 'right' }}
                 onClick={() => props.updateSub(sub, true)}
               />
             </ListItem>
@@ -95,7 +47,15 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
       <PlaylistWrapper>
         <Card>
           <CardItem>
-            <CardTitle>Selected subs</CardTitle>
+            <Input
+              placeholder={props.playlist.name}
+              onChange={({ target }) => {
+                const value = (target as HTMLInputElement).value;
+                props.updateName(value);
+              }}
+            />
+          </CardItem>
+          <CardItem>
             <Search
               suggestions={props.searchSubs}
               placeholder="Search for a sub..."
@@ -106,28 +66,20 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           </CardItem>
           <CardItem>{renderList()}</CardItem>
           <CardItem>
-            <CardTitle>Name</CardTitle>
-            <Input
-              placeholder={props.playlist.name}
-              onChange={({ target }) => {
-                const value = (target as HTMLInputElement).value;
-                props.updateName(value);
-              }}
-            />
+            <Button
+              onClick={() => props.createPlaylist()}
+              style={{ width: '57%', marginRight: '3%' }}
+              disabled={props.playlist.subs.length === 0 ? true : false}
+            >
+              <span>Create</span>
+            </Button>
+            <Button
+              onClick={() => props.toggleAddPlaylist()}
+              style={{ width: '37%', marginLeft: '3%' }}
+            >
+              <span>Cancel</span>
+            </Button>
           </CardItem>
-          <Button
-            onClick={() => props.createPlaylist()}
-            style={{ width: '57%', marginRight: '3%', marginTop: '25px' }}
-            disabled={props.playlist.subs.length === 0 ? true : false}
-          >
-            <span>Create</span>
-          </Button>
-          <Button
-            onClick={() => props.toggleAddPlaylist()}
-            style={{ width: '37%', marginLeft: '3%', marginTop: '25px' }}
-          >
-            <span>Cancel</span>
-          </Button>
         </Card>
       </PlaylistWrapper>
     </div>
