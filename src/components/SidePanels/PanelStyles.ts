@@ -78,7 +78,12 @@ export const Button = styled.button`
   }
 `;
 
-export const Icon = styled.img`
+export const IconL = styled.img`
   cursor: pointer;
   float: left;
+`;
+
+export const IconR = styled.img`
+  cursor: pointer;
+  float: right;
 `;
