@@ -4,10 +4,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
 
 import { debounce } from '../lib/utils';
-import { loadState, saveState } from '../lib/localStorage';
+import { loadItem, saveItem } from '../lib/localStorage';
 
 const middlewares = [thunk];
-const persistedState = loadState();
+const persistedState = loadItem('state');
 const store = createStore(
   rootReducer,
   persistedState,
@@ -17,9 +17,13 @@ const store = createStore(
 store.subscribe(
   debounce(
     () => {
-      saveState({
-        settings: store.getState().settings
-      });
+      saveItem(
+        {
+          settings: store.getState().settings,
+          playlists: store.getState().playlists
+        },
+        'state'
+      );
     },
     1000)
 );
