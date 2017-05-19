@@ -16,8 +16,11 @@ import AddPlaylist from './AddPlaylist';
 import {
   Wrapper, InnerWrapper,
   Close, Top, Title,
-  PanelItem, Button, Icon
+  PanelItem, Button, IconL, IconR
 } from './PanelStyles';
+import {
+  Card, CardItem
+} from '../shared/MainStyles';
 import icons from '../shared/icons';
 
 const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
@@ -28,7 +31,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
         <Button
           onClick={() => props.toggleAddPlaylistDisp()}
         >
-          <Icon src={icons.playlistAdd} />
+          <IconL src={icons.playlistAdd} />
           <span>Add a playlist</span>
         </Button>
       );
@@ -50,9 +53,17 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
 
   const renderPlaylists = () => {
     return (
-      props.playlists.map(playlist => {
-        return <div>{playlist.name}</div>;
-      })
+      <Card>
+        {props.playlists.map(playlist => {
+          return (
+            <CardItem>
+              <IconL src={icons.playArrow} />
+              {playlist.name}
+              <IconR src={icons.arrowDown} />
+            </CardItem>
+          );
+        })}
+      </Card>
     );
   };
 
