@@ -1,6 +1,6 @@
-export function loadState() {
+export function loadItem(item: string) {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = localStorage.getItem(item);
     if (serializedState === null) {
       return undefined;
     }
@@ -10,10 +10,10 @@ export function loadState() {
   }
 }
 
-export function saveState(state: any) {
+export function saveItem(item: any, name: string) {
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
+    const serializedState = JSON.stringify(item);
+    localStorage.setItem(name, serializedState);
   } catch (e) {
     console.warn(`save to localStorage failed: ${e}`);
   }
