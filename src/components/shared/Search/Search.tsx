@@ -79,6 +79,6 @@ class Search extends React.Component<ISearchProps, { value: string, suggestions:
       </div>
     );
   }
-};
+}
 
 export default Search;
