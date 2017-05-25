@@ -31,6 +31,6 @@ interface IPlaylistsAction extends IAction {
   searchSubs: Array<any>
   playlist: IPlaylist
   sub: string
-  playlistId: number
+  id: number
   name: string
 }

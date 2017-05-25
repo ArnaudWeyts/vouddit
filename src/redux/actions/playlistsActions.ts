@@ -10,6 +10,7 @@ export const SELECT_SUB = 'SELECT_SUB';
 export const REMOVE_SUB = 'REMOVE_SUB';
 export const UPDATE_NAME = 'UPDATE_NAME';
 export const CLEAR_CURRENT_PL = 'CLEAR_CURRENT_PL';
+export const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
 
 export function togglePlaylists() {
   return {
@@ -27,8 +28,9 @@ export function toggleAddPlaylist() {
   return (dispatch: IDispatch<any>, getState: () => any) => {
     // initialize the playlist if the addPlaylists is opened
     if (!getState().playlists.showAddPlaylist) {
-      const name = `playlist ${getState().playlists.playlists.length + 1}`;
-      dispatch(initializePlaylist({ name, subs: [] }));
+      const id = getState().playlists.playlists.length + 1;
+      const name = `playlist ${id}`;
+      dispatch(initializePlaylist({ id, name, subs: [] }));
     } else {
       // clear current playlist
       dispatch(clearCurrentPL());
@@ -37,7 +39,7 @@ export function toggleAddPlaylist() {
   };
 }
 
-export function initializePlaylist(playlist: { name: string, subs: Array<string> }) {
+export function initializePlaylist(playlist: IPlaylist) {
   return {
     type: INITIALIZE_PLAYLIST,
     playlist
@@ -93,26 +95,28 @@ export function removeSub(playlist: IPlaylist) {
 }
 
 export function updateSub(sub: string, remove?: boolean) {
+  if (sub === '') { return; }
   return (dispatch: IDispatch<any>, getState: () => any) => {
     // get old subs
     const oldSubs = getState().playlists.currentPlaylist.subs;
+    // create a new playlist
+    let newPlaylist: IPlaylist = {
+      id: getState().playlists.currentPlaylist.id,
+      name: getState().playlists.currentPlaylist.name,
+      subs: []
+    };
     // just do a regular select
     if (!remove) {
       const newSubs = [...oldSubs, sub].sort();
-      // create a new playlist with the added sub
-      const newPlaylist = {
-        name: getState().playlists.currentPlaylist.name,
-        subs: newSubs
-      };
+
+      // add new subs
+      newPlaylist.subs = newSubs;
       return dispatch(selectSub(newPlaylist));
     } else {
       // remove the select sub from the array
       const newSubs = oldSubs.filter((subv: string) => subv !== sub);
-      // create new playlist with removed sub
-      const newPlaylist = {
-        name: getState().playlists.currentPlaylist.name,
-        subs: newSubs
-      };
+      // replace subs with removed sub
+      newPlaylist.subs = newSubs;
       return dispatch(removeSub(newPlaylist));
     }
   };
@@ -142,5 +146,12 @@ function clearCurrentPL() {
   return {
     type: CLEAR_CURRENT_PL,
     playlist: { name: undefined, subs: [] }
+  };
+}
+
+export function deletePlaylist(id: number) {
+  return {
+    type: DELETE_PLAYLIST,
+    id
   };
 }

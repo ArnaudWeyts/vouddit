@@ -8,7 +8,8 @@ import {
   SELECT_SUB,
   REMOVE_SUB,
   UPDATE_NAME,
-  CLEAR_CURRENT_PL
+  CLEAR_CURRENT_PL,
+  DELETE_PLAYLIST
 } from '../actions/playlistsActions';
 
 const INITIAL_STATE = {
@@ -16,7 +17,7 @@ const INITIAL_STATE = {
   showAddPlaylist: false,
   searchSubs: [],
   playlists: [],
-  currentPlaylist: { name: undefined, subs: [] }
+  currentPlaylist: { id: undefined, name: undefined, subs: [] }
 };
 
 export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
@@ -69,6 +70,11 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
       return {
         ...state,
         currentPlaylist: { name: action.name, subs: state.currentPlaylist.subs }
+      };
+    case DELETE_PLAYLIST:
+      return {
+        ...state,
+        playlists: state.playlists.filter(p => p.id !== action.id)
       };
     default:
       return state;

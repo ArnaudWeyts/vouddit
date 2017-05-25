@@ -1,41 +1,40 @@
 import * as React from 'react';
 
-import {
-  IconL
-} from '../PanelStyles';
-
-import {
-  Card, CardItem
-} from '../../shared/MainStyles';
-
-import icons from '../../shared/icons';
-
+import { List, ListItem } from 'material-ui/List';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-const PlaylistsList: React.StatelessComponent<{ playlists: Array<IPlaylist> }> = ({ playlists }) => {
+const PlaylistsList: React.StatelessComponent<IPlaylistListProps> = props => {
+  const { playlists, deletePlaylist } = props;
   if (playlists.length === 0) { return null!; }
   return (
-    <Card>
+    <List>
       {playlists.map(playlist => {
         return (
-          <CardItem key={playlist.name}>
-            <IconL src={icons.playArrow} />
-            {playlist.name}
-            <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-            >
-              <MenuItem primaryText="Edit" />
-              <MenuItem primaryText="Delete" />
-            </IconMenu>
-          </CardItem>
+          <ListItem
+            key={playlist.name}
+            primaryText={playlist.name}
+            rightIconButton={
+              <IconMenu
+                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              >
+                <MenuItem
+                  primaryText="Edit"
+                />
+                <MenuItem
+                  primaryText="Delete"
+                  onClick={() => playlist.id && deletePlaylist(playlist.id)}
+                />
+              </IconMenu>
+            }
+          />
         );
       })}
-    </Card>
+    </List>
   );
 };
 

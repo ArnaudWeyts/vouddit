@@ -10,7 +10,8 @@ import {
   updateSub,
   updateName,
   receiveSubs,
-  createPlaylist
+  createPlaylist,
+  deletePlaylist
 } from '../../../redux/actions/playlistsActions';
 
 import AddPlaylist from './AddPlaylist';
@@ -30,7 +31,8 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
     searchSubs, currentPlaylist,
     toggleAddPlaylistDisp, updateNameDisp,
     createPlaylistDisp, fetchSubsDisp,
-    clearSearchSubsDisp, updateSubDisp
+    clearSearchSubsDisp, updateSubDisp,
+    deletePlaylistDisp
   } = props;
 
   const renderAddPlaylist = () => {
@@ -50,9 +52,9 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           searchSubs={searchSubs}
           toggleAddPlaylist={toggleAddPlaylistDisp}
           playlist={currentPlaylist}
-          fetchSubs={(query: string) => fetchSubsDisp(query)}
-          updateSub={(sub: string, remove?: boolean) => updateSubDisp(sub, remove)}
-          updateName={(name: string) => updateNameDisp(name)}
+          fetchSubs={(query) => fetchSubsDisp(query)}
+          updateSub={(sub, remove) => updateSubDisp(sub, remove)}
+          updateName={(name) => updateNameDisp(name)}
           createPlaylist={() => createPlaylistDisp()}
           clearSearchSubs={() => clearSearchSubsDisp()}
         />
@@ -73,7 +75,10 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           {renderAddPlaylist()}
         </PanelItem>
         <PanelItem>
-          <PlaylistsList playlists={playlists} />
+          <PlaylistsList
+            playlists={playlists}
+            deletePlaylist={(id) => deletePlaylistDisp(id)}
+          />
         </PanelItem>
       </InnerWrapper>
     </Wrapper>
@@ -88,7 +93,8 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     updateSubDisp: (sub: string, remove?: boolean) => dispatch(updateSub(sub, remove)),
     updateNameDisp: (name: string) => dispatch(updateName(name)),
     createPlaylistDisp: () => dispatch(createPlaylist()),
-    clearSearchSubsDisp: () => dispatch(receiveSubs([]))
+    clearSearchSubsDisp: () => dispatch(receiveSubs([])),
+    deletePlaylistDisp: (id: number) => dispatch(deletePlaylist(id))
   };
 };
 
