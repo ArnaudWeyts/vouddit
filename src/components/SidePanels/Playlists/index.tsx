@@ -78,6 +78,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           <PlaylistsList
             playlists={playlists}
             deletePlaylist={(id) => deletePlaylistDisp(id)}
+            editPlaylist={(id) => toggleAddPlaylistDisp(id)}
           />
         </PanelItem>
       </InnerWrapper>
@@ -88,7 +89,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
 const mapDispatchToProps = (dispatch: IDispatch<any>) => {
   return {
     togglePlaylistsDisp: () => dispatch(togglePlaylists()),
-    toggleAddPlaylistDisp: () => dispatch(toggleAddPlaylist()),
+    toggleAddPlaylistDisp: (id?: number) => dispatch(toggleAddPlaylist(id)),
     fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
     updateSubDisp: (sub: string, remove?: boolean) => dispatch(updateSub(sub, remove)),
     updateNameDisp: (name: string) => dispatch(updateName(name)),
