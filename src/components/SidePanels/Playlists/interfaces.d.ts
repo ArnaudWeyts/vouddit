@@ -7,6 +7,7 @@ interface IPlaylists {
 }
 
 interface IPlaylist {
+  id?: number,
   name?: string
   subs: Array<string>
 }
@@ -21,6 +22,7 @@ interface IPlaylistsProps extends IPlaylists {
   createPlaylistDisp: () => void
   clearCurrentPLDisp: () => void
   clearSearchSubsDisp: () => void
+  deletePlaylistDisp: (id: number) => void
 }
 
 interface IAddPlaylistsProps {
@@ -32,4 +34,9 @@ interface IAddPlaylistsProps {
   toggleAddPlaylist: () => void
   createPlaylist: () => void
   clearSearchSubs: () => void
+}
+
+interface IPlaylistListProps {
+  playlists: Array<IPlaylist>
+  deletePlaylist: (id: number) => void
 }
