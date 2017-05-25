@@ -1,18 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import Search from '../shared/Search';
+import Search from '../../shared/Search';
 
 import {
   Button, IconR
-} from './PanelStyles';
+} from '../PanelStyles';
 
 import {
   List, ListItem, Card,
   Input, CardItem
-} from '../shared/MainStyles';
+} from '../../shared/MainStyles';
 
-import icons from '../shared/icons';
+import icons from '../../shared/icons';
 
 const PlaylistWrapper = styled.div`
   margin-top: 10px;

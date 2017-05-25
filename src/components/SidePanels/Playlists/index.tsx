@@ -9,27 +9,35 @@ import {
   updateName,
   receiveSubs,
   createPlaylist
-} from '../../redux/actions/playlistsActions';
+} from '../../../redux/actions/playlistsActions';
 
 import AddPlaylist from './AddPlaylist';
+import PlaylistsList from './PlaylistsList';
 
 import {
   Wrapper, InnerWrapper,
   Close, Top, Title,
-  PanelItem, Button, IconL, IconR
-} from './PanelStyles';
-import {
-  Card, CardItem
-} from '../shared/MainStyles';
-import icons from '../shared/icons';
+  PanelItem, Button, IconL
+} from '../PanelStyles';
+
+import icons from '../../shared/icons';
 
 const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
 
+  const {
+    showAddPlaylist, playlists,
+    showPlaylists, togglePlaylistsDisp,
+    searchSubs, currentPlaylist,
+    toggleAddPlaylistDisp, updateNameDisp,
+    createPlaylistDisp, fetchSubsDisp,
+    clearSearchSubsDisp, updateSubDisp
+  } = props;
+
   const renderAddPlaylist = () => {
-    if (!props.showAddPlaylist) {
+    if (!showAddPlaylist) {
       return (
         <Button
-          onClick={() => props.toggleAddPlaylistDisp()}
+          onClick={() => toggleAddPlaylistDisp()}
         >
           <IconL src={icons.playlistAdd} />
           <span>Add a playlist</span>
@@ -38,41 +46,25 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
     } else {
       return (
         <AddPlaylist
-          searchSubs={props.searchSubs}
-          toggleAddPlaylist={props.toggleAddPlaylistDisp}
-          playlist={props.currentPlaylist}
-          fetchSubs={(query: string) => props.fetchSubsDisp(query)}
-          updateSub={(sub: string, remove?: boolean) => props.updateSubDisp(sub, remove)}
-          updateName={(name: string) => props.updateNameDisp(name)}
-          createPlaylist={() => props.createPlaylistDisp()}
-          clearSearchSubs={() => props.clearSearchSubsDisp()}
+          searchSubs={searchSubs}
+          toggleAddPlaylist={toggleAddPlaylistDisp}
+          playlist={currentPlaylist}
+          fetchSubs={(query: string) => fetchSubsDisp(query)}
+          updateSub={(sub: string, remove?: boolean) => updateSubDisp(sub, remove)}
+          updateName={(name: string) => updateNameDisp(name)}
+          createPlaylist={() => createPlaylistDisp()}
+          clearSearchSubs={() => clearSearchSubsDisp()}
         />
       );
     }
   };
 
-  const renderPlaylists = () => {
-    return (
-      <Card>
-        {props.playlists.map(playlist => {
-          return (
-            <CardItem>
-              <IconL src={icons.playArrow} />
-              {playlist.name}
-              <IconR src={icons.arrowDown} />
-            </CardItem>
-          );
-        })}
-      </Card>
-    );
-  };
-
   return (
-    <Wrapper show={props.showPlaylists}>
-      <InnerWrapper show={props.showPlaylists} >
+    <Wrapper show={showPlaylists}>
+      <InnerWrapper show={showPlaylists} >
         <Top>
           <Title>Playlists</Title>
-          <Close onClick={() => props.togglePlaylistsDisp()}>
+          <Close onClick={() => togglePlaylistsDisp()}>
             ╳
           </Close>
         </Top>
@@ -80,7 +72,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           {renderAddPlaylist()}
         </PanelItem>
         <PanelItem>
-          {renderPlaylists()}
+          <PlaylistsList playlists={playlists} />
         </PanelItem>
       </InnerWrapper>
     </Wrapper>
