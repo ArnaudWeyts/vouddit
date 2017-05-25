@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
+import PlaylistAddIcon from 'material-ui/svg-icons/av/playlist-add';
 
 import {
   togglePlaylists,
@@ -17,10 +19,8 @@ import PlaylistsList from './PlaylistsList';
 import {
   Wrapper, InnerWrapper,
   Close, Top, Title,
-  PanelItem, Button, IconL
+  PanelItem
 } from '../PanelStyles';
-
-import icons from '../../shared/icons';
 
 const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
 
@@ -36,12 +36,13 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
   const renderAddPlaylist = () => {
     if (!showAddPlaylist) {
       return (
-        <Button
+        <RaisedButton
+          primary={true}
+          label="Add a playlist"
+          fullWidth={true}
           onClick={() => toggleAddPlaylistDisp()}
-        >
-          <IconL src={icons.playlistAdd} />
-          <span>Add a playlist</span>
-        </Button>
+          icon={<PlaylistAddIcon />}
+        />
       );
     } else {
       return (
