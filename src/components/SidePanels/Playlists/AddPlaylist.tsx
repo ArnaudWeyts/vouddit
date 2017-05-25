@@ -36,38 +36,52 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
     );
   };
 
+  const {
+    playlist, searchSubs,
+    fetchSubs, updateName,
+    clearSearchSubs, updateSub,
+    createPlaylist, toggleAddPlaylist
+  } = props;
+
   return (
     <div>
       <PlaylistWrapper>
         <Card>
           <CardText>
             <TextField
-              hintText={props.playlist.name}
+              hintText={playlist.name}
+              value={playlist.updating ? playlist.name : ''}
               onChange={({ target }) => {
                 const value = (target as HTMLInputElement).value;
-                props.updateName(value);
+                updateName(value);
               }}
               fullWidth={true}
             />
             <Search
-              suggestions={props.searchSubs}
+              suggestions={searchSubs}
               placeholder="Search for a sub..."
-              onChange={props.fetchSubs}
-              onSelected={props.updateSub}
-              onClear={props.clearSearchSubs}
+              onChange={fetchSubs}
+              onSelected={updateSub}
+              onClear={clearSearchSubs}
             />
           </CardText>
           {renderList()}
           <CardActions>
             <RaisedButton
               primary={true}
-              label="Create"
-              disabled={props.playlist.subs.length === 0 ? true : false}
-              onClick={() => props.createPlaylist()}
+              label={playlist.updating ? 'Edit' : 'Create'}
+              disabled={playlist.subs.length === 0 ? true : false}
+              onClick={() => {
+                if (playlist.updating) {
+                  console.log('edit the playlist');
+                } else {
+                  createPlaylist();
+                }
+              }}
             />
             <RaisedButton
               label="Cancel"
-              onClick={() => props.toggleAddPlaylist()}
+              onClick={() => toggleAddPlaylist()}
             />
           </CardActions>
         </Card>

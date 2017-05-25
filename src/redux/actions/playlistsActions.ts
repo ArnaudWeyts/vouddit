@@ -24,13 +24,20 @@ function toggleAddPlaylistsAction() {
   };
 }
 
-export function toggleAddPlaylist() {
+export function toggleAddPlaylist(id?: number) {
   return (dispatch: IDispatch<any>, getState: () => any) => {
     // initialize the playlist if the addPlaylists is opened
-    if (!getState().playlists.showAddPlaylist) {
-      const id = getState().playlists.playlists.length + 1;
-      const name = `playlist ${id}`;
-      dispatch(initializePlaylist({ id, name, subs: [] }));
+    const playlists = getState().playlists;
+    if (!playlists.showAddPlaylist) {
+      // update or new
+      if (id) {
+        const { name, subs } = playlists.playlists[id - 1];
+        dispatch(initializePlaylist({ id, name, subs, updating: true }));
+      } else {
+        const newId = playlists.playlists.length + 1;
+        const name = `playlist ${newId}`;
+        dispatch(initializePlaylist({ id: newId, name, subs: [] }));
+      }
     } else {
       // clear current playlist
       dispatch(clearCurrentPL());
@@ -97,23 +104,18 @@ export function removeSub(playlist: IPlaylist) {
 export function updateSub(sub: string, remove?: boolean) {
   if (sub === '') { return; }
   return (dispatch: IDispatch<any>, getState: () => any) => {
-    // get old subs
-    const oldSubs = getState().playlists.currentPlaylist.subs;
     // create a new playlist
-    let newPlaylist: IPlaylist = {
-      id: getState().playlists.currentPlaylist.id,
-      name: getState().playlists.currentPlaylist.name,
-      subs: []
-    };
+    let newPlaylist: IPlaylist = getState().playlists.currentPlaylist;
+    // get old subs
+    const oldSubs = newPlaylist.subs;
     // just do a regular select
     if (!remove) {
       const newSubs = [...oldSubs, sub].sort();
-
       // add new subs
       newPlaylist.subs = newSubs;
       return dispatch(selectSub(newPlaylist));
     } else {
-      // remove the select sub from the array
+      // remove the selected sub from the array
       const newSubs = oldSubs.filter((subv: string) => subv !== sub);
       // replace subs with removed sub
       newPlaylist.subs = newSubs;

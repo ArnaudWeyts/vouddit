@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   showAddPlaylist: false,
   searchSubs: [],
   playlists: [],
-  currentPlaylist: { id: undefined, name: undefined, subs: [] }
+  currentPlaylist: { subs: [] },
 };
 
 export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
@@ -69,7 +69,12 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
     case UPDATE_NAME:
       return {
         ...state,
-        currentPlaylist: { name: action.name, subs: state.currentPlaylist.subs }
+        currentPlaylist: {
+          id: state.currentPlaylist.id,
+          name: action.name,
+          subs: state.currentPlaylist.subs,
+          updating: state.currentPlaylist.updating
+        }
       };
     case DELETE_PLAYLIST:
       return {

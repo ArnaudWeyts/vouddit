@@ -10,12 +10,13 @@ interface IPlaylist {
   id?: number,
   name?: string
   subs: Array<string>
+  updating?: boolean
 }
 
 interface IPlaylistsProps extends IPlaylists {
   dispatch: IDispatch<any>
   togglePlaylistsDisp: () => void
-  toggleAddPlaylistDisp: () => void
+  toggleAddPlaylistDisp: (id?: number) => void
   fetchSubsDisp: (query: string) => void
   updateSubDisp: (sub: string, remove?: boolean) => void
   updateNameDisp: (name: string) => void
@@ -39,4 +40,5 @@ interface IAddPlaylistsProps {
 interface IPlaylistListProps {
   playlists: Array<IPlaylist>
   deletePlaylist: (id: number) => void
+  editPlaylist: (id: number) => void
 }
