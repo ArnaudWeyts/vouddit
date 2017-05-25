@@ -3,6 +3,12 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { injectGlobal } from 'styled-components';
 
+// material-ui hackerino
+const injectTapEventPlugin = require('react-tap-event-plugin');
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import 'typeface-open-sans';
 
 import store from './redux/store';
@@ -18,9 +24,13 @@ injectGlobal`
   }
 `;
 
+injectTapEventPlugin();
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
