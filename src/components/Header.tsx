@@ -77,7 +77,7 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
         }}
       >
         <Label htmlFor="sub">/r/</Label>
-        <SubInput autoComplete="off" name="sub" placeholder="videos" />
+        <SubInput autoComplete="off" name="sub" placeholder={props.currentSub} />
         <Submit src={icons.search} type="image" alt="Submit" />
       </Form>
       <IconSettings

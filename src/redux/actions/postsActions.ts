@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
+export const SELECT_SUBREDDITS = 'SELECT_SUBREDDITS';
 export const NEXT_POST = 'NEXT_POST';
 
 function requestPosts(subreddit: string) {
@@ -28,18 +28,18 @@ function nextPost(nextPostId: number) {
   };
 }
 
-export function selectSubreddit(subreddit: string) {
+export function selectSubreddits(subreddits: Array<string>) {
   return {
-    type: SELECT_SUBREDDIT,
-    subreddit
+    type: SELECT_SUBREDDITS,
+    subreddits
   };
 }
 
-export function fetchPosts(subreddit?: string, after?: string, sort: string = 'hot') {
+export function fetchPosts(subreddits?: string, after?: string, sort: string = 'hot') {
   return (dispatch: IDispatch<any>, getState: () => any) => {
     const ROOT_URL = 'https://www.reddit.com';
     // if a no sub is passed, we just refresh
-    const newSub = subreddit ? subreddit : getState().posts.subreddit;
+    const newSub = subreddits ? subreddits : getState().posts.subreddit;
     // if after is passed, add a string that fetches following posts
     const grabString = after ? `&after=${after}` : '';
     const url = `${ROOT_URL}/r/${newSub}/${sort}.json?${grabString}&limit=10`;

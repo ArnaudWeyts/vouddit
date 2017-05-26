@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import {
   fetchPosts,
-  selectSubreddit,
+  selectSubreddits,
   setPrevNextPost
 } from '../redux/actions/postsActions';
 import { togglePlayer } from '../redux/actions/playerActions';
@@ -44,8 +44,8 @@ class App extends React.Component<IAppProps, {}> {
   }
 
   componentWillMount() {
-    const { fetchPostsDisp, subreddit, sort } = this.props;
-    fetchPostsDisp(subreddit, undefined, sort);
+    const { fetchPostsDisp, subreddits, sort } = this.props;
+    fetchPostsDisp(subreddits.join('+'), undefined, sort);
   }
 
   componentDidMount() {
@@ -83,7 +83,7 @@ class App extends React.Component<IAppProps, {}> {
     const {
       posts,
       nextPosts,
-      subreddit,
+      subreddits,
       isFetching,
       sort,
       fetchPostsDisp
@@ -94,14 +94,14 @@ class App extends React.Component<IAppProps, {}> {
 
     // fetch more posts if there are only 5 left
     if (nextProps.postActive.index + 4 > posts.length) {
-      fetchPostsDisp(subreddit, nextPosts, sort);
+      fetchPostsDisp(subreddits.join('+'), nextPosts, sort);
     }
   }
 
   // dispatch event when the subreddit is changed
   changeSub(sub: string) {
-    const { sort, selectSubredditDisp, fetchPostsDisp } = this.props;
-    selectSubredditDisp(sub);
+    const { sort, selectSubredditsDisp, fetchPostsDisp } = this.props;
+    selectSubredditsDisp([sub]);
     fetchPostsDisp(sub, undefined, sort);
   }
 
@@ -109,7 +109,6 @@ class App extends React.Component<IAppProps, {}> {
     const {
       posts,
       postActive,
-      subreddit,
       showSettings,
       showPlaylists,
       delay,
@@ -126,7 +125,7 @@ class App extends React.Component<IAppProps, {}> {
           showPlaylists={showPlaylists}
         >
           <Header
-            currentSub={subreddit}
+            currentSub={postActive ? postActive.subreddit : 'videos'}
             changeSub={(sub: string) => this.changeSub(sub)}
             toggleSettings={() => toggleSettingsDisp()}
             togglePlaylists={() => togglePlaylistsDisp()}
@@ -166,7 +165,7 @@ class App extends React.Component<IAppProps, {}> {
 const mapStateToProps = ({ posts, settings, playlists }:
   { posts: IPosts, settings: ISettings, playlists: IPlaylists }
 ) => ({
-  subreddit: posts.subreddit,
+  subreddits: posts.subreddits,
   posts: posts.posts,
   nextPosts: posts.nextPosts,
   isFetching: posts.isFetching,
@@ -185,7 +184,7 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     setPrevNextPostDisp: (post: IPost, direction: boolean) => {
       dispatch(setPrevNextPost(post, direction));
     },
-    selectSubredditDisp: (sub: string) => dispatch(selectSubreddit(sub)),
+    selectSubredditsDisp: (subs: Array<string>) => dispatch(selectSubreddits(subs)),
     togglePlayerDisp: () => dispatch(togglePlayer()),
     toggleSettingsDisp: () => dispatch(toggleSettings()),
     togglePlaylistsDisp: () => dispatch(togglePlaylists())
