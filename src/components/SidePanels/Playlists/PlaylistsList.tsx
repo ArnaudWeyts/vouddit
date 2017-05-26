@@ -7,15 +7,22 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const PlaylistsList: React.StatelessComponent<IPlaylistListProps> = props => {
-  const { playlists, deletePlaylist, editPlaylist } = props;
+  const {
+    playlists, selectedPlaylistId,
+    editPlaylist, deletePlaylist
+  } = props;
+
   if (playlists.length === 0) { return null!; }
+
   return (
     <List>
       {playlists.map(playlist => {
         return (
           <ListItem
             key={playlist.name}
+            value={playlist.id}
             primaryText={playlist.name}
+            secondaryText={playlist.id === selectedPlaylistId ? 'Playing' : ''}
             rightIconButton={
               <IconMenu
                 iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}

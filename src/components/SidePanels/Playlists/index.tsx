@@ -28,7 +28,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
   const {
     showAddPlaylist, playlists,
     showPlaylists, togglePlaylistsDisp,
-    searchSubs, currentPlaylist,
+    searchSubs, editingPlaylist,
     toggleAddPlaylistDisp, updateNameDisp,
     createPlaylistDisp, fetchSubsDisp,
     clearSearchSubsDisp, updateSubDisp,
@@ -51,7 +51,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
         <AddPlaylist
           searchSubs={searchSubs}
           toggleAddPlaylist={toggleAddPlaylistDisp}
-          playlist={currentPlaylist}
+          playlist={editingPlaylist}
           fetchSubs={(query) => fetchSubsDisp(query)}
           updateSub={(sub, remove) => updateSubDisp(sub, remove)}
           updateName={(name) => updateNameDisp(name)}
@@ -77,6 +77,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
         <PanelItem>
           <PlaylistsList
             playlists={playlists}
+            selectedPlaylistId={editingPlaylist && editingPlaylist.id}
             deletePlaylist={(id) => deletePlaylistDisp(id)}
             editPlaylist={(id) => toggleAddPlaylistDisp(id)}
           />
@@ -104,7 +105,8 @@ const mapStateToProps = ({ playlists }: { playlists: IPlaylists }) => ({
   showAddPlaylist: playlists.showAddPlaylist,
   searchSubs: playlists.searchSubs,
   playlists: playlists.playlists,
-  currentPlaylist: playlists.currentPlaylist
+  editingPlaylist: playlists.editingPlaylist,
+  selectedPlaylist: playlists.selectedPlaylist
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlists);

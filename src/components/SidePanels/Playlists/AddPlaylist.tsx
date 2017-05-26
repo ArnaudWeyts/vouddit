@@ -15,14 +15,14 @@ const PlaylistWrapper = styled.div`
 
 const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
   const renderList = () => {
-    if (props.playlist.subs.length === 0) {
+    if (props.playlist!.subs.length === 0) {
       return (
         <CardText>No subs selected</CardText>
       );
     }
     return (
       <List>
-        {props.playlist.subs.map((sub: string) => {
+        {props.playlist!.subs.map((sub: string) => {
           return (
             <ListItem
               primaryText={sub}
@@ -49,8 +49,8 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
         <Card>
           <CardText>
             <TextField
-              hintText={playlist.name}
-              value={playlist.updating ? playlist.name : undefined}
+              hintText={playlist!.name}
+              value={playlist!.updating ? playlist!.name : undefined}
               onChange={({ target }) => {
                 const value = (target as HTMLInputElement).value;
                 updateName(value);
@@ -69,11 +69,11 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           <CardActions>
             <RaisedButton
               primary={true}
-              label={playlist.updating ? 'Edit' : 'Create'}
-              disabled={playlist.subs.length === 0 ? true : false}
+              label={playlist!.updating ? 'Edit' : 'Create'}
+              disabled={playlist!.subs.length === 0 ? true : false}
               onClick={() => {
-                if (playlist.updating) {
-                  createPlaylist(playlist.id);
+                if (playlist!.updating) {
+                  createPlaylist(playlist!.id);
                 } else {
                   createPlaylist();
                 }

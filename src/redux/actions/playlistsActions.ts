@@ -9,8 +9,9 @@ export const RECEIVE_SUBS = 'RECEIVE_SUBS';
 export const SELECT_SUB = 'SELECT_SUB';
 export const REMOVE_SUB = 'REMOVE_SUB';
 export const UPDATE_NAME = 'UPDATE_NAME';
-export const CLEAR_CURRENT_PL = 'CLEAR_CURRENT_PL';
+export const CLEAR_EDITING_PL = 'CLEAR_EDITING_PL';
 export const DELETE_PLAYLIST = 'DELETE_PLAYLIST';
+export const SELECT_PLAYLIST = 'SELECT_PLAYLIST';
 
 export function togglePlaylists() {
   return {
@@ -40,7 +41,7 @@ export function toggleAddPlaylist(id?: number) {
       }
     } else {
       // clear current playlist
-      dispatch(clearCurrentPL());
+      dispatch(clearEditingPL());
     }
     dispatch(toggleAddPlaylistsAction());
   };
@@ -105,7 +106,7 @@ export function updateSub(sub: string, remove?: boolean) {
   if (sub === '') { return; }
   return (dispatch: IDispatch<any>, getState: () => any) => {
     // create a new playlist
-    let newPlaylist: IPlaylist = getState().playlists.currentPlaylist;
+    let newPlaylist: IPlaylist = getState().playlists.editingPlaylist;
     // get old subs
     const oldSubs = newPlaylist.subs;
     // just do a regular select
@@ -148,16 +149,23 @@ function createPLFromCurrent() {
   };
 }
 
-function clearCurrentPL() {
+function clearEditingPL() {
   return {
-    type: CLEAR_CURRENT_PL,
-    playlist: { subs: [] }
+    type: CLEAR_EDITING_PL,
+    playlist: undefined
   };
 }
 
 export function deletePlaylist(id: number) {
   return {
     type: DELETE_PLAYLIST,
+    id
+  };
+}
+
+export function selectPlaylist(id: number) {
+  return {
+    type: SELECT_PLAYLIST,
     id
   };
 }

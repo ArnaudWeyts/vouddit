@@ -3,12 +3,13 @@ interface IPlaylists {
   showAddPlaylist: boolean
   searchSubs: Array<any>
   playlists: Array<IPlaylist>
-  currentPlaylist: IPlaylist
+  editingPlaylist: IPlaylist | undefined
+  selectedPlaylist: IPlaylist | undefined
 }
 
 interface IPlaylist {
-  id?: number,
-  name?: string
+  id: number,
+  name: string
   subs: Array<string>
   updating?: boolean
 }
@@ -28,7 +29,7 @@ interface IPlaylistsProps extends IPlaylists {
 
 interface IAddPlaylistsProps {
   searchSubs: Array<string>
-  playlist: IPlaylist
+  playlist?: IPlaylist
   fetchSubs: (query: string) => void
   updateSub: (sub: string, remove?: boolean) => void
   updateName: (name: string) => void
@@ -39,6 +40,7 @@ interface IAddPlaylistsProps {
 
 interface IPlaylistListProps {
   playlists: Array<IPlaylist>
+  selectedPlaylistId?: number
   deletePlaylist: (id: number) => void
   editPlaylist: (id: number) => void
 }
