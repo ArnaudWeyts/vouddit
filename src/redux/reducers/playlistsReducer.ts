@@ -47,9 +47,12 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
         searchSubs: action.searchSubs
       };
     case CREATE_PLAYLIST:
+      // remove the useless updating property
+      const current = state.currentPlaylist;
+      current.updating = undefined;
       return {
         ...state,
-        playlists: [...state.playlists, state.currentPlaylist]
+        playlists: [...state.playlists, current]
       };
     case CLEAR_CURRENT_PL:
       return {
