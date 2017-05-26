@@ -11,7 +11,8 @@ import {
   updateName,
   receiveSubs,
   createPlaylist,
-  deletePlaylist
+  deletePlaylist,
+  selectPlaylist
 } from '../../../redux/actions/playlistsActions';
 
 import AddPlaylist from './AddPlaylist';
@@ -29,10 +30,11 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
     showAddPlaylist, playlists,
     showPlaylists, togglePlaylistsDisp,
     searchSubs, editingPlaylist,
+    selectedPlaylist,
     toggleAddPlaylistDisp, updateNameDisp,
     createPlaylistDisp, fetchSubsDisp,
     clearSearchSubsDisp, updateSubDisp,
-    deletePlaylistDisp
+    deletePlaylistDisp, selectPlaylistDisp
   } = props;
 
   const renderAddPlaylist = () => {
@@ -77,9 +79,10 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
         <PanelItem>
           <PlaylistsList
             playlists={playlists}
-            selectedPlaylistId={editingPlaylist && editingPlaylist.id}
-            deletePlaylist={(id) => deletePlaylistDisp(id)}
-            editPlaylist={(id) => toggleAddPlaylistDisp(id)}
+            selectedPlaylistId={selectedPlaylist && selectedPlaylist.id}
+            deletePlaylist={id => deletePlaylistDisp(id)}
+            editPlaylist={id => toggleAddPlaylistDisp(id)}
+            selectPlaylist={id => selectPlaylistDisp(id)}
           />
         </PanelItem>
       </InnerWrapper>
@@ -96,7 +99,8 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     updateNameDisp: (name: string) => dispatch(updateName(name)),
     createPlaylistDisp: (id?: number) => dispatch(createPlaylist(id)),
     clearSearchSubsDisp: () => dispatch(receiveSubs([])),
-    deletePlaylistDisp: (id: number) => dispatch(deletePlaylist(id))
+    deletePlaylistDisp: (id: number) => dispatch(deletePlaylist(id)),
+    selectPlaylistDisp: (id: number) => dispatch(selectPlaylist(id))
   };
 };
 

@@ -163,9 +163,18 @@ export function deletePlaylist(id: number) {
   };
 }
 
-export function selectPlaylist(id: number) {
+function selectPlaylistAction(playlist: IPlaylist) {
   return {
     type: SELECT_PLAYLIST,
-    id
+    playlist
+  };
+}
+
+export function selectPlaylist(id: number) {
+  return (dispatch: IDispatch<any>, getState: () => any) => {
+    const playlist = getState().playlists.playlists.find((p: IPlaylist) => {
+      return p.id === id;
+    });
+    dispatch(selectPlaylistAction(playlist));
   };
 }
