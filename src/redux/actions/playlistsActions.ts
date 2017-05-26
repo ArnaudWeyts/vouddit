@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
 
+import { fetchPosts, selectSubreddits } from './postsActions';
+
 export const TOGGLE_PLAYLISTS = 'TOGGLE_PLAYLISTS';
 export const TOGGLE_ADD_PLAYLIST = 'TOGGLE_ADD_PLAYLIST';
 export const INITIALIZE_PLAYLIST = 'INITIALIZE_PLAYLIST';
@@ -176,5 +178,7 @@ export function selectPlaylist(id: number) {
       return p.id === id;
     });
     dispatch(selectPlaylistAction(playlist));
+    dispatch(selectSubreddits(playlist.subs));
+    dispatch(fetchPosts(playlist.subs.join('+')));
   };
 }

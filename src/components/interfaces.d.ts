@@ -3,7 +3,7 @@ interface IDispatch<T> {
 }
 
 interface IPosts {
-  subreddit: string
+  subreddits: Array<string>
   posts: Array<IPost>
   isFetching: boolean
   nextPosts?: string
@@ -12,6 +12,7 @@ interface IPosts {
 
 interface IPost {
   title: string
+  subreddit: string
   author: string
   index: number
   url: string
@@ -39,7 +40,7 @@ interface IAppProps extends IPosts, ISettings, IPlaylists {
   dispatch: IDispatch<any>
   fetchPostsDisp: (subreddit: string, after?: string, sort?: string) => void
   setPrevNextPostDisp: (post: IPost, direction: boolean) => void
-  selectSubredditDisp: (sub: string) => void
+  selectSubredditsDisp: (subs: Array<string>) => void
   togglePlayerDisp: () => void
   toggleSettingsDisp: () => void
   togglePlaylistsDisp: () => void

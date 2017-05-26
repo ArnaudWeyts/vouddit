@@ -15,7 +15,7 @@ interface IPostsAction extends IAction {
   posts: { children: Array<IPost>, after: string }
   update: boolean
   nextPostId: number
-  subreddit: string
+  subreddits: Array<string>
 }
 
 interface ISettingsAction extends IAction {
