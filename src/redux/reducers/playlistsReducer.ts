@@ -89,7 +89,7 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
     case SELECT_PLAYLIST:
       return {
         ...state,
-        selectedPlaylist: undefined
+        selectedPlaylist: action.playlist
       };
     default:
       return state;

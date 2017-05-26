@@ -25,6 +25,7 @@ interface IPlaylistsProps extends IPlaylists {
   clearCurrentPLDisp: () => void
   clearSearchSubsDisp: () => void
   deletePlaylistDisp: (id: number) => void
+  selectPlaylistDisp: (id: number) => void
 }
 
 interface IAddPlaylistsProps {
@@ -43,4 +44,5 @@ interface IPlaylistListProps {
   selectedPlaylistId?: number
   deletePlaylist: (id: number) => void
   editPlaylist: (id: number) => void
+  selectPlaylist: (id: number) => void
 }
