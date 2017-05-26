@@ -50,7 +50,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
           <CardText>
             <TextField
               hintText={playlist.name}
-              value={playlist.updating ? playlist.name : ''}
+              value={playlist.updating ? playlist.name : undefined}
               onChange={({ target }) => {
                 const value = (target as HTMLInputElement).value;
                 updateName(value);
@@ -73,7 +73,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
               disabled={playlist.subs.length === 0 ? true : false}
               onClick={() => {
                 if (playlist.updating) {
-                  console.log('edit the playlist');
+                  createPlaylist(playlist.id);
                 } else {
                   createPlaylist();
                 }

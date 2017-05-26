@@ -20,7 +20,7 @@ interface IPlaylistsProps extends IPlaylists {
   fetchSubsDisp: (query: string) => void
   updateSubDisp: (sub: string, remove?: boolean) => void
   updateNameDisp: (name: string) => void
-  createPlaylistDisp: () => void
+  createPlaylistDisp: (id?: number) => void
   clearCurrentPLDisp: () => void
   clearSearchSubsDisp: () => void
   deletePlaylistDisp: (id: number) => void
@@ -33,7 +33,7 @@ interface IAddPlaylistsProps {
   updateSub: (sub: string, remove?: boolean) => void
   updateName: (name: string) => void
   toggleAddPlaylist: () => void
-  createPlaylist: () => void
+  createPlaylist: (id?: number) => void
   clearSearchSubs: () => void
 }
 
