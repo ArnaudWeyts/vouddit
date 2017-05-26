@@ -8,8 +8,9 @@ import {
   SELECT_SUB,
   REMOVE_SUB,
   UPDATE_NAME,
-  CLEAR_CURRENT_PL,
-  DELETE_PLAYLIST
+  CLEAR_EDITING_PL,
+  DELETE_PLAYLIST,
+  SELECT_PLAYLIST
 } from '../actions/playlistsActions';
 
 const INITIAL_STATE = {
@@ -17,7 +18,8 @@ const INITIAL_STATE = {
   showAddPlaylist: false,
   searchSubs: [],
   playlists: [],
-  currentPlaylist: { subs: [] },
+  editingPlaylist: undefined,
+  selectedPlaylist: undefined
 };
 
 export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
@@ -35,7 +37,7 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
     case INITIALIZE_PLAYLIST:
       return {
         ...state,
-        currentPlaylist: action.playlist
+        editingPlaylist: action.playlist
       };
     case REQUEST_SUBS:
       return {
@@ -48,41 +50,46 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
       };
     case CREATE_PLAYLIST:
       // remove the useless updating property
-      const current = state.currentPlaylist;
-      current.updating = undefined;
+      const current = state.editingPlaylist;
+      current!.updating = undefined;
       return {
         ...state,
         playlists: [...state.playlists, current]
       };
-    case CLEAR_CURRENT_PL:
+    case CLEAR_EDITING_PL:
       return {
         ...state,
-        currentPlaylist: action.playlist
+        editingPlaylist: action.playlist
       };
     case SELECT_SUB:
       return {
         ...state,
-        currentPlaylist: action.playlist
+        editingPlaylist: action.playlist
       };
     case REMOVE_SUB:
       return {
         ...state,
-        currentPlaylist: action.playlist
+        editingPlaylist: action.playlist
       };
     case UPDATE_NAME:
       return {
         ...state,
-        currentPlaylist: {
-          id: state.currentPlaylist.id,
+        editingPlaylist: {
+          id: state.editingPlaylist!.id,
           name: action.name,
-          subs: state.currentPlaylist.subs,
-          updating: state.currentPlaylist.updating
+          subs: state.editingPlaylist!.subs,
+          updating: state.editingPlaylist!.updating
         }
       };
     case DELETE_PLAYLIST:
       return {
         ...state,
         playlists: state.playlists.filter(p => p.id !== action.id)
+      };
+    case SELECT_PLAYLIST:
+      return {
+        ...state,
+        selectedPlaylist: undefined
       };
     default:
       return state;
