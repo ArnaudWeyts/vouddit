@@ -55,7 +55,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           fetchSubs={(query) => fetchSubsDisp(query)}
           updateSub={(sub, remove) => updateSubDisp(sub, remove)}
           updateName={(name) => updateNameDisp(name)}
-          createPlaylist={() => createPlaylistDisp()}
+          createPlaylist={(id) => createPlaylistDisp(id)}
           clearSearchSubs={() => clearSearchSubsDisp()}
         />
       );
@@ -93,7 +93,7 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
     updateSubDisp: (sub: string, remove?: boolean) => dispatch(updateSub(sub, remove)),
     updateNameDisp: (name: string) => dispatch(updateName(name)),
-    createPlaylistDisp: () => dispatch(createPlaylist()),
+    createPlaylistDisp: (id?: number) => dispatch(createPlaylist(id)),
     clearSearchSubsDisp: () => dispatch(receiveSubs([])),
     deletePlaylistDisp: (id: number) => dispatch(deletePlaylist(id))
   };

@@ -124,8 +124,12 @@ export function updateSub(sub: string, remove?: boolean) {
   };
 }
 
-export function createPlaylist() {
-  return (dispatch: IDispatch<any>) => {
+export function createPlaylist(id?: number) {
+  return (dispatch: IDispatch<any>, getState: () => any) => {
+    // remove the old playlist
+    if (id) {
+      dispatch(deletePlaylist(id));
+    }
     dispatch(createPLFromCurrent());
     dispatch(toggleAddPlaylist());
   };
@@ -147,7 +151,7 @@ function createPLFromCurrent() {
 function clearCurrentPL() {
   return {
     type: CLEAR_CURRENT_PL,
-    playlist: { name: undefined, subs: [] }
+    playlist: { subs: [] }
   };
 }
 
