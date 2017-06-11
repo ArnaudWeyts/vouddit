@@ -31,8 +31,10 @@ interface ContentWrapperProps {
   showPlaylists: boolean;
 }
 const ContentWrapper = styled.div`
-  margin-left: ${(props: ContentWrapperProps) => (props.showPlaylists ? '300px' : 0)};
-  margin-right: ${(props: ContentWrapperProps) => (props.showSettings ? '300px' : 0)};
+  margin-left: ${(props: ContentWrapperProps) =>
+    props.showPlaylists ? '300px' : 0};
+  margin-right: ${(props: ContentWrapperProps) =>
+    props.showSettings ? '300px' : 0};
   transition: margin 0.3s ease-in-out;
 `;
 
@@ -63,7 +65,9 @@ class App extends React.Component<IAppProps, {}> {
   // keyboard shortcuts wheeeee
   handleKeyDown({ key }: { key: string }) {
     const { postActive, setPrevNextPostDisp, togglePlayerDisp } = this.props;
-    if (!postActive) { return; }
+    if (!postActive) {
+      return;
+    }
     switch (key) {
       case 'ArrowRight':
         return setPrevNextPostDisp(postActive, true);
@@ -78,7 +82,9 @@ class App extends React.Component<IAppProps, {}> {
 
   checkForUpdate(nextProps: IAppProps) {
     // we can't update without the current posts
-    if (!this.props.postActive || !nextProps.postActive) { return; }
+    if (!this.props.postActive || !nextProps.postActive) {
+      return;
+    }
 
     const {
       posts,
@@ -90,7 +96,9 @@ class App extends React.Component<IAppProps, {}> {
     } = this.props;
 
     // never update while fetching
-    if (isFetching || nextProps.isFetching) { return; }
+    if (isFetching || nextProps.isFetching) {
+      return;
+    }
 
     // fetch more posts if there are only 5 left
     if (nextProps.postActive.index + 4 > posts.length) {
@@ -140,7 +148,9 @@ class App extends React.Component<IAppProps, {}> {
             }
             isFirst={postActive ? postActive.index === 0 : false}
             getPrevNextPost={direction => {
-              if (!postActive) { return; }
+              if (!postActive) {
+                return;
+              }
               setPrevNextPostDisp(postActive, direction);
             }}
             delay={delay}
@@ -150,7 +160,9 @@ class App extends React.Component<IAppProps, {}> {
             currentVid={postActive}
             nextVid={postActive ? posts[postActive.index + 1] : undefined}
             getPrevNextPost={direction => {
-              if (!postActive) { return; }
+              if (!postActive) {
+                return;
+              }
               setPrevNextPostDisp(postActive, direction);
             }}
           />
@@ -162,9 +174,11 @@ class App extends React.Component<IAppProps, {}> {
   }
 }
 
-const mapStateToProps = ({ posts, settings, playlists }:
-  { posts: IPosts, settings: ISettings, playlists: IPlaylists }
-) => ({
+const mapStateToProps = ({
+  posts,
+  settings,
+  playlists
+}: { posts: IPosts; settings: ISettings; playlists: IPlaylists }) => ({
   subreddits: posts.subreddits,
   posts: posts.posts,
   nextPosts: posts.nextPosts,
@@ -173,7 +187,7 @@ const mapStateToProps = ({ posts, settings, playlists }:
   showSettings: settings.showSettings,
   showPlaylists: playlists.showPlaylists,
   delay: settings.delay,
-  sort: settings.sort,
+  sort: settings.sort
 });
 
 const mapDispatchToProps = (dispatch: IDispatch<any>) => {
@@ -184,7 +198,8 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     setPrevNextPostDisp: (post: IPost, direction: boolean) => {
       dispatch(setPrevNextPost(post, direction));
     },
-    selectSubredditsDisp: (subs: Array<string>) => dispatch(selectSubreddits(subs)),
+    selectSubredditsDisp: (subs: Array<string>) =>
+      dispatch(selectSubreddits(subs)),
     togglePlayerDisp: () => dispatch(togglePlayer()),
     toggleSettingsDisp: () => dispatch(toggleSettings()),
     togglePlaylistsDisp: () => dispatch(togglePlaylists())

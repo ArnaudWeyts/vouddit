@@ -71,7 +71,8 @@ const Next = styled.div`
 
 const NextVideo = styled.div`
   margin: 0 20px;
-  background-image: ${(props: { nextVidImg: string }) => (props.nextVidImg ? `url(${props.nextVidImg})` : '')};
+  background-image: ${(props: { nextVidImg: string }) =>
+    props.nextVidImg ? `url(${props.nextVidImg})` : ''};
   background-size: cover;
   background-position: center;
   height: 100px;
@@ -111,7 +112,9 @@ const RedditControls: React.StatelessComponent<IControlsProps> = props => {
       <Next>
         <Icon src={icons.chevronRight} alt="chevron right icon" />
         <NextVideo
-          nextVidImg={props.nextVid ? props.nextVid.data.media.oembed.thumbnail_url : ''}
+          nextVidImg={
+            props.nextVid ? props.nextVid.data.media.oembed.thumbnail_url : ''
+          }
           onClick={() => getPrevNextPost(true)}
         />
       </Next>
