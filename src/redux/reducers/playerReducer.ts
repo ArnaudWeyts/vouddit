@@ -20,7 +20,10 @@ const INITIAL_STATE = {
   timer: undefined
 };
 
-export default function playerReducer(state: IPlayer = INITIAL_STATE, action: IPlayerAction) {
+export default function playerReducer(
+  state: IPlayer = INITIAL_STATE,
+  action: IPlayerAction
+) {
   switch (action.type) {
     case TOGGLE_PLAYER:
       return {

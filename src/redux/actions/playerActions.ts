@@ -54,9 +54,21 @@ export function toggleEnded() {
   };
 }
 
-export function setTimer(timer: number) {
+export function setTimer(timer?: number) {
   return {
     type: SET_TIMER,
     timer
+  };
+}
+
+export function cancelAutoPlay() {
+  return (dispatch: IDispatch<any>, getState: () => any) => {
+    const timer = getState().player.timer;
+    if (!timer) {
+      return;
+    }
+    clearTimeout(timer);
+    dispatch(toggleEnded());
+    dispatch(setTimer(undefined));
   };
 }

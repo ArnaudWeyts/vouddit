@@ -9,7 +9,8 @@ import {
   updatePlayed,
   setDuration,
   toggleEnded,
-  setTimer
+  setTimer,
+  cancelAutoPlay
 } from '../../redux/actions/playerActions';
 
 import {
@@ -31,16 +32,8 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
     // checks if a new video is being loaded
     if (nextProps.url !== this.props.url) {
       // reset the progress and time
-      this.props.dispatch(updatePlayed(0));
-      this.props.dispatch(setDuration(0));
-    }
-  }
-
-  toggleControlsDisp(e: any) {
-    if (e.type === 'mouseenter') {
-      this.props.dispatch(toggleControls());
-    } else {
-      this.props.dispatch(toggleControls());
+      this.props.updatePlayedDisp(0);
+      this.props.setDurationDisp(0);
     }
   }
 
@@ -49,26 +42,26 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
       String(e.nativeEvent.offsetX / e.target.parentNode.offsetWidth)
     );
     this.player.seekTo(seekTo);
-    this.props.dispatch(updatePlayed(seekTo));
+    this.props.updatePlayedDisp(seekTo);
   }
 
   handleEnded() {
-    const { dispatch, getPrevNextPost, delay } = this.props;
+    const {
+      delay,
+      getPrevNextPost,
+      toggleEndedDisp,
+      setTimerDisp,
+      updatePlayedDisp
+    } = this.props;
 
-    dispatch(toggleEnded());
+    toggleEndedDisp();
     // start the next post, reset the player
-    dispatch(
-      setTimer(
-        window.setTimeout(
-          () => {
-            getPrevNextPost(true);
-            dispatch(updatePlayed(0));
-            dispatch(toggleEnded());
-          },
-          delay
-        )
-      )
-    );
+    const delayThis = () => {
+      getPrevNextPost(true);
+      updatePlayedDisp(0);
+      toggleEndedDisp();
+    };
+    setTimerDisp(window.setTimeout(delayThis, delay));
   }
 
   renderTimer() {
@@ -79,11 +72,7 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
         </svg>
         <Button
           className="button"
-          onClick={() => {
-            if (!this.props.timer) { return; }
-            clearTimeout(this.props.timer);
-            this.props.dispatch(toggleEnded());
-          }}
+          onClick={() => this.props.cancelAutoplayDisp()}
         >
           Cancel
         </Button>
@@ -95,20 +84,21 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
     const {
       playing,
       volume,
-      showControls,
-      // duration,
-      dispatch,
-      getPrevNextPost,
+      showControls, // duration,
       url,
       isFirst,
       useDefaultPlayer,
-      ended
+      ended,
+      getPrevNextPost,
+      toggleControlsDisp,
+      setDurationDisp,
+      togglePlayerDisp
     } = this.props;
 
     return (
       <Wrapper
-        onMouseEnter={e => this.toggleControlsDisp(e)}
-        onMouseLeave={e => this.toggleControlsDisp(e)}
+        onMouseEnter={() => toggleControlsDisp()}
+        onMouseLeave={() => toggleControlsDisp()}
       >
         <ReactPlayer
           ref={(player: any) => {
@@ -119,13 +109,13 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
           playing={playing}
           volume={volume}
           // progressFrequency={duration < 1000 ? duration : 1000}
-          onPlay={() => dispatch(togglePlayer(true))}
-          onPause={() => dispatch(togglePlayer(false))}
+          onPlay={() => togglePlayerDisp(true)}
+          onPause={() => togglePlayerDisp(false)}
           // this is pretty dodgy because this means we're updating
           // the state alot, but it does give us a smooth bar
           // stop update played action spam for now
           // onProgress={({played}) => !seeking && dispatch(updatePlayed(played))}
-          onDuration={(duration: number) => dispatch(setDuration(duration))}
+          onDuration={(duration: number) => setDurationDisp(duration)}
           onEnded={() => this.handleEnded()}
           width="100%"
           height="100%"
@@ -148,7 +138,22 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
   }
 }
 
-const mapStateToProps = ({ player, settings }: { player: IPlayer, settings: ISettings }) => {
+const mapDispatchToProps = (dispatch: IDispatch<any>) => {
+  return {
+    togglePlayerDisp: (play?: boolean) => togglePlayer(play),
+    toggleControlsDisp: () => dispatch(toggleControls()),
+    updatePlayedDisp: (played: number) => dispatch(updatePlayed(played)),
+    setDurationDisp: (duration: number) => dispatch(setDuration(duration)),
+    toggleEndedDisp: () => dispatch(toggleEnded()),
+    setTimerDisp: (timer?: number) => dispatch(setTimer(timer)),
+    cancelAutoplayDisp: () => dispatch(cancelAutoPlay())
+  };
+};
+
+const mapStateToProps = ({
+  player,
+  settings
+}: { player: IPlayer; settings: ISettings }) => {
   return {
     playing: player.playing,
     played: player.played,
@@ -162,4 +167,7 @@ const mapStateToProps = ({ player, settings }: { player: IPlayer, settings: ISet
   };
 };
 
-export default connect<{}, {}, IPlayerPassedProps>(mapStateToProps)(Player);
+export default connect<{}, {}, IPlayerPassedProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(Player);
