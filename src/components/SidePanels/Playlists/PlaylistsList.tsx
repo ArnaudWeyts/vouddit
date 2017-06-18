@@ -6,14 +6,35 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+const rightIconMenu = (
+  id: number,
+  handler1: (id: number) => void,
+  handler2: (id: number) => void
+) => {
+  return (
+    <IconMenu
+      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+      targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+    >
+      <MenuItem onClick={() => id && handler1(id)} primaryText="Edit" />
+      <MenuItem primaryText="Delete" onClick={() => id && handler2(id)} />
+    </IconMenu>
+  );
+};
+
 const PlaylistsList: React.StatelessComponent<IPlaylistListProps> = props => {
   const {
-    playlists, selectedPlaylistId,
-    editPlaylist, deletePlaylist,
+    playlists,
+    selectedPlaylistId,
+    editPlaylist,
+    deletePlaylist,
     selectPlaylist
   } = props;
 
-  if (playlists.length === 0) { return null!; }
+  if (playlists.length === 0) {
+    return null!;
+  }
 
   return (
     <List>
@@ -24,23 +45,12 @@ const PlaylistsList: React.StatelessComponent<IPlaylistListProps> = props => {
             value={playlist.id}
             primaryText={playlist.name}
             secondaryText={playlist.id === selectedPlaylistId ? 'Playing' : ''}
-            onClick={() => selectPlaylist(playlist.id)}
-            rightIconButton={
-              <IconMenu
-                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-                <MenuItem
-                  onClick={() => playlist.id && editPlaylist(playlist.id)}
-                  primaryText="Edit"
-                />
-                <MenuItem
-                  primaryText="Delete"
-                  onClick={() => playlist.id && deletePlaylist(playlist.id)}
-                />
-              </IconMenu>
-            }
+            onTouchTap={() => selectPlaylist(playlist.id)}
+            rightIconButton={rightIconMenu(
+              playlist.id,
+              editPlaylist,
+              deletePlaylist
+            )}
           />
         );
       })}
