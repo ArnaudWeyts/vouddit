@@ -140,7 +140,7 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
 
 const mapDispatchToProps = (dispatch: IDispatch<any>) => {
   return {
-    togglePlayerDisp: (play?: boolean) => togglePlayer(play),
+    togglePlayerDisp: (play?: boolean) => dispatch(togglePlayer(play)),
     toggleControlsDisp: () => dispatch(toggleControls()),
     updatePlayedDisp: (played: number) => dispatch(updatePlayed(played)),
     setDurationDisp: (duration: number) => dispatch(setDuration(duration)),
@@ -153,7 +153,10 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
 const mapStateToProps = ({
   player,
   settings
-}: { player: IPlayer; settings: ISettings }) => {
+}: {
+  player: IPlayer;
+  settings: ISettings;
+}) => {
   return {
     playing: player.playing,
     played: player.played,
