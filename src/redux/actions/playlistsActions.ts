@@ -115,21 +115,19 @@ export function updateSub(sub: string, remove?: boolean) {
   }
   return (dispatch: IDispatch<any>, getState: () => any) => {
     // create a new playlist
-    let newPlaylist = getState().playlists.editingPlaylist;
+    const newPlaylist = getState().playlists.editingPlaylist;
     // get old subs
     const oldSubs = newPlaylist.subs;
     // just do a regular select
     if (!remove) {
       const newSubs = [...oldSubs, sub].sort();
       // add new subs
-      newPlaylist.subs = newSubs;
-      return dispatch(selectSub(newPlaylist));
+      return dispatch(selectSub({ ...newPlaylist, subs: newSubs }));
     } else {
       // remove the selected sub from the array
       const newSubs = oldSubs.filter((subv: string) => subv !== sub);
       // replace subs with removed sub
-      newPlaylist.subs = newSubs;
-      return dispatch(removeSub(newPlaylist));
+      return dispatch(removeSub({ ...newPlaylist, subs: newSubs }));
     }
   };
 }
