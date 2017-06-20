@@ -13,11 +13,15 @@ const rightIconMenu = (
 ) => {
   return (
     <IconMenu
-      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      iconButtonElement={
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+      }
       anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
       targetOrigin={{ horizontal: 'left', vertical: 'top' }}
     >
-      <MenuItem onClick={() => id && handler1(id)} primaryText="Edit" />
+      <MenuItem primaryText="Edit" onClick={() => id && handler1(id)} />
       <MenuItem primaryText="Delete" onClick={() => id && handler2(id)} />
     </IconMenu>
   );
@@ -41,7 +45,7 @@ const PlaylistsList: React.StatelessComponent<IPlaylistListProps> = props => {
       {playlists.map(playlist => {
         return (
           <ListItem
-            key={playlist.name}
+            key={playlist.id}
             value={playlist.id}
             primaryText={playlist.name}
             secondaryText={playlist.id === selectedPlaylistId ? 'Playing' : ''}

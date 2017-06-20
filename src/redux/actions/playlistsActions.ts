@@ -71,22 +71,27 @@ export function receiveSubs(subs: Array<any>) {
 
 export function fetchSubs(query: string) {
   return (dispatch: IDispatch<any>) => {
-    const ROOT_URL = 'https://www.reddit.com';
-    const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=10`;
+    if (query !== '') {
+      const ROOT_URL = 'https://www.reddit.com';
+      const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=10`;
 
-    dispatch(requestSubs());
-    return fetch(url)
-      .then(response => response.json())
-      .then(json => {
-        const subs = json.data.children
-          .map(({ data }: { data: { display_name: string } }) => {
-            return data.display_name;
-          });
-        dispatch(receiveSubs(subs));
-      })
-      .catch(ex => {
-        console.warn(`Couldn't fetch from url: ${ex}`);
-      });
+      dispatch(requestSubs());
+      return fetch(url)
+        .then(response => response.json())
+        .then(json => {
+          const subs = json.data.children.map(
+            ({ data }: { data: { display_name: string } }) => {
+              return data.display_name;
+            }
+          );
+          dispatch(receiveSubs(subs));
+        })
+        .catch(ex => {
+          console.warn(`Couldn't fetch from url: ${ex}`);
+        });
+    } else {
+      return dispatch(receiveSubs([]));
+    }
   };
 }
 
@@ -105,10 +110,12 @@ export function removeSub(playlist: IPlaylist) {
 }
 
 export function updateSub(sub: string, remove?: boolean) {
-  if (sub === '') { return; }
+  if (sub === '') {
+    return;
+  }
   return (dispatch: IDispatch<any>, getState: () => any) => {
     // create a new playlist
-    let newPlaylist: IPlaylist = getState().playlists.editingPlaylist;
+    let newPlaylist = getState().playlists.editingPlaylist;
     // get old subs
     const oldSubs = newPlaylist.subs;
     // just do a regular select
