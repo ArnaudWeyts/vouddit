@@ -16,9 +16,7 @@ const PlaylistWrapper = styled.div`
 const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
   const renderList = () => {
     if (props.playlist!.subs.length === 0) {
-      return (
-        <CardText>No subs selected</CardText>
-      );
+      return <CardText>No subs selected</CardText>;
     }
     return (
       <List>
@@ -28,7 +26,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
               primaryText={sub}
               key={sub}
               rightIcon={<DeleteIcon />}
-              onClick={() => props.updateSub(sub, true)}
+              onTouchTap={() => props.updateSub(sub, true)}
             />
           );
         })}
@@ -37,10 +35,14 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
   };
 
   const {
-    playlist, searchSubs,
-    fetchSubs, updateName,
-    clearSearchSubs, updateSub,
-    createPlaylist, toggleAddPlaylist
+    playlist,
+    searchSubs,
+    fetchSubs,
+    updateName,
+    clearSearchSubs,
+    updateSub,
+    createPlaylist,
+    toggleAddPlaylist
   } = props;
 
   return (
@@ -79,10 +81,7 @@ const AddPlaylist: React.StatelessComponent<IAddPlaylistsProps> = props => {
                 }
               }}
             />
-            <RaisedButton
-              label="Cancel"
-              onClick={() => toggleAddPlaylist()}
-            />
+            <RaisedButton label="Cancel" onClick={() => toggleAddPlaylist()} />
           </CardActions>
         </Card>
       </PlaylistWrapper>

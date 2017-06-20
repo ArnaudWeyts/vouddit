@@ -19,22 +19,31 @@ import AddPlaylist from './AddPlaylist';
 import PlaylistsList from './PlaylistsList';
 
 import {
-  Wrapper, InnerWrapper,
-  Close, Top, Title,
+  Wrapper,
+  InnerWrapper,
+  Close,
+  Top,
+  Title,
   PanelItem
 } from '../PanelStyles';
 
 const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
-
   const {
-    showAddPlaylist, playlists,
-    showPlaylists, togglePlaylistsDisp,
-    searchSubs, editingPlaylist,
+    showAddPlaylist,
+    playlists,
+    showPlaylists,
+    togglePlaylistsDisp,
+    searchSubs,
+    editingPlaylist,
     selectedPlaylist,
-    toggleAddPlaylistDisp, updateNameDisp,
-    createPlaylistDisp, fetchSubsDisp,
-    clearSearchSubsDisp, updateSubDisp,
-    deletePlaylistDisp, selectPlaylistDisp
+    toggleAddPlaylistDisp,
+    updateNameDisp,
+    createPlaylistDisp,
+    fetchSubsDisp,
+    clearSearchSubsDisp,
+    updateSubDisp,
+    deletePlaylistDisp,
+    selectPlaylistDisp
   } = props;
 
   const renderAddPlaylist = () => {
@@ -54,10 +63,10 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
           searchSubs={searchSubs}
           toggleAddPlaylist={toggleAddPlaylistDisp}
           playlist={editingPlaylist}
-          fetchSubs={(query) => fetchSubsDisp(query)}
+          fetchSubs={query => fetchSubsDisp(query)}
           updateSub={(sub, remove) => updateSubDisp(sub, remove)}
-          updateName={(name) => updateNameDisp(name)}
-          createPlaylist={(id) => createPlaylistDisp(id)}
+          updateName={name => updateNameDisp(name)}
+          createPlaylist={id => createPlaylistDisp(id)}
           clearSearchSubs={() => clearSearchSubsDisp()}
         />
       );
@@ -66,7 +75,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
 
   return (
     <Wrapper show={showPlaylists}>
-      <InnerWrapper show={showPlaylists} >
+      <InnerWrapper show={showPlaylists}>
         <Top>
           <Title>Playlists</Title>
           <Close onClick={() => togglePlaylistsDisp()}>
@@ -95,7 +104,8 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
     togglePlaylistsDisp: () => dispatch(togglePlaylists()),
     toggleAddPlaylistDisp: (id?: number) => dispatch(toggleAddPlaylist(id)),
     fetchSubsDisp: (query: string) => dispatch(fetchSubs(query)),
-    updateSubDisp: (sub: string, remove?: boolean) => dispatch(updateSub(sub, remove)),
+    updateSubDisp: (sub: string, remove?: boolean) =>
+      dispatch(updateSub(sub, remove)),
     updateNameDisp: (name: string) => dispatch(updateName(name)),
     createPlaylistDisp: (id?: number) => dispatch(createPlaylist(id)),
     clearSearchSubsDisp: () => dispatch(receiveSubs([])),

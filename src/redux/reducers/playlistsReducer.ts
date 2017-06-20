@@ -22,7 +22,10 @@ const INITIAL_STATE = {
   selectedPlaylist: undefined
 };
 
-export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, action: IPlaylistsAction) {
+export default function playlistsReducer(
+  state: IPlaylists = INITIAL_STATE,
+  action: IPlaylistsAction
+) {
   switch (action.type) {
     case TOGGLE_PLAYLISTS:
       return {
@@ -32,7 +35,7 @@ export default function playlistsReducer(state: IPlaylists = INITIAL_STATE, acti
     case TOGGLE_ADD_PLAYLIST:
       return {
         ...state,
-        showAddPlaylist: !state.showAddPlaylist,
+        showAddPlaylist: !state.showAddPlaylist
       };
     case INITIALIZE_PLAYLIST:
       return {
