@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Badge from 'material-ui/Badge';
 
 import {
   toggleSettings,
@@ -38,6 +39,11 @@ const Settings: React.StatelessComponent<ISettingsProps> = props => {
             ╳
           </Close>
         </Top>
+        <Badge
+          style={{ float: 'right', marginTop: '20px' }}
+          primary={true}
+          badgeContent={props.delay / 1000 + 's'}
+        />
         <Label htmlFor="delay">Delay</Label>
         <SliderInput
           name="delay"
