@@ -43,8 +43,8 @@ export function setSort(sort: string) {
 
 export function setSortAndFetch(sort: string) {
   return (dispatch: IDispatch<any>, getState: () => any) => {
-    const { subreddit } = getState().posts;
+    const { subreddits } = getState().posts;
     dispatch(setSort(sort));
-    dispatch(fetchPosts(subreddit, undefined, sort));
+    dispatch(fetchPosts(subreddits, undefined, sort));
   };
 }
