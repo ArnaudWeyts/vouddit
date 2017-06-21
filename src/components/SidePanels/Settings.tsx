@@ -24,8 +24,8 @@ function handleSliderChange(newValue: number, dispatch: IDispatch<any>) {
   dispatch(setDelay(newValue * 1000));
 }
 
-function handleSelectChange(e: Event, dispatch: IDispatch<any>) {
-  dispatch(setSortAndFetch((e.target as any).value));
+function handleSelectChange(value: string, dispatch: IDispatch<any>) {
+  dispatch(setSortAndFetch(value));
 }
 
 const Settings: React.StatelessComponent<ISettingsProps> = props => {
@@ -52,8 +52,8 @@ const Settings: React.StatelessComponent<ISettingsProps> = props => {
           name="sort"
           options={SORT_OPTIONS}
           selected={props.sort}
-          handleChange={(e: Event, dispatch: IDispatch<any>) =>
-            handleSelectChange(e, props.dispatch)}
+          handleChange={(value: string, dispatch: IDispatch<any>) =>
+            handleSelectChange(value, props.dispatch)}
         />
       </InnerWrapper>
     </Wrapper>

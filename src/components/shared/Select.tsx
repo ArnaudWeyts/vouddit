@@ -1,31 +1,21 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import icons from './icons';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
-const Select = styled.select`
-  -webkit-appearance: none;
-  padding: 6px;
-  color: #FFF;
-  border: none;
-  font-size: 14px;
-  border-radius: 0;
-  border-bottom: 1px solid #2196F3;
-  width: 150px;
-  background: ${props => `url('${icons.arrowDown}') 96% / 15% no-repeat transparent`};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const SelectInput = ({ name, options, selected, handleChange }: ISelectProps) => {
+const Select = ({ name, options, selected, handleChange }: ISelectProps) => {
+  const renderItems = () => {
+    return options.map(i => {
+      return <MenuItem value={i} key={i} primaryText={i} />;
+    });
+  };
   return (
-    <Select value={selected} name={name} onChange={e => handleChange(e)}>
-      {options.map(method => (
-        <option value={method} key={method}>{method}</option>
-      ))}
-    </Select>
+    <SelectField
+      value={selected}
+      onChange={(e: any, index: number, value: string) => handleChange(value)}
+    >
+      {renderItems()}
+    </SelectField>
   );
 };
 
-export default SelectInput;
+export default Select;
