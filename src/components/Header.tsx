@@ -42,12 +42,14 @@ const SubInput = styled.input`
 
 const IconMenu = styled.img`
   cursor: pointer; 
-  ${(props: { showPlaylists: boolean }) => props.showPlaylists ? 'width: 0;' : ''}
+  ${(props: { showPlaylists: boolean }) =>
+    props.showPlaylists ? 'width: 0;' : ''}
 `;
 
 const IconSettings = styled.img`
   cursor: pointer;
-  ${(props: { showSettings: boolean }) => props.showSettings ? 'width: 0;' : ''}
+  ${(props: { showSettings: boolean }) =>
+    props.showSettings ? 'width: 0;' : ''}
 `;
 
 const Submit = styled.input`
@@ -77,7 +79,11 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
         }}
       >
         <Label htmlFor="sub">/r/</Label>
-        <SubInput autoComplete="off" name="sub" placeholder={props.currentSub} />
+        <SubInput
+          autoComplete="off"
+          name="sub"
+          placeholder={props.currentSub}
+        />
         <Submit src={icons.search} type="image" alt="Submit" />
       </Form>
       <IconSettings

@@ -141,8 +141,7 @@ class App extends React.Component<IAppProps, {}> {
             showPlaylists={showPlaylists}
           />
           <Player
-            url={postActive ? postActive.url : ''}
-            // TODO make this a toggleable setting
+            url={postActive ? postActive.url : ''} // TODO make this a toggleable setting
             hideControls={
               postActive ? postActive.media.type === 'vimeo.com' : false
             }
@@ -178,7 +177,11 @@ const mapStateToProps = ({
   posts,
   settings,
   playlists
-}: { posts: IPosts; settings: ISettings; playlists: IPlaylists }) => ({
+}: {
+  posts: IPosts;
+  settings: ISettings;
+  playlists: IPlaylists;
+}) => ({
   subreddits: posts.subreddits,
   posts: posts.posts,
   nextPosts: posts.nextPosts,
