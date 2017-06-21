@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import PlaylistAddIcon from 'material-ui/svg-icons/av/playlist-add';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import {
   togglePlaylists,
@@ -79,7 +80,7 @@ const Playlists: React.StatelessComponent<IPlaylistsProps> = props => {
         <Top>
           <Title>Playlists</Title>
           <Close onClick={() => togglePlaylistsDisp()}>
-            ╳
+            <CloseIcon />
           </Close>
         </Top>
         <PanelItem>

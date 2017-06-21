@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Badge from 'material-ui/Badge';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import {
   toggleSettings,
@@ -36,7 +37,7 @@ const Settings: React.StatelessComponent<ISettingsProps> = props => {
         <Top>
           <Title>Settings</Title>
           <Close onClick={() => props.dispatch(toggleSettings())}>
-            ╳
+            <CloseIcon />
           </Close>
         </Top>
         <Badge
