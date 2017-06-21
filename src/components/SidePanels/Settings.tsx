@@ -12,10 +12,7 @@ import {
 import SliderInput from '../shared/Slider';
 import SelectInput from '../shared/Select';
 
-import {
-  Wrapper, InnerWrapper,
-  Title, Top, Close
-} from './PanelStyles';
+import { Wrapper, InnerWrapper, Title, Top, Close } from './PanelStyles';
 
 const Label = styled.label`
   color: #FFF;
@@ -23,8 +20,8 @@ const Label = styled.label`
   display: block;
 `;
 
-function handleSliderChange(e: Event, dispatch: IDispatch<any>) {
-  dispatch(setDelay((e.target as any).value * 1000));
+function handleSliderChange(newValue: number, dispatch: IDispatch<any>) {
+  dispatch(setDelay(newValue * 1000));
 }
 
 function handleSelectChange(e: Event, dispatch: IDispatch<any>) {
@@ -47,14 +44,16 @@ const Settings: React.StatelessComponent<ISettingsProps> = props => {
           value={Math.round(props.delay / 1000)}
           min={0}
           max={25}
-          handleChange={(e: Event, dispatch: IDispatch<any>) => handleSliderChange(e, props.dispatch)}
+          handleChange={(newValue: number, dispatch: IDispatch<any>) =>
+            handleSliderChange(newValue, props.dispatch)}
         />
         <Label htmlFor="sort">Sort by</Label>
         <SelectInput
           name="sort"
           options={SORT_OPTIONS}
           selected={props.sort}
-          handleChange={(e: Event, dispatch: IDispatch<any>) => handleSelectChange(e, props.dispatch)}
+          handleChange={(e: Event, dispatch: IDispatch<any>) =>
+            handleSelectChange(e, props.dispatch)}
         />
       </InnerWrapper>
     </Wrapper>
