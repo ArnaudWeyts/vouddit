@@ -2,6 +2,7 @@ import * as React from 'react';
 // weird requirejs needed to make react player work
 const ReactPlayer = require('react-player');
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import {
   togglePlayer,
@@ -23,7 +24,6 @@ import {
 } from './PlayerStyles';
 
 import icons from '../shared/icons';
-import Button from '../shared/Button';
 
 class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
   player: any;
@@ -65,17 +65,25 @@ class Player extends React.Component<IPlayerProps & IPlayerPassedProps, any> {
   }
 
   renderTimer() {
+    const buttonStyle = {
+      width: '50px',
+      left: '50%',
+      bottom: 0,
+      position: 'absolute' as 'absolute',
+      marginLeft: '-45px'
+    };
+
     return (
       <Timer>
         <svg className="svg">
           <Circle r="75" cx="77" cy="77" delay={this.props.delay} />
         </svg>
-        <Button
-          className="button"
+        <RaisedButton
+          primary={true}
+          label="Cancel"
+          style={buttonStyle}
           onClick={() => this.props.cancelAutoplayDisp()}
-        >
-          Cancel
-        </Button>
+        />
       </Timer>
     );
   }
