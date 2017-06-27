@@ -3,41 +3,14 @@ import styled from 'styled-components';
 
 import icons from './shared/icons';
 
+import Search from './shared/Search';
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   height: 10vh;
   justify-content: space-between;
   padding: 0 20px;
-`;
-
-const Label = styled.label`
-  color: #FFF;
-  font-size: 20px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  align-items: center;
-`;
-
-const SubInput = styled.input`
-  width: 175px;
-  height: 30px;
-  padding: 1px 5px;
-  margin: 0 10px;
-  background-color: transparent;
-  border: 0;
-  border-bottom: 1px solid #FFF;
-  font-size: 20px;
-  color: #2196F3;
-  appearance: none;
-  transition: all 0.2s ease-in-out;
-
-  &:focus {
-    outline: none;
-    border-bottom: 1px solid #2196F3;
-  }
 `;
 
 const IconMenu = styled.img`
@@ -52,14 +25,6 @@ const IconSettings = styled.img`
     props.showSettings ? 'width: 0;' : ''}
 `;
 
-const Submit = styled.input`
-  border: 0;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
 const Header: React.StatelessComponent<IHeaderProps> = props => {
   return (
     <Wrapper>
@@ -69,23 +34,13 @@ const Header: React.StatelessComponent<IHeaderProps> = props => {
         showPlaylists={props.showPlaylists}
         onClick={props.togglePlaylists}
       />
-      <Form
-        autoComplete="off"
-        onSubmit={e => {
-          e.preventDefault();
-          const key = 'sub';
-          props.changeSub(e.target[key].value);
-          e.target[key].blur();
-        }}
-      >
-        <Label htmlFor="sub">/r/</Label>
-        <SubInput
-          autoComplete="off"
-          name="sub"
-          placeholder={props.currentSub}
-        />
-        <Submit src={icons.search} type="image" alt="Submit" />
-      </Form>
+      <Search
+        suggestions={props.searchSubs}
+        placeholder="videos"
+        onChange={props.fetchSubs}
+        onSelected={(sub: string) => props.changeSub(sub)}
+        onClear={console.log}
+      />
       <IconSettings
         src={icons.settings}
         alt="settings icon"

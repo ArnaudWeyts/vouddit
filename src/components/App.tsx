@@ -10,6 +10,7 @@ import {
 import { togglePlayer } from '../redux/actions/playerActions';
 import { toggleSettings } from '../redux/actions/settingsActions';
 import { togglePlaylists } from '../redux/actions/playlistsActions';
+import { fetchSubs } from '../redux/actions/searchActions';
 
 import { debounce } from '../lib/utils';
 
@@ -120,10 +121,12 @@ class App extends React.Component<IAppProps, {}> {
       showSettings,
       showPlaylists,
       delay,
+      searchSubs,
       setPrevNextPostDisp,
       togglePlayerDisp,
       toggleSettingsDisp,
-      togglePlaylistsDisp
+      togglePlaylistsDisp,
+      fetchSubsDisp
     } = this.props;
 
     return (
@@ -139,6 +142,8 @@ class App extends React.Component<IAppProps, {}> {
             togglePlaylists={() => togglePlaylistsDisp()}
             showSettings={showSettings}
             showPlaylists={showPlaylists}
+            searchSubs={searchSubs}
+            fetchSubs={(query: string) => fetchSubsDisp(query)}
           />
           <Player
             url={postActive ? postActive.url : ''} // TODO make this a toggleable setting
@@ -174,10 +179,12 @@ class App extends React.Component<IAppProps, {}> {
 }
 
 const mapStateToProps = ({
+  search,
   posts,
   settings,
   playlists
 }: {
+  search: ISearch;
   posts: IPosts;
   settings: ISettings;
   playlists: IPlaylists;
@@ -190,7 +197,8 @@ const mapStateToProps = ({
   showSettings: settings.showSettings,
   showPlaylists: playlists.showPlaylists,
   delay: settings.delay,
-  sort: settings.sort
+  sort: settings.sort,
+  searchSubs: search.searchSubs
 });
 
 const mapDispatchToProps = (dispatch: IDispatch<any>) => {
@@ -205,7 +213,8 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
       dispatch(selectSubreddits(subs)),
     togglePlayerDisp: () => dispatch(togglePlayer()),
     toggleSettingsDisp: () => dispatch(toggleSettings()),
-    togglePlaylistsDisp: () => dispatch(togglePlaylists())
+    togglePlaylistsDisp: () => dispatch(togglePlaylists()),
+    fetchSubsDisp: (query: string) => dispatch(fetchSubs(query))
   };
 };
 

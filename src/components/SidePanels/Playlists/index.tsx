@@ -7,14 +7,14 @@ import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import {
   togglePlaylists,
   toggleAddPlaylist,
-  fetchSubs,
   updateSub,
   updateName,
-  receiveSubs,
   createPlaylist,
   deletePlaylist,
   selectPlaylist
 } from '../../../redux/actions/playlistsActions';
+
+import { fetchSubs, receiveSubs } from '../../../redux/actions/searchActions';
 
 import AddPlaylist from './AddPlaylist';
 import PlaylistsList from './PlaylistsList';
@@ -115,10 +115,16 @@ const mapDispatchToProps = (dispatch: IDispatch<any>) => {
   };
 };
 
-const mapStateToProps = ({ playlists }: { playlists: IPlaylists }) => ({
+const mapStateToProps = ({
+  search,
+  playlists
+}: {
+  search: ISearch;
+  playlists: IPlaylists;
+}) => ({
+  searchSubs: search.searchSubs,
   showPlaylists: playlists.showPlaylists,
   showAddPlaylist: playlists.showAddPlaylist,
-  searchSubs: playlists.searchSubs,
   playlists: playlists.playlists,
   editingPlaylist: playlists.editingPlaylist,
   selectedPlaylist: playlists.selectedPlaylist

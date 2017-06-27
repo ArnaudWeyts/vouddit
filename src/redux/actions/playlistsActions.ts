@@ -6,8 +6,6 @@ export const TOGGLE_PLAYLISTS = 'TOGGLE_PLAYLISTS';
 export const TOGGLE_ADD_PLAYLIST = 'TOGGLE_ADD_PLAYLIST';
 export const INITIALIZE_PLAYLIST = 'INITIALIZE_PLAYLIST';
 export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
-export const REQUEST_SUBS = 'REQUEST_SUBS';
-export const RECEIVE_SUBS = 'RECEIVE_SUBS';
 export const SELECT_SUB = 'SELECT_SUB';
 export const REMOVE_SUB = 'REMOVE_SUB';
 export const UPDATE_NAME = 'UPDATE_NAME';
@@ -53,45 +51,6 @@ export function initializePlaylist(playlist: IPlaylist) {
   return {
     type: INITIALIZE_PLAYLIST,
     playlist
-  };
-}
-
-function requestSubs() {
-  return {
-    type: REQUEST_SUBS
-  };
-}
-
-export function receiveSubs(subs: Array<any>) {
-  return {
-    type: RECEIVE_SUBS,
-    searchSubs: subs
-  };
-}
-
-export function fetchSubs(query: string) {
-  return (dispatch: IDispatch<any>) => {
-    if (query !== '') {
-      const ROOT_URL = 'https://www.reddit.com';
-      const url = `${ROOT_URL}/subreddits/search.json?q=${query}&limit=10`;
-
-      dispatch(requestSubs());
-      return fetch(url)
-        .then(response => response.json())
-        .then(json => {
-          const subs = json.data.children.map(
-            ({ data }: { data: { display_name: string } }) => {
-              return data.display_name;
-            }
-          );
-          dispatch(receiveSubs(subs));
-        })
-        .catch(ex => {
-          console.warn(`Couldn't fetch from url: ${ex}`);
-        });
-    } else {
-      return dispatch(receiveSubs([]));
-    }
   };
 }
 

@@ -2,8 +2,6 @@ import {
   TOGGLE_PLAYLISTS,
   TOGGLE_ADD_PLAYLIST,
   INITIALIZE_PLAYLIST,
-  REQUEST_SUBS,
-  RECEIVE_SUBS,
   CREATE_PLAYLIST,
   SELECT_SUB,
   REMOVE_SUB,
@@ -41,15 +39,6 @@ export default function playlistsReducer(
       return {
         ...state,
         editingPlaylist: action.playlist
-      };
-    case REQUEST_SUBS:
-      return {
-        ...state
-      };
-    case RECEIVE_SUBS:
-      return {
-        ...state,
-        searchSubs: action.searchSubs
       };
     case CREATE_PLAYLIST:
       // remove the useless updating property
