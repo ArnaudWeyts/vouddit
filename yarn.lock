@@ -4853,9 +4853,9 @@ slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
 
-snoowrap@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/snoowrap/-/snoowrap-1.14.0.tgz#e69c8c61da560d6ea4b3f8cfb21895681df92762"
+snoowrap@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/snoowrap/-/snoowrap-1.14.1.tgz#bcbef3c5f1ac056a3824f4f003e468422f449b94"
   dependencies:
     bluebird "^3.4.1"
     lodash "^4.5.1"

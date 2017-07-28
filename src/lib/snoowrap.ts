@@ -3,7 +3,7 @@ const snoowrap = require('snoowrap');
 // no tokens needed for anonymous requests
 const r = new snoowrap({
   userAgent: '',
-  accessToken: '74ICMy-LvWfGe66q7wkrbiHsAbY'
+  accessToken: 'KlykBvjU3JpRayeqe9nfOns-7BM'
 });
 
 export default r;
