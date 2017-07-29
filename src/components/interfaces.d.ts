@@ -38,10 +38,12 @@ interface ISettings {
   delay: number;
   sort: string;
   useDefaultPlayer: boolean;
+  token?: string;
 }
 
 interface IAppProps extends IPosts, ISettings, IPlaylists {
   dispatch: IDispatch<any>;
+  getAppTokenDisp: () => void;
   fetchPostsDisp: (subreddit: string, after?: string, sort?: string) => void;
   setPrevNextPostDisp: (post: IPost, direction: boolean) => void;
   selectSubredditsDisp: (subs: Array<string>) => void;

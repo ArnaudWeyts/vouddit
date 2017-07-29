@@ -8,7 +8,7 @@ import {
   setPrevNextPost
 } from '../redux/actions/postsActions';
 import { togglePlayer } from '../redux/actions/playerActions';
-import { toggleSettings } from '../redux/actions/settingsActions';
+import { toggleSettings, getAppToken } from '../redux/actions/settingsActions';
 import { togglePlaylists } from '../redux/actions/playlistsActions';
 import { fetchSubs } from '../redux/actions/searchActions';
 
@@ -47,7 +47,8 @@ class App extends React.Component<IAppProps, {}> {
   }
 
   componentWillMount() {
-    const { fetchPostsDisp, subreddits, sort } = this.props;
+    const { getAppTokenDisp, fetchPostsDisp, subreddits, sort } = this.props;
+    getAppTokenDisp();
     fetchPostsDisp(subreddits.join('+'), undefined, sort);
   }
 
@@ -203,6 +204,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch: IDispatch<any>) => {
   return {
+    getAppTokenDisp: () => dispatch(getAppToken()),
     fetchPostsDisp: (subreddit: string, after?: string, sort?: string) => {
       dispatch(fetchPosts(subreddit, after, sort));
     },

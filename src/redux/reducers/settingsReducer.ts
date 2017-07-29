@@ -9,10 +9,14 @@ const INITIAL_STATE = {
   showSettings: false,
   useDefaultPlayer: true,
   delay: 3000,
-  sort: 'hot'
+  sort: 'hot',
+  token: undefined
 };
 
-export default function settingsReducer(state: ISettings = INITIAL_STATE, action: ISettingsAction) {
+export default function settingsReducer(
+  state: ISettings = INITIAL_STATE,
+  action: ISettingsAction
+) {
   switch (action.type) {
     case TOGGLE_SETTINGS:
       return {
