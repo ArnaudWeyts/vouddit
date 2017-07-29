@@ -1,6 +1,5 @@
 import * as React from 'react';
-// weird requirejs needed to make react player work
-const ReactPlayer = require('react-player');
+import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 
