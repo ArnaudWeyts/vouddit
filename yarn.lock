@@ -40,6 +40,10 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/fingerprintjs2@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@types/fingerprintjs2/-/fingerprintjs2-1.5.0.tgz#a051f29d099c95e088efe0965d283576f1444626"
+
 "@types/jest@^19.2.2":
   version "19.2.4"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.4.tgz#543651712535962b7dc615e18e4a381fc2687442"
