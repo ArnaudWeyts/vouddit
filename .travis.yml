@@ -2,8 +2,7 @@ sudo: false
 language: node_js
 node_js:
 - '6.4'
-branches:
-  only:
-  - master
 script:
-- ./deploy.sh
+script:
+- if [ "$TRAVIS_BRANCH" = "master" ]; then ./deploy.sh; fi
+- if [ "$TRAVIS_BRANCH" = "develop" ]; then yarn test; yarn build; fi
