@@ -14,6 +14,7 @@ GH_USERMAIL="bot@weyts.xyz"
 
 # set your build commands here
 function doCompile {
+  echo "REACT_APP_REDDIT_ANON_TOKEN=${REACT_APP_REDDIT_ANON_TOKEN}" > .env
   yarn build
   echo "vouddit.com" > build/CNAME
 }
