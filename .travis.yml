@@ -3,6 +3,5 @@ language: node_js
 node_js:
 - '6.4'
 script:
-script:
 - if [ "$TRAVIS_BRANCH" = "master" ]; then ./deploy.sh; fi
 - if [ "$TRAVIS_BRANCH" = "develop" ]; then yarn test; yarn build; fi
