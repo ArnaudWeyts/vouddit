@@ -23,6 +23,8 @@ interface ISettingsAction extends IAction {
   useDefaultPlayer: boolean;
   delay: number;
   sort: string;
+  token: string;
+  snoowrap: any;
 }
 
 interface IPlaylistsAction extends IAction {

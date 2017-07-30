@@ -1,6 +1,7 @@
 const Fingerprint2 = require('fingerprintjs2');
 
-export function getFingerprint() {
-  console.log(new Fingerprint2());
-  //return fpinstance.get(result => result);
+export async function getFingerprint() {
+  return new Promise(resolve => {
+    new Fingerprint2().get((result: string) => resolve(result));
+  });
 }

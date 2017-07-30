@@ -2,7 +2,8 @@ import {
   TOGGLE_SETTINGS,
   TOGGLE_USE_DEFAULT_PLAYER,
   SET_DELAY,
-  SET_SORT
+  SET_SORT,
+  SET_SNOOWRAP
 } from '../actions/settingsActions';
 
 const INITIAL_STATE = {
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
   useDefaultPlayer: true,
   delay: 3000,
   sort: 'hot',
-  token: undefined
+  snoowrap: undefined
 };
 
 export default function settingsReducer(
@@ -37,6 +38,11 @@ export default function settingsReducer(
       return {
         ...state,
         sort: action.sort
+      };
+    case SET_SNOOWRAP:
+      return {
+        ...state,
+        snoowrap: action.snoowrap
       };
     default:
       return state;

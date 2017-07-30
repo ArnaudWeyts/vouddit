@@ -1,4 +1,6 @@
 import 'whatwg-fetch';
+const Snoowrap = require('snoowrap');
+
 import { getFingerprint } from '../../lib/auth';
 
 import { fetchPosts } from './postsActions';
@@ -7,8 +9,7 @@ export const TOGGLE_SETTINGS = 'TOGGLE_SETTINGS';
 export const TOGGLE_USE_DEFAULT_PLAYER = 'TOGGLE_USE_DEFAULT_PLAYER';
 export const SET_DELAY = 'SET_DELAY';
 export const SET_SORT = 'SET_SORT';
-export const GET_APP_TOKEN = 'GET_APP_TOKEN';
-export const SET_TOKEN = 'SET_TOKEN';
+export const SET_SNOOWRAP = 'SET_SNOOWRAP';
 
 export const SORT_OPTIONS = [
   'hot',
@@ -54,28 +55,39 @@ export function setSortAndFetch(sort: string) {
   };
 }
 
-export function setToken(token: string) {
+export function setSnoowrap(token: string) {
+  const snoowrap = new Snoowrap({ userAgent: '', accessToken: token });
   return {
-    type: SET_TOKEN,
-    token
+    type: SET_SNOOWRAP,
+    snoowrap
   };
 }
 
-export function getAppToken() {
+export function initSnoowrap() {
   const url = 'https://www.reddit.com/api/v1/access_token';
-  const id = getFingerprint();
-  console.log(id);
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: `grant_type=https://oauth.reddit.com/grants/installed_client&\\device_id=${id}`
-  })
-    .then(response => response.json())
-    .then(json => console.log(json))
-    .catch(ex => console.log(ex));
   return (dispatch: IDispatch<any>, getState: () => any) => {
-    dispatch(setToken('meme'));
+    getFingerprint().then(result => {
+      const form = new FormData();
+      form.set(
+        'grant_type',
+        'https://oauth.reddit.com/grants/installed_client'
+      );
+      form.set('device_id', 'DO_NOT_TRACK_THIS_DEVICE');
+      fetch(url, {
+        method: 'POST',
+        body: form,
+        headers: {
+          authorization: `Basic ${btoa(
+            process.env.REACT_APP_REDDIT_ANON_TOKEN + ':'
+          )}`
+        },
+        credentials: 'omit'
+      })
+        .then(response => response.json())
+        .then(json => {
+          dispatch(setSnoowrap(json.access_token));
+        })
+        .catch(ex => console.log(ex));
+    });
   };
 }
