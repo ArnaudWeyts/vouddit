@@ -87,7 +87,7 @@ export function initSnoowrap() {
         .then(json => {
           dispatch(setSnoowrap(json.access_token));
         })
-        .catch(ex => console.log(ex));
+        .catch(ex => console.warn(ex));
     });
   };
 }
