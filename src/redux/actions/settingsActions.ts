@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-const Snoowrap = require('snoowrap');
+import * as Snoowrap from '../../lib/snoowrap';
 
 import { getFingerprint } from '../../lib/auth';
 

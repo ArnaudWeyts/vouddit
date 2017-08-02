@@ -1,0 +1,21 @@
+{
+  "presets": [
+    ["latest", {
+      "es2015": {
+        "modules": false
+      }
+    }]
+  ],
+  "plugins": [
+    "external-helpers",
+    "lodash",
+    "transform-async-to-generator",
+    "transform-es2015-arrow-functions",
+    "transform-es2015-block-scoping",
+    "transform-es2015-destructuring",
+    "transform-es2015-parameters",
+    "transform-es2015-spread",
+    "transform-es2015-template-literals",
+    "transform-object-rest-spread"
+  ]
+}
