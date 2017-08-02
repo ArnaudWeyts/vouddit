@@ -22,7 +22,7 @@
     "redux-devtools-extension": "^2.13.0",
     "redux-thunk": "^2.2.0",
     "styled-components": "^2.0.0",
-    "typeface-open-sans": "0.0.31"
+    "typeface-open-sans": "^0.0.31"
   },
   "devDependencies": {
     "react-scripts-ts": "2.5.0"
