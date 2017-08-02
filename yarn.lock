@@ -84,7 +84,7 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/react-tap-event-plugin/-/react-tap-event-plugin-0.0.30.tgz#123f35080412f489b6770c5a65c159ff96654cb5"
 
-"@types/react@*", "@types/react@^16.0.0":
+"@types/react@*", "@types/react@16.0.0":
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.0.tgz#fec7e6302e11c1cd307129d8ce1e6d5dca4a0283"
 
@@ -5179,8 +5179,8 @@ symbol-tree@^3.2.1:
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
 
 tapable@^0.2.7, tapable@~0.2.5:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.7.tgz#e46c0daacbb2b8a98b9b0cea0f4052105817ed5c"
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.8.tgz#99372a5c999bf2df160afc0d74bed4f47948cd22"
 
 tar-pack@^3.4.0:
   version "3.4.0"
@@ -5332,10 +5332,10 @@ tslint-loader@^3.5.3:
     semver "^5.3.0"
 
 tslint-react@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/tslint-react/-/tslint-react-3.1.0.tgz#a4de1a22fef41b663fa44daae27cbf04dc8a59d6"
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/tslint-react/-/tslint-react-3.2.0.tgz#851fb505201c63d0343c51726e6364f7e9ad2e99"
   dependencies:
-    tsutils "^1.7.0"
+    tsutils "^2.8.0"
 
 tslint@^5.2.0:
   version "5.5.0"
@@ -5352,11 +5352,7 @@ tslint@^5.2.0:
     tslib "^1.7.1"
     tsutils "^2.5.1"
 
-tsutils@^1.7.0:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-1.9.1.tgz#b9f9ab44e55af9681831d5f28d0aeeaf5c750cb0"
-
-tsutils@^2.5.1:
+tsutils@^2.5.1, tsutils@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.8.0.tgz#0160173729b3bf138628dd14a1537e00851d814a"
   dependencies:
