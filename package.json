@@ -26,7 +26,7 @@
     "redux-thunk": "^2.2.0",
     "snoowrap": "^1.14.1",
     "styled-components": "^2.0.0",
-    "typeface-open-sans": "0.0.32"
+    "typeface-open-sans": "0.0.33"
   },
   "devDependencies": {
     "react-scripts-ts": "2.5.0"
