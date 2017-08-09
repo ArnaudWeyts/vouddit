@@ -10,7 +10,7 @@
     "@types/react": "^15.0.23",
     "@types/react-autosuggest": "^8.0.1",
     "@types/react-dom": "^15.5.0",
-    "@types/react-redux": "^4.4.40",
+    "@types/react-redux": "5.0.0",
     "@types/react-tap-event-plugin": "^0.0.30",
     "@types/snoowrap": "^1.14.0",
     "fingerprintjs2": "^1.5.1",
