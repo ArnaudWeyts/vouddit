@@ -50,9 +50,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jest@^19.2.2":
-  version "19.2.4"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.4.tgz#543651712535962b7dc615e18e4a381fc2687442"
+"@types/jest@20.0.8":
+  version "20.0.8"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.8.tgz#7f8c97f73d20d3bf5448fbe33661a342002b5954"
 
 "@types/material-ui@^0.17.7":
   version "0.17.19"

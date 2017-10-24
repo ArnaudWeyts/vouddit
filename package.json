@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@types/fingerprintjs2": "^1.5.0",
-    "@types/jest": "^19.2.2",
+    "@types/jest": "20.0.8",
     "@types/material-ui": "^0.17.7",
     "@types/node": "^7.0.15",
     "@types/react": "^15.0.23",
