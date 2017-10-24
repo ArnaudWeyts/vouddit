@@ -54,9 +54,9 @@
   version "19.2.4"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-19.2.4.tgz#543651712535962b7dc615e18e4a381fc2687442"
 
-"@types/material-ui@^0.17.7":
-  version "0.17.19"
-  resolved "https://registry.yarnpkg.com/@types/material-ui/-/material-ui-0.17.19.tgz#24cd5fa629ce882b72e28bda8f0b83ec58c9b62d"
+"@types/material-ui@0.18.3":
+  version "0.18.3"
+  resolved "https://registry.yarnpkg.com/@types/material-ui/-/material-ui-0.18.3.tgz#3a2a9fc81e57799419d8a58137800cd803d64a76"
   dependencies:
     "@types/react" "*"
     "@types/react-addons-linked-state-mixin" "*"
