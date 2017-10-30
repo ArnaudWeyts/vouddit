@@ -71,9 +71,9 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-autosuggest@^8.0.1":
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/@types/react-autosuggest/-/react-autosuggest-8.0.2.tgz#6d842e7f3e6e4156db0395dff61d391c91fbf9a8"
+"@types/react-autosuggest@9.3.1":
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/@types/react-autosuggest/-/react-autosuggest-9.3.1.tgz#4c0deaa9e6d32bb5fd3d50a9678e003bff12e2b2"
   dependencies:
     "@types/react" "*"
 
