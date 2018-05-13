@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/fingerprintjs2": "1.5.0",
     "@types/jest": "19.2.4",
-    "@types/material-ui": "0.17.21",
+    "@types/material-ui": "0.20.8",
     "@types/node": "7.0.39",
     "@types/react": "15.6.1",
     "@types/react-autosuggest": "8.0.2",
@@ -14,7 +14,7 @@
     "@types/react-tap-event-plugin": "0.0.30",
     "@types/snoowrap": "1.14.0",
     "fingerprintjs2": "1.5.1",
-    "material-ui": "0.18.7",
+    "material-ui": "0.20.1",
     "react": "15.6.1",
     "react-autosuggest": "9.3.2",
     "react-dom": "15.6.1",
