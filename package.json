@@ -29,7 +29,7 @@
     "typeface-open-sans": "0.0.22"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.6.0"
+    "react-scripts-ts": "2.16.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
