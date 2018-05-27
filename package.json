@@ -18,7 +18,7 @@
     "react": "15.6.1",
     "react-autosuggest": "9.3.2",
     "react-dom": "15.6.1",
-    "react-player": "0.20.0",
+    "react-player": "1.6.2",
     "react-redux": "5.0.6",
     "react-tap-event-plugin": "2.0.1",
     "redux": "3.7.2",
