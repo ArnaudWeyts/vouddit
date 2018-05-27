@@ -12,7 +12,7 @@
     "@types/react-dom": "15.5.2",
     "@types/react-redux": "4.4.47",
     "@types/react-tap-event-plugin": "0.0.30",
-    "@types/snoowrap": "1.14.0",
+    "@types/snoowrap": "1.16.0",
     "fingerprintjs2": "1.5.1",
     "material-ui": "0.18.7",
     "react": "15.6.1",
@@ -24,7 +24,7 @@
     "redux": "3.7.2",
     "redux-devtools-extension": "2.13.2",
     "redux-thunk": "2.2.0",
-    "snoowrap": "1.14.2",
+    "snoowrap": "1.15.2",
     "styled-components": "2.1.2",
     "typeface-open-sans": "0.0.22"
   },
