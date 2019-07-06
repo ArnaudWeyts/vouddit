@@ -1,37 +1,12 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { injectGlobal } from 'styled-components';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-// material-ui hackerino
-const injectTapEventPlugin = require('react-tap-event-plugin');
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+ReactDOM.render(<App />, document.getElementById('root'));
 
-import 'typeface-open-sans';
-
-import store from './redux/store';
-import App from './components/App';
-
-// tslint:disable-next-line
-// eslint-disable-next-line no-unused-expressions
-injectGlobal`
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Open Sans, --apple-system, sans-serif;
-    -webkit-font-smoothing:antialiased !important;
-  }
-`;
-
-injectTapEventPlugin();
-
-ReactDOM.render(
-  <Provider store={store}>
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <App />
-    </MuiThemeProvider>
-  </Provider>,
-  document.getElementById('root')
-);
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

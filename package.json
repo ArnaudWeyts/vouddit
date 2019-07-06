@@ -1,47 +1,36 @@
 {
   "name": "vouddit",
-  "homepage": "./",
   "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@types/fingerprintjs2": "^1.5.0",
-    "@types/jest": "^19.2.2",
-    "@types/material-ui": "^0.17.7",
-    "@types/node": "^7.0.15",
-    "@types/react": "^15.0.23",
-    "@types/react-autosuggest": "^8.0.1",
-    "@types/react-dom": "^15.5.0",
-    "@types/react-redux": "^4.4.40",
-    "@types/react-tap-event-plugin": "^0.0.30",
-    "@types/snoowrap": "^1.14.0",
-    "fingerprintjs2": "^1.5.1",
-    "material-ui": "^0.18.1",
-    "react": "^15.5.4",
-    "react-autosuggest": "^9.0.1",
-    "react-dom": "^15.5.4",
-    "react-player": "^0.20.0",
-    "react-redux": "^5.0.4",
-    "react-tap-event-plugin": "^2.0.1",
-    "redux": "^3.6.0",
-    "redux-devtools-extension": "^2.13.0",
-    "redux-thunk": "^2.2.0",
-    "snoowrap": "^1.14.1",
-    "styled-components": "^2.0.0",
-    "typeface-open-sans": "^0.0.22"
-  },
-  "devDependencies": {
-    "react-scripts-ts": "2.5.0"
+    "@types/jest": "24.0.15",
+    "@types/node": "12.0.12",
+    "@types/react": "16.8.23",
+    "@types/react-dom": "16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "typescript": "3.5.2"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "renovate": {
-    "baseBranch": "develop",
-    "labels": [
-      "dependency update",
-      "bot"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }
