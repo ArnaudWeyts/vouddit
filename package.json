@@ -8,7 +8,7 @@
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.5",
     "@types/styled-components": "^4.1.18",
-    "antd": "^3.20.5",
+    "antd": "^3.20.6",
     "babel-plugin-import": "^1.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
